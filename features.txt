@@ -8,16 +8,15 @@
 2)paymnt reminder and alerts
 3)absentee alerts
 4)alert for inventory stock
-5)generate coupouns
+5)Generate Coupouns/Tokens
 6)Prediction of estimated students attending the mess
-7)calculate nutrition of menu provided 
-8)token generation
-9)Mess Timing Alerts
+7)calculate nutrition of menu provided
+8)Mess Timing Alerts
 
 #mess manager
 1)manage bills of students and check absentees
 2)authenticate employees and manage their salaries
-3)check inventory
+3)CRUD inventory
 4)authenticate employees and students
 5)check menu along with rating given by students
 6)check monthly suggestions
