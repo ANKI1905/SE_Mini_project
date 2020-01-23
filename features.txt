@@ -9,6 +9,8 @@ Admin side web portal
   8) Check for Absentees
   9) Option to choose how users should pay(Monthly or daily Basis)
   10) Help
+  11) calculate nutrition of diet
+
   
   
 Student side Android and web 
