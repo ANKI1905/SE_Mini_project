@@ -1,0 +1,12 @@
+Admin side web portal
+  1) Bill generation
+  2) Display Inventory
+  3) Prediction of estimated students attending the mess
+  4) List of dishes and it's corresponding rating
+  
+Student side Android and web 
+  1) Bill Payments
+  2) Absentee/Presentee mark
+  3) Feedback
+  4) Periodical rating of dishes
+  5) Token generation
