@@ -1,12 +1,25 @@
 Admin side web portal
-  1) Bill generation
+  1) Bill generation and Management
   2) Display Inventory
   3) Prediction of estimated students attending the mess
   4) List of dishes and it's corresponding rating
+  5) Manage Employees(salaries etc)
+  6) Authentication
+  7) Approval of Students
+  8) Check for Absentees
+  9) Option to choose how users should pay(Monthly or daily Basis)
+  10) Help
+  
   
 Student side Android and web 
-  1) Bill Payments
+  1) Bill Payments and Reminders
   2) Absentee/Presentee mark
-  3) Feedback
+  3) Feedback and suggestions
   4) Periodical rating of dishes
   5) Token generation
+  6) Daily menu (with stats like nutrition etc)
+  7) Mess Timing Alerts
+  8) Authentication
+  9) Alert on more Absentees
+  10) Help 
+  
