@@ -1,4 +1,4 @@
-package com.example.springboot;
+package com.mealon.MEAL_ON;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
