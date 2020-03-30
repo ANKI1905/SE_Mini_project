@@ -1,4 +1,4 @@
-package com.mealon.MEAL_ON;
+package com.mealon;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
