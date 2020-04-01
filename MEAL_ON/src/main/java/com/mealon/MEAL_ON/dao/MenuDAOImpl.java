@@ -3,11 +3,12 @@ package com.mealon.MEAL_ON.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.websocket.Session;
+import org.hibernate.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import org.hibernate.query.Query;
 import com.mealon.MEAL_ON.model.Menu;
 
 @Repository
@@ -17,8 +18,11 @@ public class MenuDAOImpl implements MenuDAO {
 	private EntityManager entityManager; 
 	
 	@Override
-	public List<Menu> get(int Mess_id) {
-		Session currenSession = entityManager.unwrap(Session.class) ;
+	public List<Menu> get(int mess_id) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		Query<Menu> query = currentSession.createQuery("from Menu", Menu.class);
+		List<Menu> list = query.getResultList();
+		return list;
 	}
 
 	@Override
@@ -29,6 +33,8 @@ public class MenuDAOImpl implements MenuDAO {
 
 	@Override
 	public void add(Menu menu) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		currentSession.save(menu);
 		// TODO Auto-generated method stub
 		
 	}
