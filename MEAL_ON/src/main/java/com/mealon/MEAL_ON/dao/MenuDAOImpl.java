@@ -17,18 +17,26 @@ public class MenuDAOImpl implements MenuDAO {
 	@Autowired
 	private EntityManager entityManager; 
 	
+	@Autowired
+	public String hello() {
+		return "Helllllo";
+	}
+	
 	@Override
 	public List<Menu> get(int mess_id) {
 		Session currentSession = entityManager.unwrap(Session.class);
 		Query<Menu> query = currentSession.createQuery("from Menu", Menu.class);
 		List<Menu> list = query.getResultList();
+		System.out.println(list);
 		return list;
 	}
 
 	@Override
-	public Menu get(int Menu_id, int Mess_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Menu get(int menu_id, int mess_id) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		Query<Menu> query = currentSession.createQuery("from mvenu", Menu.class);
+		Menu menu = query.getSingleResult();
+		return menu;
 	}
 
 	@Override
