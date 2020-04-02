@@ -25,7 +25,7 @@ public class MenuDAOImpl implements MenuDAO {
 	@Override
 	public List<Menu> get(int mess_id) {
 		Session currentSession = entityManager.unwrap(Session.class);
-		Query<Menu> query = currentSession.createQuery("from Menu", Menu.class);
+		Query<Menu> query = currentSession.createQuery("from Menu ", Menu.class);
 		List<Menu> list = query.getResultList();
 		System.out.println(list);
 		return list;
@@ -34,8 +34,7 @@ public class MenuDAOImpl implements MenuDAO {
 	@Override
 	public Menu get(int menu_id, int mess_id) {
 		Session currentSession = entityManager.unwrap(Session.class);
-		Query<Menu> query = currentSession.createQuery("from mvenu", Menu.class);
-		Menu menu = query.getSingleResult();
+		Menu menu = currentSession.get(Menu.class, menu_id);
 		return menu;
 	}
 

@@ -11,14 +11,11 @@ import javax.persistence.Table;
 @Table(name="Menu")
 public class Menu {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Menu_id;
 	
-	@Column
 	private String Name;
 	
-	@Column
 	private int Mess_id;
 
 	public int getMenu_id() {
