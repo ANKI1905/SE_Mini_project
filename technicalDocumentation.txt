@@ -1,0 +1,40 @@
+Technical details:
+
+pom.xml ->
+	Spring boot project
+	Dependencies:
+		spring boot starter data jpa
+		spring boot starter web
+		spring boot dev tools
+		mysql connector java
+		spring boot starter test
+
+application.properties ->
+	Server port
+	datasource driver class name
+	datasource url
+	datasource username
+	datasource password
+	jpa hibernate ddl-auto
+	jpa show sql
+	jpa properties hibernate format sql
+
+1.src/main/
+	Contains .html/.jsp
+
+2.Model ->
+	Contains tables
+
+3.Controller ->
+	Clicks from database
+
+4.Service ->
+	Aggregates different daos
+
+5.Dao ->
+	Data Access Object
+	Interacts with database by queries
+
+6.Database: meal_on.sql
+
+1->2->3->4->5->6->5->4->3->2->1
