@@ -12,7 +12,7 @@ import org.hibernate.query.Query;
 import com.mealon.MEAL_ON.model.Menu;
 
 @Repository
-public class MenuDAOImpl implements MenuDAO {
+public class MenuDAOImpl implements MenuDAOCustom {
 	
 	@Autowired
 	private EntityManager entityManager; 

@@ -16,26 +16,26 @@ public class MessController {
 	@Autowired
 	private MenuService menuService;
 	@Autowired
-	private MenuDAO menud;
+	private MenuDAO menuDao;
 	
 	@RequestMapping("/tp")
 	public String hello() {
-		return menud.hello();
+		return menuDao.hello();
 	}
 	
 	
-	@RequestMapping("/menu/list/")
+	@RequestMapping("/menu/list")
 	public List<Menu> get(){
 		//return menuService.get(1);
-		return menud.get(1);
+		return menuDao.get(1);
 	}
 	
-	@RequestMapping("/menu/item/")
+	@RequestMapping("/menu/item")
 	public Menu getMenu() {
 		return menuService.get(2, 1);
 	}
 	
-	@PostMapping("/menu/add/")
+	@PostMapping("/menu/add")
 	public Menu add(@RequestBody Menu menuobj) {
 		menuService.add(menuobj);
 		return menuobj;

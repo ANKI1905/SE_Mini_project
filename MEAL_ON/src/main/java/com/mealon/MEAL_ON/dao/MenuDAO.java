@@ -1,17 +1,10 @@
 package com.mealon.MEAL_ON.dao;
 import java.util.List;
 
+import org.springframework.data.repository.CrudRepository;
+
 import com.mealon.MEAL_ON.model.Menu;
 
-public interface MenuDAO {
-	String hello();
-	
-	List<Menu> get(int Mess_id);
-	
-	Menu get(int Menu_id, int Mess_id);
-	
-	void add(Menu menu);
-	
-	void delete(int Menu_id, int Mess_id);
+public interface MenuDAO extends CrudRepository<Menu, Integer>, MenuDAOCustom{
 
 }
