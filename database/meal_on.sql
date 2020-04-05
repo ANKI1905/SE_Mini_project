@@ -22,121 +22,121 @@ DROP TABLE IF EXISTS snacks_token;
 -- Create Schemas
 
 CREATE TABLE IF NOT EXISTS mess (
-  `messId`			INT(11) AUTO_INCREMENT,
+  `mess_id`			INT(11) AUTO_INCREMENT,
   `name` 			VARCHAR(50) NOT NULL,
   `password` 		VARCHAR(100) NOT NULL,
-  `messAdmin` 		VARCHAR(50) NOT NULL,
+  `mess_admin` 		VARCHAR(50) NOT NULL,
   `rate` 			INT(11) NOT NULL,
-   PRIMARY KEY (messId)
+   PRIMARY KEY (mess_id)
 );
 
 CREATE TABLE IF NOT EXISTS student (
-  `MIS` 			BIGINT(20) UNSIGNED NOT NULL,
+  `mis` 			BIGINT(20) UNSIGNED NOT NULL,
   `name` 			VARCHAR(40) NOT NULL,
-  `roomNo` 		VARCHAR(20) NOT NULL,
-  `yearOfStudy` 	tinyint(4) NOT NULL,
+  `room_no` 		VARCHAR(20) NOT NULL,
+  `year_of_study` 	tinyint(4) NOT NULL,
   `contact` 		int(10) NOT NULL,
   `email` 			VARCHAR(50) NOT NULL,
   `password` 		VARCHAR(100) NOT NULL,
-  `messId` 		int(11) NOT NULL,
-   PRIMARY KEY (MIS),
-   FOREIGN KEY (messId) REFERENCES mess(messId) ON DELETE CASCADE
+  `mess_id` 		int(11) NOT NULL,
+   PRIMARY KEY (mis),
+   FOREIGN KEY (mess_id) REFERENCES mess(mess_id) ON DELETE CASCADE
 ); 
 
 CREATE TABLE IF NOT EXISTS mess_staff (
-  `staffId` 		int(11) NOT NULL AUTO_INCREMENT,
+  `staff_id` 		int(11) NOT NULL AUTO_INCREMENT,
   `name` 			varchar(30) NOT NULL,
-  `messId` 		int(11) NOT NULL,
-  `accountNo` 		bigint(20) NOT NULL,
+  `mess_id` 		int(11) NOT NULL,
+  `accunt_no` 		bigint(20) NOT NULL,
   `contact` 		bigint(20) NOT NULL,
   `address` 		varchar(50) NOT NULL,
-   PRIMARY KEY (staffId),
-   FOREIGN KEY (messId) REFERENCES mess(messId) ON DELETE CASCADE
+   PRIMARY KEY (staff_id),
+   FOREIGN KEY (mess_id) REFERENCES mess(mess_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS menu (
-  `menuId` 		int(11) NOT NULL,
+  `menu_id` 		int(11) NOT NULL,
   `name` 			varchar(30) NOT NULL,
-  `messId` 		int(11) NOT NULL,
-   PRIMARY KEY (menuId),
-   FOREIGN KEY (messId) REFERENCES mess(messId) ON DELETE CASCADE
+  `mess_id` 		int(11) NOT NULL,
+   PRIMARY KEY (menu_id),
+   FOREIGN KEY (mess_id) REFERENCES mess(mess_id) ON DELETE CASCADE
 );
 
 
 CREATE TABLE  IF NOT EXISTS snacks_menu (
-  `snacksId` 		int(11) NOT NULL,
+  `snacks_id` 		int(11) NOT NULL,
   `name`			varchar(30) NOT NULL,
   `price` 			int(11) NOT NULL,
-  `messId` 		int(11) NOT NULL,
-   PRIMARY KEY (snacksId),
-   FOREIGN KEY (messId) REFERENCES mess(messId) ON DELETE CASCADE
+  `mess_id` 		int(11) NOT NULL,
+   PRIMARY KEY (snacks_id),
+   FOREIGN KEY (mess_id) REFERENCES mess(mess_id) ON DELETE CASCADE
 ); 
 
 CREATE TABLE  IF NOT EXISTS inventory (
-  `inventoryId` 	int(11) NOT NULL,
+  `inventory_id` 	int(11) NOT NULL,
   `name` 			varchar(30) NOT NULL,
   `stock` 			int(11) NOT NULL,
-  `avgPrice` 		int(11) NOT NULL,
-  `messId` 		int(11) NOT NULL,
-   PRIMARY KEY (inventoryId),
-   FOREIGN KEY (messId) REFERENCES mess(messId) ON DELETE CASCADE
+  `avg_Price` 		int(11) NOT NULL,
+  `mess_id` 		int(11) NOT NULL,
+   PRIMARY KEY (inventory_id),
+   FOREIGN KEY (mess_id) REFERENCES mess(mess_id) ON DELETE CASCADE
 );
   
 CREATE TABLE  IF NOT EXISTS student_bill (
-  `MIS` bigint(20) UNSIGNED NOT NULL,
-  `Month` varchar(20) NOT NULL,
-  `nosOfMeals` tinyint(4) NOT NULL DEFAULT '62',
-  `currBill` int(11) NOT NULL,
-  `payStatus` tinyint(1) NOT NULL,
-  `prevBill` int(11) NOT NULL,
-   PRIMARY KEY (MIS, Month),
-   FOREIGN KEY (MIS) REFERENCES student(MIS) ON DELETE CASCADE
+  `mis` bigint(20) UNSIGNED NOT NULL,
+  `month` varchar(20) NOT NULL,
+  `nos_of_meals` tinyint(4) NOT NULL DEFAULT '62',
+  `curr_bill` int(11) NOT NULL,
+  `pay_status` tinyint(1) NOT NULL,
+  `prev_bill` int(11) NOT NULL,
+   PRIMARY KEY (mis, month),
+   FOREIGN KEY (mis) REFERENCES student(mis) ON DELETE CASCADE
    
 );
 
 CREATE TABLE  IF NOT EXISTS stud_absentee (
-  `MIS` bigint(20) UNSIGNED NOT NULL,
+  `mis` bigint(20) UNSIGNED NOT NULL,
   `from` date NOT NULL,
   `to` date NOT NULL,
   `type` char(1) NOT NULL,
-   FOREIGN KEY (MIS) REFERENCES student(MIS),
-   FOREIGN KEY (MIS) REFERENCES student_bill(MIS)
+   FOREIGN KEY (mis) REFERENCES student(mis),
+   FOREIGN KEY (mis) REFERENCES student_bill(mis)
 );
 
 CREATE TABLE  IF NOT EXISTS review_rating(
   `reviewId` 		int(11) NOT NULL,
-  `MIS` 			bigint(11) UNSIGNED NOT NULL,
-  `menuId` 		int(11) NOT NULL,
+  `mis` 			bigint(11) UNSIGNED NOT NULL,
+  `menu_id` 		int(11) NOT NULL,
   `rating` 			int(11) NOT NULL,
   `comments` 		int(11) NOT NULL,
   PRIMARY KEY (reviewId),
-  FOREIGN KEY (MIS) REFERENCES student(MIS),
-  FOREIGN KEY (menuId) REFERENCES menu(menuId)
+  FOREIGN KEY (mis) REFERENCES student(mis),
+  FOREIGN KEY (menu_id) REFERENCES menu(menu_id)
 );
 
 CREATE TABLE  IF NOT EXISTS menu_review (
-  `menuId` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL,
   `avgRating` int(11) NOT NULL,
   `commentOverview` varchar(500) NOT NULL,
-  FOREIGN KEY (menuId) REFERENCES menu(menuId)
+  FOREIGN KEY (menu_id) REFERENCES menu(menu_id)
 );
 
 CREATE TABLE  IF NOT EXISTS staff_salary (
-  `staffId` int(11) NOT NULL,
-  `NosOfLeaves` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL,
+  `nos_of_leaves` int(11) NOT NULL,
   `month` int(11) NOT NULL,
   `salary` int(11) NOT NULL,
-  PRIMARY KEY (staffId, month),
-  FOREIGN KEY (staffId) REFERENCES mess_staff(staffId)
+  PRIMARY KEY (staff_id, month),
+  FOREIGN KEY (staff_id) REFERENCES mess_staff(staff_id)
 );
 
 CREATE TABLE IF NOT EXISTS snacks_token(
-  `Datetime` 		datetime NOT NULL,
-  `MIS` 			bigint(20) UNSIGNED NOT NULL,
-  `snacksId` 		int(11) NOT NULL,
+  `date_time` 		datetime NOT NULL,
+  `mis` 			bigint(20) UNSIGNED NOT NULL,
+  `snacks_id` 		int(11) NOT NULL,
   `id` 				int(11) NOT NULL,
   `price` 			int(11) NOT NULL,
-   PRIMARY KEY(Datetime, MIS, snacksId, id),
-   FOREIGN KEY(MIS) REFERENCES student(MIS),
-   FOREIGN KEY(snacksId) REFERENCES snacks_menu(snacksId)  
+   PRIMARY KEY(date_time, mis, snacks_id, id),
+   FOREIGN KEY(mis) REFERENCES student(mis),
+   FOREIGN KEY(snacks_id) REFERENCES snacks_menu(snacks_id)  
 ) ;

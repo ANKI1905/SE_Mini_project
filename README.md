@@ -1,5 +1,6 @@
 # SE_Mini_project
 
 Database:
-	Name of table: Small letters, '_' allowed
-	Name of attributes: Camel Case, '_' not allowed
+	Name of table: Snake Case
+	Name of attributes: Snake Case 
+*******this_is_snake_case************
