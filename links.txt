@@ -1,0 +1,7 @@
+Using crudrepository:
+
+https://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html
+
+For seperating and securing student and admin roles:
+
+https://spring.io/guides/gs/securing-web/
