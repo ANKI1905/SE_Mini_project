@@ -8,39 +8,41 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Menu")
-public class Menu {
+@Table(name="menu")
+public class menu {
+	//All the variables name as camel case, and attributes(@Column) name in snake case
+	
+	//Create such @Entity for all the tables in SQL
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Menu_id;
+	@Column(name="menu_id")
+	private Integer menuid;
+	@Column(name="name")
+	private String name;
+	@Column(name="mess_id")
+	private Integer messid;
 	
-	private String Name;
 	
-	private int Mess_id;
-
-	public int getMenu_id() {
-		return Menu_id;
+	public int getMenuId() {
+		return menuid;
 	}
-
-	public void setMenu_id(int menu_id) {
-		Menu_id = menu_id;
+	public void setMenuId(int menuid) {
+		this.menuid = menuid;
 	}
-
 	public String getName() {
-		return Name;
+		return name;
 	}
-
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
+	}
+	public int getMessid() {
+		return messid;
+	}
+	public void setMessid(int messid) {
+		this.messid = messid;
 	}
 
-	public int getMess_id() {
-		return Mess_id;
-	}
-
-	public void setMess_id(int mess_id) {
-		Mess_id = mess_id;
-	}
-	
 
 }

@@ -2,12 +2,13 @@ package com.mealon.MEAL_ON.controller;
 import java.util.List;
 import com.mealon.MEAL_ON.model.*;
 import com.mealon.MEAL_ON.service.MenuService;
-import com.mealon.MEAL_ON.dao.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -15,30 +16,36 @@ import org.springframework.web.bind.annotation.RestController;
 public class MessController {
 	@Autowired
 	private MenuService menuService;
-	@Autowired
-	private MenuDAO menuDao;
 	
-	@RequestMapping("/tp")
-	public String hello() {
-		return menuDao.hello();
+	//Only getMenu works till now, Problem in addMenu....go to MenuServiceImpl
+	@RequestMapping("/menu")
+	public @ResponseBody List<menu> get(@RequestParam int mess_id){
+		return menuService.getMenu(mess_id);
 	}
 	
 	
-	@RequestMapping("/menu/list")
-	public List<Menu> get(){
-		//return menuService.get(1);
-		return menuDao.get(1);
-	}
 	
-	@RequestMapping("/menu/item")
-	public Menu getMenu() {
-		return menuService.get(2, 1);
-	}
+	
 	
 	@PostMapping("/menu/add")
-	public Menu add(@RequestBody Menu menuobj) {
-		menuService.add(menuobj);
-		return menuobj;
+	public @ResponseBody String getMenu(@RequestParam Integer mess_id, @RequestParam String name) {
+		//return menuService.get(2, 1);
+		menuService.addMenu(mess_id, name);
+		return "saved";
+	}
+	
+	@PostMapping("/menu/update")
+	public @ResponseBody String updateMenu(@RequestParam Integer mess_id, @RequestParam String name) {
+		//return menuService.get(2, 1);
+		menuService.updateMenu(mess_id, name);
+		return "saved";
+	}
+	
+	@PostMapping("/menu/delete")
+	public @ResponseBody String delMenu(@RequestParam Integer mess_id, @RequestParam String name) {
+		//return menuService.get(2, 1);
+		menuService.deleteMenu(mess_id, menu_id);
+		return "saved";
 	}
 	
 	//Manage menu
