@@ -1,9 +1,7 @@
 package com.mealon.MEAL_ON.controller;
 import java.util.List;
 import com.mealon.MEAL_ON.model.*;
-import com.mealon.MEAL_ON.service.MenuService;
-import com.mealon.MEAL_ON.dao.*;
-
+import com.mealon.MEAL_ON.service.MenuServicee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,20 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/mess")
 public class MessController {
 	@Autowired
-	private MenuService menuService;
-	@Autowired
-	private MenuDAO menud;
-	
-	@RequestMapping("/tp")
-	public String hello() {
-		return menud.hello();
-	}
-	
+	private MenuServicee menuService;
+
 	
 	@RequestMapping("/menu/list/")
 	public List<Menu> get(){
 		//return menuService.get(1);
-		return menud.get(1);
+		return menuService.get(1);
 	}
 	
 	@RequestMapping("/menu/item/")

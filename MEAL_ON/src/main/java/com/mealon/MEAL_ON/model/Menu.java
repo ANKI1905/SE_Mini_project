@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Menu")
 public class Menu {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +39,12 @@ public class Menu {
 
 	public void setMess_id(int mess_id) {
 		Mess_id = mess_id;
+	}
+
+	public void orElseThrow(Object object) {
+		
+		// TODO Auto-generated method stub
+		
 	}
 	
 
