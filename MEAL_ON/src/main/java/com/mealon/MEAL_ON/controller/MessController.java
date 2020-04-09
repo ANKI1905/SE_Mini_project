@@ -19,32 +19,27 @@ public class MessController {
 	
 	//Only getMenu works till now, Problem in addMenu....go to MenuServiceImpl
 	@RequestMapping("/menu")
-	public @ResponseBody List<menu> get(@RequestParam int mess_id){
-		return menuService.getMenu(mess_id);
+	public @ResponseBody List<Menu> get(@RequestParam int mess_id){
+		return menuService.get(mess_id);
 	}
 	
-	
-	
+	@RequestMapping("/menu/show")
+	public @ResponseBody Menu get(@RequestParam int mess_id, @RequestParam int menu_id){
+		return menuService.get(mess_id, menu_id);
+	}
 	
 	
 	@PostMapping("/menu/add")
 	public @ResponseBody String getMenu(@RequestParam Integer mess_id, @RequestParam String name) {
 		//return menuService.get(2, 1);
-		menuService.addMenu(mess_id, name);
+		menuService.add(mess_id, name);
 		return "saved";
 	}
 	
-	@PostMapping("/menu/update")
-	public @ResponseBody String updateMenu(@RequestParam Integer mess_id, @RequestParam String name) {
-		//return menuService.get(2, 1);
-		menuService.updateMenu(mess_id, name);
-		return "saved";
-	}
 	
 	@PostMapping("/menu/delete")
 	public @ResponseBody String delMenu(@RequestParam Integer mess_id, @RequestParam String name) {
-		//return menuService.get(2, 1);
-		menuService.deleteMenu(mess_id, menu_id);
+		menuService.delete(mess_id, name);
 		return "saved";
 	}
 	

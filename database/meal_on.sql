@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS mess_staff (
   `staff_id` 		int(11) NOT NULL AUTO_INCREMENT,
   `name` 			varchar(30) NOT NULL,
   `mess_id` 		int(11) NOT NULL,
-  `accunt_no` 		bigint(20) NOT NULL,
+  `account_no` 		bigint(20) NOT NULL,
   `contact` 		bigint(20) NOT NULL,
   `address` 		varchar(50) NOT NULL,
    PRIMARY KEY (staff_id),
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS mess_staff (
 );
 
 CREATE TABLE IF NOT EXISTS menu (
-  `menu_id` 		int(11) NOT NULL,
+  `menu_id` 		int(11) NOT NULL AUTO_INCREMENT,
   `name` 			varchar(30) NOT NULL,
   `mess_id` 		int(11) NOT NULL,
    PRIMARY KEY (menu_id),

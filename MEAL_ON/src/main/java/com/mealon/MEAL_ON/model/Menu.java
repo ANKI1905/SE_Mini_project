@@ -9,8 +9,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="menu")
-public class menu {
-	//All the variables name as camel case, and attributes(@Column) name in snake case
+public class Menu {
+	//All the variables name as small case, and attributes(@Column) name in snake case
 	
 	//Create such @Entity for all the tables in SQL
 	

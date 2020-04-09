@@ -1,15 +1,17 @@
 package com.mealon.MEAL_ON.dao;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.mealon.MEAL_ON.model.menu;
+import com.mealon.MEAL_ON.model.Menu;
 
 
-public interface MenuDAO extends CrudRepository<menu, Integer>{
+public interface MenuDAO extends CrudRepository<Menu, Integer>{
 
-	List<menu> findByMessid(int mess_id);
+	List<Menu> findByMessid(int mess_id);
+	Menu findByMenuid(int menu_id);
+	Menu findByMessidAndName(int mess_id, String name);
+	//void deleteByName(int mess_id, String name);
 
 }
