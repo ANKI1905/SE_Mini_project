@@ -32,15 +32,10 @@ public class Student {
         private String password;
         //private String Mess_name;
 		@Column(name="mess_id")
-        private Long messid;
+        private int messid;
 
         
-        //public String getMess_name() {
-        //      return Mess_name;
-        //}
-        //public void setMess_name(String mess_name) {
-        //      Mess_name = mess_name;
-        //}
+		
         public int getMis() {
 			return mis;
 		}
@@ -107,12 +102,12 @@ public class Student {
 		}
 
 
-		public Long getMessid() {
+		public int getMessid() {
 			return messid;
 		}
 
 
-		public void setMessid(Long messid) {
+		public void setMessid(int messid) {
 			this.messid = messid;
 		}
 

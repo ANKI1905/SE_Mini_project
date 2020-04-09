@@ -1,19 +1,16 @@
 package com.mealon.MEAL_ON.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mealon.MEAL_ON.model.Student;
 
 @Controller
 @RequestMapping(path = "/students")
 public class StudentController {
 
+	/*
+	 * Musadiq's work
+	 * Need to separate this in StudentServiceImpl
         @Autowired
         private StudentDAO studentDAO;
         @PostMapping(path="/add")
@@ -35,10 +32,12 @@ public class StudentController {
         @RequestMapping(path = "/view/{MIS}")
         public @ResponseBody String showStudent(@PathVariable("MIS")int MIS) {
                 Student s = new Student();
-                s = studentDAO.findByMIS(MIS);
+                s = studentDAO.findByMis(MIS);
                 if (s == null) {
                         return "No Records Found with MIS : " + MIS;
                 }
                 return s.toString();
         }
+        
+    */
 }
