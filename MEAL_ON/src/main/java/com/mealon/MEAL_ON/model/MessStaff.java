@@ -17,25 +17,25 @@ public class MessStaff {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "staffid", nullable = false)
-        private Long staffid;
+        private int staffid;
         @Column(name="name")
         private String name;
         @Column(name="mess_id")
-        private Long messid;
+        private int messid;
         @Column(name="account_no")
-        private Long accountno;
+        private int accountno;
         @Column(name="contact")
-        private Long contact;
+        private int contact;
         @Column(name="address")
         private String address;
         
        
-        public Long getStaffid() {
+        public int getStaffid() {
 			return staffid;
 		}
 
 
-		public void setStaffid(Long staffid) {
+		public void setStaffid(int staffid) {
 			this.staffid = staffid;
 		}
 
@@ -50,32 +50,32 @@ public class MessStaff {
 		}
 
 
-		public Long getMessid() {
+		public int getMessid() {
 			return messid;
 		}
 
 
-		public void setMessid(Long messid) {
+		public void setMessid(int messid) {
 			this.messid = messid;
 		}
 
 
-		public Long getAccountno() {
+		public int getAccountno() {
 			return accountno;
 		}
 
 
-		public void setAccountno(Long accountno) {
+		public void setAccountno(int accountno) {
 			this.accountno = accountno;
 		}
 
 
-		public Long getContact() {
+		public int getContact() {
 			return contact;
 		}
 
 
-		public void setContact(Long contact) {
+		public void setContact(int contact) {
 			this.contact = contact;
 		}
 

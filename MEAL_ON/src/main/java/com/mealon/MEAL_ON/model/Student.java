@@ -2,20 +2,17 @@ package com.mealon.MEAL_ON.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="mess_staff")
+@Table(name="student")
 public class Student {
 		//All the variables name as small case, and attributes(@Column) name in snake case
 		
 		//Create such @Entity for all the tables in SQL
 
 		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name="mis")
         private int mis;
 		@Column(name="name")
@@ -30,7 +27,6 @@ public class Student {
         private String email;
 		@Column(name="password")
         private String password;
-        //private String Mess_name;
 		@Column(name="mess_id")
         private int messid;
 

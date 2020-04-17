@@ -21,6 +21,7 @@ public class MainController {
 	@Autowired
 	private StudentService studentService;
 	
+	// create an admin account
 	@PostMapping("/admin/signin")
 	public @ResponseBody String signinAdmin(@RequestParam Integer mess_id, @RequestParam String name, @RequestParam String password, @RequestParam String messadmin, @RequestParam Integer rate) {
 		String result = messService.add(mess_id, name, password, messadmin, rate);
