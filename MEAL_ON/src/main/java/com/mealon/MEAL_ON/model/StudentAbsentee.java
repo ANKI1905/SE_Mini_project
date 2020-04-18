@@ -2,22 +2,28 @@ package com.mealon.MEAL_ON.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="stud_absentee")
+@IdClass(StudentAbsenteeID.class)
 public class StudentAbsentee {
 	//All the variables name as small case, and attributes(@Column) name in snake case
 	
 	//Create such @Entity for all the tables in SQL
 	
-	
+	@Id
 	@Column(name="mis")
 	private int mis;
+	@Id
 	@Column(name="from")
 	private String from;
+	@Id
 	@Column(name="to")
 	private String to;
+	@Id
 	@Column(name="type")
 	private String type;
 	

@@ -2,6 +2,7 @@ package com.mealon.MEAL_ON.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -11,7 +12,7 @@ public class MenuReview {
 	
 	//Create such @Entity for all the tables in SQL
 	
-	
+	@Id
 	@Column(name="menu_id")
 	private int menuid;
 	@Column(name="avg_rating")
