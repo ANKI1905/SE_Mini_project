@@ -16,19 +16,19 @@ public class StudentServiceImpl implements StudentService{
 	
 	@Transactional
 	@Override
-	public Student check(int mis, String password) {
-		Student student = null;
+	public Boolean check(int mis, String password) {
+		Boolean result = false;
 		try {
-			student = studentDAO.findByMis(mis);
+			Student student = studentDAO.findByMis(mis);
 			String pass = student.getPassword();
-			if(!pass.equals(password)) {
-				student = null;
+			if(pass.equals(password)) {
+				result = true;
 			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		return student;
+		return result;
 	}
 	
 	@Transactional
