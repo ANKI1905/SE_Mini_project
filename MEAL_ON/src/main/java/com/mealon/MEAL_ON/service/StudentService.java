@@ -10,5 +10,5 @@ public interface StudentService {
 	String update(int mis, String name, String room_no, short year_of_study, int contact, String email, String password, int mess_id);
 	String delete(int mis);
 	Boolean forgetPassword(Integer mis, Integer phone, String password);
-	String changePassword(Integer mis, String oldpass, String newpass, String newpass1);
+	Boolean changePassword(Integer mis, String oldpass, String newpass);
 }

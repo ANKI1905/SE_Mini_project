@@ -86,6 +86,7 @@ public class StudentServiceImpl implements StudentService{
 		return result;
 	}
 	
+	@Transactional
 	@Override
 	public Boolean forgetPassword(Integer mis, Integer phone, String password) {
 		Student s = studentDAO.findByMis(mis);
@@ -95,6 +96,19 @@ public class StudentServiceImpl implements StudentService{
 			return true;
 		}
 		return false;
+	}
+	
+	@Transactional
+	@Override
+	public Boolean changePassword(Integer mis, String oldpass, String newpass) {
+		Boolean result = false;
+		Student s = studentDAO.findByMis(mis);
+		if (s.getPassword() == oldpass) {
+			s.setPassword(newpass);
+			studentDAO.save(s);
+			result = true;
+		}
+		return result;
 	}
 	
 	
