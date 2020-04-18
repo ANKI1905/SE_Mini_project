@@ -26,7 +26,7 @@ public class MessServiceImpl implements MessService{
 		 */
 		Boolean result = false;
 		Mess mess = messDAO.findByName(name);
-		if(mess != null) {
+		if(mess == null) {
 			Mess newMess = toMess(name, password, messadmin, 0);
 			try {
 				messDAO.save(newMess);
