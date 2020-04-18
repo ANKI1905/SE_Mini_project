@@ -33,6 +33,19 @@ public class StudentServiceImpl implements StudentService{
 	
 	@Transactional
 	@Override
+	public Student get(int mis) {
+		Student student = null;
+		try {
+			student = studentDAO.findByMis(mis);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return student;
+	}
+	
+	@Transactional
+	@Override
 	public String add(int mis, String name, String room_no, short year_of_study, int contact, String email, String password, int mess_id) {
 		String result = null;
 		Student newStudent = toStudent(mis, name, room_no, year_of_study, contact, email, password, mess_id);
