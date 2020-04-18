@@ -99,6 +99,7 @@ CREATE TABLE  IF NOT EXISTS stud_absentee (
   `from` date NOT NULL,
   `to` date NOT NULL,
   `type` char(1) NOT NULL,
+   PRIMARY KEY (mis, from, to, type),
    FOREIGN KEY (mis) REFERENCES student(mis),
    FOREIGN KEY (mis) REFERENCES student_bill(mis)
 );
@@ -109,7 +110,7 @@ CREATE TABLE  IF NOT EXISTS review_rating(
   `menu_id` 		int(11) NOT NULL,
   `rating` 			int(11) NOT NULL,
   `comments` 		varchar(500) NOT NULL,
-  PRIMARY KEY (reviewId),
+  PRIMARY KEY (review_id),
   FOREIGN KEY (mis) REFERENCES student(mis),
   FOREIGN KEY (menu_id) REFERENCES menu(menu_id)
 );
@@ -118,6 +119,7 @@ CREATE TABLE  IF NOT EXISTS menu_review (
   `menu_id` int(11) NOT NULL,
   `avg_rating` int(11) NOT NULL,
   `comment_overview` varchar(500) NOT NULL,
+  PRIMARY KEY (menu_id),
   FOREIGN KEY (menu_id) REFERENCES menu(menu_id)
 );
 
