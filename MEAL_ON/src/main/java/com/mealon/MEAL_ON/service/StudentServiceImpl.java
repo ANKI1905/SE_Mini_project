@@ -16,10 +16,10 @@ public class StudentServiceImpl implements StudentService{
 	
 	@Transactional
 	@Override
-	public Student get(String name, String password) {
+	public Student check(int mis, String password) {
 		Student student = null;
 		try {
-			student = studentDAO.findByName(name);
+			student = studentDAO.findByMis(mis);
 			String pass = student.getPassword();
 			if(!pass.equals(password)) {
 				student = null;
@@ -49,13 +49,39 @@ public class StudentServiceImpl implements StudentService{
 	@Transactional
 	@Override
 	public String update(int mis, String name, String room_no, short year_of_study, int contact, String email, String password, int mess_id) {
-		return null;
+		String result = null;
+		Student newStudent = toStudent(mis, name, room_no, year_of_study, contact, email, password, mess_id);
+		try {
+			studentDAO.save(newStudent);
+			result = "Updated successfully";
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	@Transactional
 	@Override
-	public String delete() {
-		return null;
+	public String delete(int mis) {
+		String result = null;
+		Student student = studentDAO.findByMis(mis);
+		if(student != null) {
+			studentDAO.delete(student);
+			result = "Deleted Successfully";
+		}
+		return result;
+	}
+	
+	@Override
+	public Boolean forgetPassword(Integer mis, Integer phone, String password) {
+		Student s = studentDAO.findByMis(mis);
+		if (s.getContact() == phone) {
+			s.setPassword(password);
+			studentDAO.save(s);
+			return true;
+		}
+		return false;
 	}
 	
 	
