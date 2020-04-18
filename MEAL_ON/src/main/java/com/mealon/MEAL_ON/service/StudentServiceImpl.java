@@ -1,6 +1,8 @@
 package com.mealon.MEAL_ON.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +39,19 @@ public class StudentServiceImpl implements StudentService{
 		Student student = null;
 		try {
 			student = studentDAO.findByMis(mis);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return student;
+	}
+	
+	@Transactional
+	@Override
+	public List<Student> getAllStudent(int mess_id) {
+		List<Student> student = null;
+		try {
+			student = studentDAO.findByMessid(mess_id);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
