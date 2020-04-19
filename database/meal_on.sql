@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS menu (
 
 
 CREATE TABLE  IF NOT EXISTS snacks_menu (
-  `snacks_id` 		int(11) NOT NULL,
+  `snacks_id` 		int(11) NOT NULL AUTO_INCREMENT,
   `name`			varchar(30) NOT NULL,
   `price` 			int(11) NOT NULL,
   `mess_id` 		int(11) NOT NULL,
