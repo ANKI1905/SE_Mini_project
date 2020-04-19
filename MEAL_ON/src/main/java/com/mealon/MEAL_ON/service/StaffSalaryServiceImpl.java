@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mealon.MEAL_ON.dao.MessStaffDAO;
 import com.mealon.MEAL_ON.dao.StaffSalaryDAO;
-import com.mealon.MEAL_ON.model.MessStaff;
 import com.mealon.MEAL_ON.model.StaffSalary;
 import com.mealon.MEAL_ON.model.StaffSalaryID;
 
@@ -65,20 +63,7 @@ public class StaffSalaryServiceImpl implements StaffSalaryService{
 		}
 		return staffSalaryList;
 	}
-	
-	
-	@Transactional
-	@Override
-	public MessStaff get(int mess_id, String name) {
-		MessStaff messStaff = null;
-		try {
-			messStaff = messStaffDAO.findByNameAndMessid(name, mess_id);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return messStaff;
-	}
+
 	
 	@Transactional
 	@Override
