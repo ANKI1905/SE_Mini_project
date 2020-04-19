@@ -24,10 +24,9 @@ public class MenuReviewServiceImpl implements MenuReviewService {
 
 	@Transactional
 	@Override
-	public Boolean add(Integer menu_id, Integer avgRating, String commentOverview) {
-		//check for mess_id in controller
+	public Boolean add(int mess_id, int menu_id, Integer avgRating, String commentOverview) {
 		Boolean result = false;
-		MenuReview newMenuReview = toMenuReview(menu_id, avgRating, commentOverview);
+		MenuReview newMenuReview = toMenuReview(mess_id, menu_id, avgRating, commentOverview);
 		try {
 			menuReviewDAO.save(newMenuReview);
 			result = true;
@@ -41,11 +40,11 @@ public class MenuReviewServiceImpl implements MenuReviewService {
 
 	@Transactional
 	@Override
-	public Boolean update(Integer menu_id, Integer avgRating, String commentOverview) {
+	public Boolean update(int mess_id, int menu_id, Integer avgRating, String commentOverview) {
 		//check for mess_id in controller
 		Boolean result = false;
 		if(menuReviewDAO.findById(menu_id)  != null) {
-			MenuReview newMenuReview = toMenuReview(menu_id, avgRating, commentOverview);
+			MenuReview newMenuReview = toMenuReview(mess_id, menu_id, avgRating, commentOverview);
 			try {
 				menuReviewDAO.save(newMenuReview);
 				result = true;
@@ -59,13 +58,10 @@ public class MenuReviewServiceImpl implements MenuReviewService {
 	
 	@Transactional
 	@Override
-	public List<MenuReview> get(Integer[] menu_ids) {
+	public List<MenuReview> get(int mess_id) {
 		List<MenuReview> allMenuReviewList = null;
-		Iterator<Integer> iterator = Arrays.asList(menu_ids).iterator(); 
-		Iterable<Integer> iterable = getIterableFromIterator(iterator); 
 		try {
-			 Iterable<MenuReview> iteratorIds = menuReviewDAO.findAllById(iterable);
-			 allMenuReviewList = iterableToList(iteratorIds);
+			 allMenuReviewList = menuReviewDAO.findByMessid(mess_id);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -91,8 +87,9 @@ public class MenuReviewServiceImpl implements MenuReviewService {
 		
 	}
 	
-	private MenuReview toMenuReview(int menu_id, int avgRating, String commentOverview) {
+	private MenuReview toMenuReview(int mess_id, int menu_id, int avgRating, String commentOverview) {
 		MenuReview newMenuReview = new MenuReview();
+		newMenuReview.setMessid(mess_id);
 		newMenuReview.setMenuid(menu_id);
 		newMenuReview.setAvgrating(avgRating);
 		newMenuReview.setCommentoverview(commentOverview);

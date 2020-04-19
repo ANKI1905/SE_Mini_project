@@ -15,12 +15,20 @@ public class MenuReview {
 	@Id
 	@Column(name="menu_id")
 	private int menuid;
+	@Column(name="mess_id")
+	private int messid;
 	@Column(name="avg_rating")
 	private int avgrating;
 	@Column(name="comment_overview")
 	private String commentoverview;
 	
 	
+	public int getMessid() {
+		return messid;
+	}
+	public void setMessid(int messid) {
+		this.messid = messid;
+	}
 	public int getMenuid() {
 		return menuid;
 	}

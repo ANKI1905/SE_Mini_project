@@ -6,10 +6,10 @@ import com.mealon.MEAL_ON.model.MenuReview;
 
 public interface MenuReviewService {
 	
-	Boolean add(Integer menu_id, Integer avgRating, String commentOverview);
-	Boolean update(Integer menu_id, Integer avgRating, String commentOverview);
-	Boolean delete(Integer menu_id);
-	List<MenuReview> get(Integer[] menu_ids);
+	Boolean add(int mess_id, int menu_id, Integer avgRating, String commentOverview);
+	Boolean update(int mess_id, int menu_id, Integer avgRating, String commentOverview);
+	Boolean delete(int mess_id, int  menu_id);
+	List<MenuReview> get(int mess_id);
 	
 
 
