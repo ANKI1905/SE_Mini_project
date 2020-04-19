@@ -116,11 +116,13 @@ CREATE TABLE  IF NOT EXISTS review_rating(
 );
 
 CREATE TABLE  IF NOT EXISTS menu_review (
+  `mess_id` int(11) NOT NULL,
   `menu_id` int(11) NOT NULL,
   `avg_rating` int(11) NOT NULL,
   `comment_overview` varchar(500) NOT NULL,
   PRIMARY KEY (menu_id),
-  FOREIGN KEY (menu_id) REFERENCES menu(menu_id)
+  FOREIGN KEY (mess_id) REFERENCES mess(mess_id) ON DELETE CASCADE,
+  FOREIGN KEY (menu_id) REFERENCES menu(menu_id) ON DELETE CASCADE
 );
 
 CREATE TABLE  IF NOT EXISTS staff_salary (
@@ -129,7 +131,7 @@ CREATE TABLE  IF NOT EXISTS staff_salary (
   `month` varchar(11) NOT NULL,
   `salary` int(11) NOT NULL,
   PRIMARY KEY (staff_id, month),
-  FOREIGN KEY (staff_id) REFERENCES mess_staff(staff_id)
+  FOREIGN KEY (staff_id) REFERENCES mess_staff(staff_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS snacks_token(
@@ -140,5 +142,5 @@ CREATE TABLE IF NOT EXISTS snacks_token(
   `price` 			int(11) NOT NULL,
    PRIMARY KEY(date_time, mis, snacks_id, id),
    FOREIGN KEY(mis) REFERENCES student(mis),
-   FOREIGN KEY(snacks_id) REFERENCES snacks_menu(snacks_id)  
+   FOREIGN KEY(snacks_id) REFERENCES snacks_menu(snacks_id) ON DELETE CASCADE
 ) ;
