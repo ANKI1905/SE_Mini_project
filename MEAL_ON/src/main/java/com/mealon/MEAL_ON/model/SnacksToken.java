@@ -1,10 +1,14 @@
 package com.mealon.MEAL_ON.model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="snacks_token")
@@ -14,10 +18,11 @@ public class SnacksToken {
 	
 	//Create such @Entity for all the tables in SQL
 	
+	//Timestamp requires testing
 	
 	@Id
 	@Column(name="date_time")
-	private String datetime;
+	private String datetime; //DATETIME - format: YYYY-MM-DD HH:MI:SS
 	@Id
 	@Column(name="mis")
 	private int mis;
