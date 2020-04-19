@@ -1,5 +1,6 @@
 package com.mealon.MEAL_ON.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,7 @@ public class MessStaffServiceImpl implements MessStaffService{
 		}
 		return messStaff;
 	}
+	
 	@Transactional
 	@Override
 	public Boolean update(String name, int mess_id, int account_no, int contact, String address) {
@@ -104,6 +106,17 @@ public class MessStaffServiceImpl implements MessStaffService{
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	@Transactional
+	@Override
+	public List<Integer> getStaffIdList(int mess_id) {
+		List<Integer> messStaffIds = new ArrayList<Integer>();
+		List<MessStaff> messStaffList = getAllMessStaff(mess_id);
+		for(MessStaff messStaff:messStaffList) {
+			messStaffIds.add(messStaff.getStaffid());
+		}
+		return messStaffIds;
 	}
 	
 	private MessStaff toMessStaff(String name, int mess_id, int account_no, int contact, String address) {

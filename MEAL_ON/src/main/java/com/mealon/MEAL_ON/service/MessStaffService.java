@@ -13,5 +13,6 @@ public interface MessStaffService {
 	MessStaff get(int mess_id, String name);
 	Boolean update(String name, int mess_id, int account_no, int contact, String address);
 	Boolean delete(int mess_id, String name);
+	List<Integer> getStaffIdList(int mess_id);
 
 }
