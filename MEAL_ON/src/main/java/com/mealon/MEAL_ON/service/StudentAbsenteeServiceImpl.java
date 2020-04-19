@@ -94,7 +94,7 @@ public class StudentAbsenteeServiceImpl implements StudentAbsenteeService{
 		StudentAbsentee newStudentAbsentee = new StudentAbsentee();
 		newStudentAbsentee.setMis(mis);
 		newStudentAbsentee.setFrom(from);
-		newStudentAbsentee.setTo(to));
+		newStudentAbsentee.setTo(to);
 		newStudentAbsentee.setType(type);
 		return newStudentAbsentee;
 	}
@@ -103,7 +103,7 @@ public class StudentAbsenteeServiceImpl implements StudentAbsenteeService{
 		StudentAbsenteeID newStudentAbsenteeID = new StudentAbsenteeID();
 		newStudentAbsenteeID.setMis(mis);
 		newStudentAbsenteeID.setFrom(from);
-		newStudentAbsenteeID.setTo(to));
+		newStudentAbsenteeID.setTo(to);
 		newStudentAbsenteeID.setType(type);
 		return newStudentAbsenteeID;
 	}
