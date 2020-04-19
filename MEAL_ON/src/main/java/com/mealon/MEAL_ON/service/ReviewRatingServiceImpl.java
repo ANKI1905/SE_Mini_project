@@ -41,42 +41,128 @@ public class ReviewRatingServiceImpl implements ReviewRatingService {
 	}
 
 	
-	
+
 	@Transactional
 	@Override
-	public List<MenuReview> get(Integer[] menu_ids) {
-		List<MenuReview> allMenuReviewList = null;
-		Iterator<Integer> iterator = Arrays.asList(menu_ids).iterator(); 
-		Iterable<Integer> iterable = getIterableFromIterator(iterator); 
+	public List<ReviewRating> getAll(Integer[] menu_ids) {
+		//check for mess_id in controller
+		List<ReviewRating> list = new ArrayList<ReviewRating>();
+		List<ReviewRating> reviewRating = null;
+		for(int menu_id:menu_ids) {
+			reviewRating = getByMenuid(menu_id);
+			for(ReviewRating review:reviewRating) {
+				list.add(review);
+			}
+		}
+		return list;		
+	}
+	
+
+	@Transactional
+	@Override
+	public List<ReviewRating> getByMis(Integer[] menu_ids, int mis) {
+		//check for mess_id in controller
+		List<ReviewRating> list = new ArrayList<ReviewRating>();
+		ReviewRating reviewRating = null;
 		try {
-			 Iterable<MenuReview> iteratorIds = menuReviewDAO.findAllById(iterable);
-			 allMenuReviewList = iterableToList(iteratorIds);
+			for(int menu_id:menu_ids) {
+				reviewRating = reviewRatingDAO.findByMenuidAndMis(menu_id, mis);
+				list.add(reviewRating);
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		return allMenuReviewList;
+		return list;		
 	}
+	
+	
 
+	@Transactional
+	@Override
+	public List<ReviewRating> getByMenuid(int menu_id) {
+		//check for mess_id in controller
+		List<ReviewRating> list = null;
+		try {
+			list = reviewRatingDAO.findByMenuid(menu_id);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;		
+	}
+	
+
+	@Transactional
+	@Override
+	public List<ReviewRating> getByRatingLessThanEqual(Integer[] menu_ids, int rating) {
+		//check for mess_id in controller
+		List<ReviewRating> list = new ArrayList<ReviewRating>();
+		List<ReviewRating> reviewRating = null;
+		for(int menu_id:menu_ids) {
+			reviewRating = getByMenuid(menu_id);
+			for(ReviewRating review:reviewRating) {
+				if(rating >= review.getRating())
+					list.add(review);
+			}
+		}
+		return list;		
+	}
+	
+	
+	@Transactional
+	@Override
+	public List<ReviewRating> getByRatingGreaterThanEqual(Integer[] menu_ids, int rating) {
+		//check for mess_id in controller
+		List<ReviewRating> list = new ArrayList<ReviewRating>();
+		List<ReviewRating> reviewRating = null;
+		for(int menu_id:menu_ids) {
+			reviewRating = getByMenuid(menu_id);
+			for(ReviewRating review:reviewRating) {
+				if(rating <= review.getRating())
+					list.add(review);
+			}
+		}
+		return list;		
+	}
+	
 	@Transactional
 	@Override
 	public Boolean delete(int menu_id) {
 		//check for mess_id in controller
+		/*
+		 * Success :: List is deleted,
+		 * Success :: List does not exists
+		 * Fails   :: List exists and fails to delete
+		 */
 		Boolean result = false;
-		List<ReviewRating> list= reviewRatingDAO.findByMenuid(menu_id);
+		List<ReviewRating> list = null;
+		try {
+			list = reviewRatingDAO.findByMenuid(menu_id);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		if(list != null) {
 			try {
-				for(Revie..list..list.)
-				reviewRatingDAO.delete(reviewRating);
+				for(ReviewRating reviewRating:list) {
+					reviewRatingDAO.delete(reviewRating);
+				}
 				result = true;
 			}
 			catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		else {
+			result = true;
+		}
 		return result;
 		
 	}
+	
+	
+	
 	
 	private ReviewRating toReviewRating(int mis, int menu_id, int rating, String comments) {
 		ReviewRating newReviewRating = new ReviewRating();

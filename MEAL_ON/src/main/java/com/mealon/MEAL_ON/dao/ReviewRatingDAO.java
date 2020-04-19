@@ -8,5 +8,6 @@ import com.mealon.MEAL_ON.model.ReviewRating;
 
 
 public interface ReviewRatingDAO extends CrudRepository<ReviewRating, Integer>{
-	List<ReviewRating> findByMenuid(int menuid);
+	List<ReviewRating> findByMenuid(int menu_id);
+	ReviewRating findByMenuidAndMis(int menu_id, int mis);
 }
