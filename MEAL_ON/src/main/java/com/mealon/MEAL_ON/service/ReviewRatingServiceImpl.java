@@ -1,18 +1,13 @@
 package com.mealon.MEAL_ON.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mealon.MEAL_ON.dao.MenuReviewDAO;
 import com.mealon.MEAL_ON.dao.ReviewRatingDAO;
-import com.mealon.MEAL_ON.model.MenuReview;
 import com.mealon.MEAL_ON.model.ReviewRating;
 
 
@@ -174,27 +169,4 @@ public class ReviewRatingServiceImpl implements ReviewRatingService {
 		return newReviewRating;
 	}
 	
-	
-	private List<MenuReview> iterableToList(Iterable<MenuReview> iterator) { 
-		List<MenuReview> list = new ArrayList<>(); 
-		iterator.forEach(list::add); 
-		return list; 
-	}
-	
-	
-	private Iterable<Integer> getIterableFromIterator(Iterator<Integer> iterator) { 
-        return new Iterable<Integer>() { 
-            @Override
-            public Iterator<Integer> iterator() 
-            { 
-                return iterator; 
-            } 
-        }; 
-    }
-	/*
-	 * 
-	 * 
-	 * private List<Menu> optionalToList(Optional<Menu> iterator) { List<Menu> list
-	 * = new ArrayList<>(); iterator.ifPresent(list::add); return list; }
-	 */
 }
