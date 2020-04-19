@@ -10,7 +10,7 @@ import com.mealon.MEAL_ON.dao.MessStaffDAO;
 import com.mealon.MEAL_ON.model.MessStaff;
 
 @Service
-public class MessStaffImpl implements MessStaffService{
+public class MessStaffServiceImpl implements MessStaffService{
 	@Autowired
 	private MessStaffDAO messStaffDAO;
 	
