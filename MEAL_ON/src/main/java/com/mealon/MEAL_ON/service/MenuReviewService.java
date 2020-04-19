@@ -8,9 +8,7 @@ public interface MenuReviewService {
 	
 	Boolean add(int mess_id, int menu_id, Integer avgRating, String commentOverview);
 	Boolean update(int mess_id, int menu_id, Integer avgRating, String commentOverview);
-	Boolean delete(int mess_id, int  menu_id);
 	List<MenuReview> get(int mess_id);
-	
-
+	Boolean delete(int mess_id, int  menu_id);
 
 }
