@@ -24,7 +24,7 @@ public class StaffSalary {
         private String month;
         @Column(name="salary")
         private int salary;
-        
+
 		public int getStaffid() {
 			return staffid;
 		}
