@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="mess_staff")
+@Table(name="student")
 public class Student {
 		//All the variables name as small case, and attributes(@Column) name in snake case
 		
