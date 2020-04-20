@@ -1,6 +1,8 @@
 package com.mealon.MEAL_ON.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,14 +18,40 @@ public class StudentServiceImpl implements StudentService{
 	
 	@Transactional
 	@Override
-	public Student get(String name, String password) {
+	public Boolean check(int mis, String password) {
+		Boolean result = false;
+		try {
+			Student student = studentDAO.findByMis(mis);
+			String pass = student.getPassword();
+			if(pass.equals(password)) {
+				result = true;
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	@Transactional
+	@Override
+	public Student get(int mis) {
 		Student student = null;
 		try {
-			student = studentDAO.findByName(name);
-			String pass = student.getPassword();
-			if(!pass.equals(password)) {
-				student = null;
-			}
+			student = studentDAO.findByMis(mis);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return student;
+	}
+	
+	@Transactional
+	@Override
+	public List<Student> getAllStudent(int mess_id) {
+		List<Student> student = null;
+		try {
+			student = studentDAO.findByMessid(mess_id);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -49,15 +77,32 @@ public class StudentServiceImpl implements StudentService{
 	@Transactional
 	@Override
 	public String update(int mis, String name, String room_no, short year_of_study, int contact, String email, String password, int mess_id) {
-		return null;
+		String result = null;
+		Student newStudent = toStudent(mis, name, room_no, year_of_study, contact, email, password, mess_id);
+		try {
+			studentDAO.save(newStudent);
+			result = "Updated successfully";
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	@Transactional
 	@Override
-	public String delete() {
-		return null;
+	public String delete(int mis) {
+		String result = null;
+		Student student = studentDAO.findByMis(mis);
+		if(student != null) {
+			studentDAO.delete(student);
+			result = "Deleted Successfully";
+		}
+		return result;
 	}
 	
+	@Transactional
+	@Override
 	public Boolean forgetPassword(Integer mis, Integer phone, String password) {
 		Student s = studentDAO.findByMis(mis);
 		if (s.getContact() == phone) {
@@ -67,7 +112,20 @@ public class StudentServiceImpl implements StudentService{
 		}
 		return false;
 	}
-
+	
+	@Transactional
+	@Override
+	public Boolean changePassword(Integer mis, String oldpass, String newpass) {
+		Boolean result = false;
+		Student s = studentDAO.findByMis(mis);
+		if (s.getPassword() == oldpass) {
+			s.setPassword(newpass);
+			studentDAO.save(s);
+			result = true;
+		}
+		return result;
+	}
+	
 	
 	private Student toStudent(int mis, String name, String room_no, short year_of_study, int contact, String email, String password, int mess_id) {
 		Student newStudent = new Student();
@@ -80,19 +138,5 @@ public class StudentServiceImpl implements StudentService{
 		newStudent.setPassword(password);
 		newStudent.setMessid(mess_id);
 		return newStudent;
-	}
-
-	@Override
-	public String changePassword(Integer mis, String oldpass, String newpass, String newpass1) {
-		if (newpass != newpass1)
-			return "Password and Confirm Password Are Differnt";
-		Student s = studentDAO.findByMis(mis);
-		if (s.getPassword() == oldpass) {
-			s.setPassword(newpass);
-			studentDAO.save(s);
-			return "Password Changed Sucessfully";
-		}
-		else
-			return "Please enter Correct Password";
 	}
 }
