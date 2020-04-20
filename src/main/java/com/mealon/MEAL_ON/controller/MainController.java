@@ -1,26 +1,54 @@
 package com.mealon.MEAL_ON.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.mealon.MEAL_ON.model.Mess;
-import com.mealon.MEAL_ON.model.Student;
 import com.mealon.MEAL_ON.service.MessService;
 import com.mealon.MEAL_ON.service.StudentService;
 
-
-@RestController
+//@CrossOrigin(origins = { "http://localhost:3000"})
+@Controller
 @RequestMapping("")
 public class MainController {
 	@Autowired
 	private MessService messService;
 	@Autowired
 	private StudentService studentService;
+	@Autowired
 	
+	//returns homepage
+	@RequestMapping("/")
+	public @ResponseBody String homePage() {
+		return "This is homepage";
+	}
+	
+	//student login
+	@RequestMapping("/studentlogin")
+	public String studentLogin() {
+		return "studentLogin";
+		//return "studentFeatures";
+	}
+	
+	@RequestMapping("/studentauth")
+	public String studentAuth(@RequestParam Integer mis, @RequestParam String Password) {
+		Boolean auth = studentService.check(mis, Password);
+		if (auth == true) {
+			return "redirect:/students/home";
+		}
+		return "redirect:/studentlogin";
+	}
+	
+	//mess admin login
+	@RequestMapping("/adminlogin")
+	public String adminLogin() {
+		return "adminLogin";
+		//return "studentFeatures";
+	}
 	
 	// create an admin account
 	@PostMapping("/admin/signin")
@@ -47,11 +75,18 @@ public class MainController {
 		return result;
 	}
 	
-	@PostMapping("/student/login")
+	
+	/*
+	 * 
+	 * Need to fix this
+	 * 
+	 * 
+	 */
+	/*@PostMapping("/student/login")
 	public @ResponseBody Student logInStudent(@RequestParam Integer mess_id, @RequestParam String name, @RequestParam String password, @RequestParam String messadmin, @RequestParam Integer rate) {
 		Student student = studentService.get(name, password);
 		return student;
-	}
+	}*/
 	
 	
 	/*

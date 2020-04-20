@@ -3,7 +3,6 @@ import java.util.List;
 import com.mealon.MEAL_ON.model.*;
 import com.mealon.MEAL_ON.service.InventoryService;
 import com.mealon.MEAL_ON.service.MenuService;
-import com.mealon.MEAL_ON.service.MessService;
 import com.mealon.MEAL_ON.service.StudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,7 +115,7 @@ public class MessController {
 	
 	@PostMapping("/student/delete")
 	public @ResponseBody String deleteStudent(@RequestParam Integer mis, @RequestParam String name, @RequestParam String room_no, @RequestParam short year_of_study, @RequestParam Integer contact, @RequestParam String email, @RequestParam String password, @RequestParam Integer mess_id) {
-		return studentService.delete();
+		return studentService.delete(mis);
 	}
 	
 	//Manage menu

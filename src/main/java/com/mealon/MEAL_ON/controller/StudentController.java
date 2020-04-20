@@ -17,6 +17,12 @@ public class StudentController {
 	@Autowired
 	private StudentService studentService;
 	
+	@RequestMapping ("/home")
+	public @ResponseBody String studentHome() {
+		//Student s = studentService.get(mis);
+		return "Hey Student";
+	}
+	
 	@PostMapping("/forgetpassword")
 	public @ResponseBody String passwordRecover(@RequestParam Integer mis, @RequestParam Integer phone, @RequestParam String password) {
 		Boolean a =  studentService.forgetPassword(mis, phone, password);
@@ -26,10 +32,20 @@ public class StudentController {
 		return "failed to update password";
 	}
 	
-	@PostMapping("/changepassword")
+	/*
+	 * 
+	 * 
+	 * need to fix this
+	 * 
+	 */
+	/*@PostMapping("/changepassword")
 	public @ResponseBody String passwordChange(@RequestParam Integer mis, @RequestParam String oldpass, @RequestParam String newpass, @RequestParam String newpass1) {
 		return  studentService.changePassword(mis, oldpass, newpass, newpass1);
-	}	
+	}	*/
+	
+	
+	
+	
 	/*
 	 * Musadiq's work
 	 * Need to separate this in StudentServiceImpl
