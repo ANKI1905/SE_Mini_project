@@ -1,5 +1,7 @@
 package com.mealon.MEAL_ON.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mealon.MEAL_ON.model.Student;
 import com.mealon.MEAL_ON.service.StudentService;
 
 
@@ -17,14 +20,35 @@ public class StudentController {
 	@Autowired
 	private StudentService studentService;
 	
-	@RequestMapping ("/home")
-	public @ResponseBody String studentHome() {
+	@RequestMapping ("/check")
+	public String messHome(@RequestParam Integer mis, @RequestParam String password, HttpSession session) {
 		//Student s = studentService.get(mis);
-		return "Hey Student";
+		if(studentService.check(mis, password)) {
+			session.setAttribute("mis", mis);
+			session.setAttribute("log", "1");
+			return "redirect:/students/";
+		}
+		session.invalidate();
+		return "redirect:/studentlogin";
+	}
+	
+	@RequestMapping ("/")
+	public String studentHome(HttpSession session) {
+		//Student s = studentService.get(mis);
+		String l = (String) session.getAttribute("log");
+		if (l == "1") {
+			Integer mis = (Integer) session.getAttribute("mis");
+			Student s = studentService.get(mis);
+			session.setAttribute("name", s.getName());
+			return "studentHome";
+			
+		}
+		
+		return "redirect:/studentlogin";
 	}
 	
 	@PostMapping("/forgetpassword")
-	public @ResponseBody String passwordRecover(@RequestParam Integer mis, @RequestParam Integer phone, @RequestParam String password) {
+	public @ResponseBody String passwordRecover(@RequestParam Integer mis, @RequestParam Long phone, @RequestParam String password) {
 		Boolean a =  studentService.forgetPassword(mis, phone, password);
 		if (a) {
 			return "password updated";
