@@ -1,5 +1,6 @@
 package com.mealon.MEAL_ON.service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,26 @@ public class MenuServiceImpl implements MenuService {
 		return allMenuList;
 	}
 
+	@Transactional
+	@Override
+	public Integer[] getMenuIDs(int mess_id) {
+		List<Menu> allMenuList = null;
+		int n, i = 0;
+		try {
+			allMenuList = menuDAO.findByMessid(mess_id);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		n = allMenuList.size();
+		Integer[] allMenuIds = new Integer[n];
+		for(Menu menu:allMenuList) {
+			allMenuIds[i] = menu.getMenuId();
+			i++;
+		}
+		return allMenuIds ;
+	}
+	
 	@Transactional
 	@Override
 	public Menu get(int mess_id, int menu_id) {

@@ -2,10 +2,9 @@ package com.mealon.MEAL_ON.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="student")
@@ -15,7 +14,6 @@ public class Student {
 		//Create such @Entity for all the tables in SQL
 
 		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name="mis")
         private int mis;
 		@Column(name="name")
@@ -25,18 +23,26 @@ public class Student {
 		@Column(name="year_of_study")
         private short yearofstudy;
 		@Column(name="contact")
-        private int contact;
+        private Long contact;
 		@Column(name="email")
         private String email;
 		@Column(name="password")
         private String password;
-        //private String Mess_name;
 		@Column(name="mess_id")
         private int messid;
-
+		@Transient
+		private Boolean loggedIn;
         
 		
-        public int getMis() {
+        public Boolean getLoggedIn() {
+			return loggedIn;
+		}
+
+		public void setLoggedIn(Boolean loggedIn) {
+			this.loggedIn = loggedIn;
+		}
+
+		public int getMis() {
 			return mis;
 		}
 
@@ -72,12 +78,12 @@ public class Student {
 		}
 
 
-		public int getContact() {
+		public Long getContact() {
 			return contact;
 		}
 
 
-		public void setContact(int contact) {
+		public void setContact(Long contact) {
 			this.contact = contact;
 		}
 

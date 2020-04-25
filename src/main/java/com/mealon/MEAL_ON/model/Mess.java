@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="mess")
@@ -17,7 +18,7 @@ public class Mess {
         @Id
         @GeneratedValue(strategy=GenerationType.IDENTITY)
         @Column(name="mess_id")
-        private Integer messid;
+        private int messid;
         @Column(name="name")
         private String name;
         @Column(name="password")
@@ -25,11 +26,19 @@ public class Mess {
         @Column(name="mess_admin")
         private String messadmin;
         @Column(name="rate")
-        private Integer rate;
-		public Integer getMessid() {
+        private int rate;
+        @Transient
+        private Boolean loggedIn;
+		public Boolean getLoggedIn() {
+			return loggedIn;
+		}
+		public void setLoggedIn(Boolean loggedIn) {
+			this.loggedIn = loggedIn;
+		}
+		public int getMessid() {
 			return messid;
 		}
-		public void setMessid(Integer messid) {
+		public void setMessid(int messid) {
 			this.messid = messid;
 		}
 		public String getName() {
@@ -50,10 +59,10 @@ public class Mess {
 		public void setMessadmin(String messadmin) {
 			this.messadmin = messadmin;
 		}
-		public Integer getRate() {
+		public int getRate() {
 			return rate;
 		}
-		public void setRate(Integer rate) {
+		public void setRate(int rate) {
 			this.rate = rate;
 		}
         

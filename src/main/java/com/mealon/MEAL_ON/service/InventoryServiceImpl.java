@@ -48,12 +48,12 @@ public class InventoryServiceImpl implements InventoryService {
  
 	@Transactional
     @Override
-    public String add(int id, String name, int stock, int avg_price, int mess_id) {
-		Inventory inventory = toInventory(id, name, stock, avg_price, mess_id);
+    public String add(String name, int stock, int avg_price, int mess_id) {
+		Inventory inventory = toInventory(name, stock, avg_price, mess_id);
 		String result = null;
 		try {
 			inventoryDAO.save(inventory);
-			result = "Successfully updated";
+			result = "Successfully Added item with id :" + inventory.getInventoryid();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -79,6 +79,17 @@ public class InventoryServiceImpl implements InventoryService {
 		
 		return result;
     }
+
+	private Inventory toInventory(int inventoryid, String name, int stock, int avg_price, int mess_id) {
+		// TODO Auto-generated method stub
+		Inventory inventory = new Inventory();
+		inventory.setInventoryid(inventoryid);
+		inventory.setName(name);
+		inventory.setStock(stock);
+		inventory.setAvgprice(avg_price);
+		inventory.setMessid(mess_id);
+		return inventory;
+	}
 
 	@Transactional
     @Override
@@ -113,9 +124,8 @@ public class InventoryServiceImpl implements InventoryService {
 		return result;
     }	
 	
-	private Inventory toInventory(Integer inventoryid, String name, int stock, int avgprice, int messid) {
+	private Inventory toInventory(String name, int stock, int avgprice, int messid) {
 		Inventory inventory = new Inventory();
-		inventory.setInventoryid(inventoryid);
 		inventory.setName(name);
 		inventory.setStock(stock);
 		inventory.setAvgprice(avgprice);

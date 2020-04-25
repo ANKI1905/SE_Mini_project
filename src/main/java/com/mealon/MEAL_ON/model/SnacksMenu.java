@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="menu")
-public class Menu {
+@Table(name="snacks_menu")
+public class SnacksMenu {
 	//All the variables name as small case, and attributes(@Column) name in snake case
 	
 	//Create such @Entity for all the tables in SQL
@@ -17,19 +17,20 @@ public class Menu {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="menu_id")
-	private int menuid;
+	@Column(name="snacks_id")
+	private int snacksid;
 	@Column(name="name")
 	private String name;
+	@Column(name="price")
+	private int price;
 	@Column(name="mess_id")
 	private int messid;
 	
-	
-	public int getMenuId() {
-		return menuid;
+	public int getSnacksid() {
+		return snacksid;
 	}
-	public void setMenuId(int menuid) {
-		this.menuid = menuid;
+	public void setSnacksid(Integer snacksid) {
+		this.snacksid = snacksid;
 	}
 	public String getName() {
 		return name;
@@ -37,12 +38,19 @@ public class Menu {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
 	public int getMessid() {
 		return messid;
 	}
-	public void setMessid(int messid) {
+	public void setMessid(Integer messid) {
 		this.messid = messid;
 	}
-
+	
+	
 
 }
