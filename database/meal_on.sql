@@ -84,22 +84,22 @@ CREATE TABLE  IF NOT EXISTS inventory (
   
 CREATE TABLE  IF NOT EXISTS student_bill (
   `mis` bigint(20) UNSIGNED NOT NULL,
-  `month` varchar(20) NOT NULL,
+  `month_` varchar(20) NOT NULL,
   `nos_of_meals` tinyint(4) NOT NULL DEFAULT '62',
   `curr_bill` int(11) NOT NULL,
   `pay_status` tinyint(1) NOT NULL,
   `prev_bill` int(11) NOT NULL,
-   PRIMARY KEY (mis, month),
+   PRIMARY KEY (mis, month_),
    FOREIGN KEY (mis) REFERENCES student(mis) ON DELETE CASCADE
    
 );
 
 CREATE TABLE  IF NOT EXISTS stud_absentee (
   `mis` bigint(20) UNSIGNED NOT NULL,
-  `from` date NOT NULL,
-  `to` date NOT NULL,
-  `type` char(1) NOT NULL,
-   PRIMARY KEY (mis, from, to, type),
+  `from_` date NOT NULL,
+  `to_` date NOT NULL,
+  `type_` char(1) NOT NULL,
+   PRIMARY KEY (mis, from_, to_, type_),
    FOREIGN KEY (mis) REFERENCES student(mis),
    FOREIGN KEY (mis) REFERENCES student_bill(mis)
 );
@@ -128,9 +128,9 @@ CREATE TABLE  IF NOT EXISTS menu_review (
 CREATE TABLE  IF NOT EXISTS staff_salary (
   `staff_id` int(11) NOT NULL,
   `nos_of_leaves` int(11) NOT NULL,
-  `month` varchar(11) NOT NULL,
+  `month_` varchar(11) NOT NULL,
   `salary` int(11) NOT NULL,
-  PRIMARY KEY (staff_id, month),
+  PRIMARY KEY (staff_id, month_),
   FOREIGN KEY (staff_id) REFERENCES mess_staff(staff_id) ON DELETE CASCADE
 );
 
