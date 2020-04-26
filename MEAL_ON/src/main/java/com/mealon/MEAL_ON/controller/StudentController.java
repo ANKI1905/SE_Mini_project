@@ -1,13 +1,91 @@
 package com.mealon.MEAL_ON.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.mealon.MEAL_ON.model.Student;
+import com.mealon.MEAL_ON.service.StudentService;
 
 
 @Controller
 @RequestMapping(path = "/students")
 public class StudentController {
 
+	@Autowired
+	private StudentService studentService;
+	
+	@RequestMapping ("/check")
+	public String studentCheck(@RequestParam Integer mis, @RequestParam String password, HttpSession session) {
+		//Student s = studentService.get(mis);
+		
+		if(studentService.check(mis, password)) {
+			session.setAttribute("mis", mis);
+			session.setAttribute("log", "1");
+			return "redirect:/students/";
+		}
+		//session.invalidate();
+		session.setAttribute("message", "Enter correct MIS or Password");
+		return "redirect:/studentlogin";
+	}
+	
+	@RequestMapping ("/")
+	public String studentHome(HttpSession session) {
+		//Student s = studentService.get(mis);
+		String l = (String) session.getAttribute("log");
+		session.removeAttribute("status");
+		if (l == null) {
+			return "redirect:/studentlogin";
+		}
+		Integer mis = (Integer) session.getAttribute("mis");
+		Student s = studentService.get(mis);
+		session.setAttribute("name", s.getName());
+		return "studentHome";
+			
+	}
+	
+	@RequestMapping ("/logout")
+	public String studentLogout(@RequestParam Integer mis, @RequestParam String password, HttpSession session) {
+		//Student s = studentService.get(mis);
+		
+
+		session.removeAttribute("mis");
+		session.removeAttribute("log");
+		session.invalidate();
+		return "redirect:/studentlogin";
+	}
+	
+	@PostMapping("/forgetPassword")
+	public @ResponseBody String passwordRecover(@RequestParam Integer mis, @RequestParam Long phone, @RequestParam String password) {
+		Boolean a =  studentService.forgetPassword(mis, phone, password);
+		if (a) {
+			return "password updated";
+		}
+		return "failed to update password";
+	}
+	
+	@PostMapping("/changePassword")
+	public @ResponseBody String passwordChange(@RequestParam String oldpass, @RequestParam String newpass, @RequestParam String newpass1, HttpSession session) {
+		int mis = (int) session.getAttribute("mis");
+		if(newpass1 == newpass) {
+			Boolean result = studentService.changePassword(mis, oldpass, newpass);
+			if(result) {
+				session.setAttribute("status", "Successful");
+			}
+			else {
+				session.setAttribute("status", "Failed to change the password");
+			}
+		}
+		 
+		return "studentHome";		
+	
+	}
+	
 	/*
 	 * Musadiq's work
 	 * Need to separate this in StudentServiceImpl
