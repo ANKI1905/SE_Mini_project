@@ -19,7 +19,7 @@ public class StudentBill {
 	@Column(name="mis")
 	private int mis;
 	@Id
-	@Column(name="month")
+	@Column(name="month_")
 	private String month;
 	@Column(name="nos_of_meals")
 	private short nosofmeal;

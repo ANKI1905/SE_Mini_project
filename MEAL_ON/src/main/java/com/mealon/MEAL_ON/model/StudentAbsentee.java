@@ -18,13 +18,13 @@ public class StudentAbsentee {
 	@Column(name="mis")
 	private int mis;
 	@Id
-	@Column(name="from")
+	@Column(name="from_")
 	private String from;
 	@Id
-	@Column(name="to")
+	@Column(name="to_")
 	private String to;
 	@Id
-	@Column(name="type")
+	@Column(name="type_")
 	private String type;
 	
 	public int getMis() {

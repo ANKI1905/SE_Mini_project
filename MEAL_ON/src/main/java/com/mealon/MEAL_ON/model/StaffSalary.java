@@ -20,7 +20,7 @@ public class StaffSalary {
         @Column(name="nos_of_leaves")
         private int nosofleaves;
         @Id
-        @Column(name="month")
+        @Column(name="month_")
         private String month;
         @Column(name="salary")
         private int salary;
