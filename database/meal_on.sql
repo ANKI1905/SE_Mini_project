@@ -33,9 +33,9 @@ CREATE TABLE IF NOT EXISTS mess (
 CREATE TABLE IF NOT EXISTS student (
   `mis` 			BIGINT(20) UNSIGNED NOT NULL,
   `name` 			VARCHAR(40) NOT NULL,
-  `room_no` 		VARCHAR(20) NOT NULL,
+  `room_no` 		VARCHAR(20),
   `year_of_study` 	tinyint(4) NOT NULL,
-  `contact` 		int(10) NOT NULL,
+  `contact` 		BIGINT(20) NOT NULL,
   `email` 			VARCHAR(50) NOT NULL,
   `password` 		VARCHAR(100) NOT NULL,
   `mess_id` 		int(11) NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE  IF NOT EXISTS snacks_menu (
 ); 
 
 CREATE TABLE  IF NOT EXISTS inventory (
-  `inventory_id` 	int(11) NOT NULL,
+  `inventory_id` 	int(11) NOT NULL AUTO_INCREMENT,
   `name` 			varchar(30) NOT NULL,
   `stock` 			int(11) NOT NULL,
   `avg_Price` 		int(11) NOT NULL,
