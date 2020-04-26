@@ -19,18 +19,18 @@ public class MessServiceImpl implements MessService{
 	
 	@Transactional
 	@Override
-	public Boolean add(String name, String password, String messadmin) {
+	public Integer add(String name, String password, String messadmin) {
 		/* Fails if same Mess name already exists in database
 		 * Fails also when DAO is unable to save::: not to be informed to the customer
 		 * Success if Mess name is unique
 		 */
-		Boolean result = false;
+		Integer result = 0;
 		Mess mess = messDAO.findByName(name);
 		if(mess == null) {
 			Mess newMess = toMess(name, password, messadmin, 0);
 			try {
 				messDAO.save(newMess);
-				result = true;
+				result = newMess.getMessid();
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -41,13 +41,13 @@ public class MessServiceImpl implements MessService{
 	
 	@Transactional
 	@Override
-	public Boolean check(String name, String password) {
+	public Boolean check(Integer mess_id, String password) {
 		/* Fails if password of mess does not match with the saved password
 		 * Success if password matches
 		 */
 		Boolean result = false;
 		try {
-			Mess mess = messDAO.findByName(name);
+			Mess mess = messDAO.findByMessid(mess_id);
 			String pass = mess.getPassword();
 			if(pass.equals(password)) {
 				result = true;
@@ -75,10 +75,10 @@ public class MessServiceImpl implements MessService{
 	
 	@Transactional
 	@Override
-	public Mess get(String name) {
+	public Mess get(Integer mess_id) {
 		Mess mess = null;
 		try {
-			mess = messDAO.findByName(name);
+			mess = messDAO.findByMessid(mess_id);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -92,7 +92,7 @@ public class MessServiceImpl implements MessService{
 		 * Success if Mess is updated
 		 */
 		Boolean result = false;
-		Mess mess = get(name);
+		Mess mess = get(mess_id);
 		if(mess != null) {
 			Mess newMess = toMess(name, password, messadmin, rate);
 			newMess.setMessid(mess_id);
@@ -152,7 +152,7 @@ public class MessServiceImpl implements MessService{
 	private List<Mess> iterableToList(Iterable<Mess> iterator) { 
 		List<Mess> list = new ArrayList<>(); 
 		iterator.forEach(list::add); 
-		 return list; 
+		return list; 
 	}
 	
 	private List<Mess> optionalToList(Optional<Mess> optional) {

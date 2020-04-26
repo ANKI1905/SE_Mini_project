@@ -61,7 +61,7 @@ public class StudentServiceImpl implements StudentService{
 	
 	@Transactional
 	@Override
-	public String add(int mis, String name, String room_no, short year_of_study, int contact, String email, String password, int mess_id) {
+	public String add(int mis, String name, String room_no, short year_of_study, Long contact, String email, String password, int mess_id) {
 		String result = null;
 		Student newStudent = toStudent(mis, name, room_no, year_of_study, contact, email, password, mess_id);
 		try {
@@ -76,7 +76,7 @@ public class StudentServiceImpl implements StudentService{
 
 	@Transactional
 	@Override
-	public String update(int mis, String name, String room_no, short year_of_study, int contact, String email, String password, int mess_id) {
+	public String update(int mis, String name, String room_no, short year_of_study, Long contact, String email, String password, int mess_id) {
 		String result = null;
 		Student newStudent = toStudent(mis, name, room_no, year_of_study, contact, email, password, mess_id);
 		try {
@@ -103,7 +103,7 @@ public class StudentServiceImpl implements StudentService{
 	
 	@Transactional
 	@Override
-	public Boolean forgetPassword(Integer mis, Integer phone, String password) {
+	public Boolean forgetPassword(Integer mis, Long phone, String password) {
 		Student s = studentDAO.findByMis(mis);
 		if (s.getContact() == phone) {
 			s.setPassword(password);
@@ -127,7 +127,7 @@ public class StudentServiceImpl implements StudentService{
 	}
 	
 	
-	private Student toStudent(int mis, String name, String room_no, short year_of_study, int contact, String email, String password, int mess_id) {
+	private Student toStudent(int mis, String name, String room_no, short year_of_study, Long contact, String email, String password, int mess_id) {
 		Student newStudent = new Student();
 		newStudent.setMis(mis);
 		newStudent.setName(name);

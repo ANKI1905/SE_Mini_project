@@ -48,8 +48,8 @@ public class InventoryServiceImpl implements InventoryService {
  
 	@Transactional
     @Override
-    public String add(int id, String name, int stock, int avg_price, int mess_id) {
-		Inventory inventory = toInventory(id, name, stock, avg_price, mess_id);
+    public String add(String name, int stock, int avg_price, int mess_id) {
+		Inventory inventory = toInventory(name, stock, avg_price, mess_id);
 		String result = null;
 		try {
 			inventoryDAO.save(inventory);
@@ -123,6 +123,14 @@ public class InventoryServiceImpl implements InventoryService {
 		return inventory;
 	}
 	
+	private Inventory toInventory(String name, int stock, int avgprice, int messid) {
+		Inventory inventory = new Inventory();
+		inventory.setName(name);
+		inventory.setStock(stock);
+		inventory.setAvgprice(avgprice);
+		inventory.setMessid(messid);
+		return inventory;
+	}
 	/*
 	private List<Inventory> iterableToList(Iterable<Inventory> iterator) { 
 		List<Inventory> list = new ArrayList<>(); 
