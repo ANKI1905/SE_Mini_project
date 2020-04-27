@@ -31,8 +31,7 @@ public class StudentController {
 			session.setAttribute("log", "1");
 			return "redirect:/students/";
 		}
-		//session.invalidate();
-		session.setAttribute("message", "Enter correct MIS or Password");
+		session.invalidate();
 		return "redirect:/studentlogin";
 	}
 	
