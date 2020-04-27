@@ -17,7 +17,7 @@ public class MessStaffServiceImpl implements MessStaffService{
 	
 	@Transactional
 	@Override
-	public Boolean add(String name, int mess_id, int account_no, int contact, String address) {
+	public Boolean add(String name, int mess_id, Long account_no, Long contact, String address) {
 		/* Fails if same Mess name already exists in database
 		 * Fails also when DAO is unable to save::: not to be informed to the customer
 		 * Success if Mess name is unique
@@ -65,7 +65,7 @@ public class MessStaffServiceImpl implements MessStaffService{
 	
 	@Transactional
 	@Override
-	public Boolean update(String name, int mess_id, int account_no, int contact, String address) {
+	public Boolean update(String name, int mess_id, Long account_no, Long contact, String address) {
 		/* Fails if MessStaff with given name does not exists in database
 		 * Success if MessStaff is updated
 		 */
@@ -119,7 +119,7 @@ public class MessStaffServiceImpl implements MessStaffService{
 		return messStaffIds;
 	}
 	
-	private MessStaff toMessStaff(String name, int mess_id, int account_no, int contact, String address) {
+	private MessStaff toMessStaff(String name, int mess_id, Long account_no, Long contact, String address) {
 		MessStaff newMessStaff = new MessStaff();
 		//staff_id will be auto incremented
 		newMessStaff.setName(name);

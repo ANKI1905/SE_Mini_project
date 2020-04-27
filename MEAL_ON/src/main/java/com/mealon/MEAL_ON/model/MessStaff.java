@@ -16,16 +16,16 @@ public class MessStaff {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "staffid", nullable = false)
+        @Column(name = "staff_id", nullable = false)
         private int staffid;
         @Column(name="name")
         private String name;
         @Column(name="mess_id")
         private int messid;
         @Column(name="account_no")
-        private int accountno;
+        private Long accountno;
         @Column(name="contact")
-        private int contact;
+        private Long contact;
         @Column(name="address")
         private String address;
         
@@ -60,22 +60,22 @@ public class MessStaff {
 		}
 
 
-		public int getAccountno() {
+		public Long getAccountno() {
 			return accountno;
 		}
 
 
-		public void setAccountno(int accountno) {
+		public void setAccountno(Long accountno) {
 			this.accountno = accountno;
 		}
 
 
-		public int getContact() {
+		public Long getContact() {
 			return contact;
 		}
 
 
-		public void setContact(int contact) {
+		public void setContact(Long contact) {
 			this.contact = contact;
 		}
 
