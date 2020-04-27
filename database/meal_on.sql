@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS review_rating;
 DROP TABLE IF EXISTS menu_review;
 DROP TABLE IF EXISTS staff_salary;
 DROP TABLE IF EXISTS snacks_token;
-
+DROP TABLE IF EXISTS weekly_menu;
 
 
 
@@ -144,3 +144,12 @@ CREATE TABLE IF NOT EXISTS snacks_token(
    FOREIGN KEY(mis) REFERENCES student(mis),
    FOREIGN KEY(snacks_id) REFERENCES snacks_menu(snacks_id) ON DELETE CASCADE
 ) ;
+
+CREATE TABLE IF NOT EXISTS weekly_menu (
+  `mess_id` 		int(11) NOT NULL AUTO_INCREMENT,
+  `day_` 			varchar(30) NOT NULL,
+  `type_` 			char(1) NOT NULL,
+  `menu_id_array`	varchar(100),
+   PRIMARY KEY (mess_id, day_, type_),
+   FOREIGN KEY (mess_id) REFERENCES mess(mess_id) ON DELETE CASCADE
+);
