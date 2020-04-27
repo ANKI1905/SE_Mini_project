@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +15,24 @@
     <h1>MealOn</h1>
     <h2>Manage Staff</h2>
     <!--show all mess employes here and an option to edit them-->   
-    ${staffList[0].name}
-
-    <c:forEach items="staffList" var = "i">
-         <c:out value = "${i.name}"/><p>
-      </c:forEach>
+	<table>
+		<tr>
+			<td>ID</td>
+			<td>Name</td>
+			<td>Account Number</td>
+			<td>Contact</td>
+			<td>Address</td>
+		</tr>
+    <c:forEach var = "i" items="${staffList}">
+        <tr>
+	        <td>${i.staffid}</td>
+	        <td>${i.name}</td>  
+	        <td>${i.accountno}</td>  
+	        <td>${i.contact}</td>  
+	        <td>${i.address}</td>  
+    	</tr>
+    </c:forEach>
+    </table>
 <div class="align_center">
 <form action="/mess/staff/add/page">
     <input class = "green_btn medium_btn" type="submit" title="Add an Employee" value="Add Employe" />

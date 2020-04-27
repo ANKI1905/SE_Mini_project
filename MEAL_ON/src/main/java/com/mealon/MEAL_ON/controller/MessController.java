@@ -239,18 +239,17 @@ public class MessController {
 	 */
 	@RequestMapping("/staff")
 	public String messStaffHome (HttpSession session){
-		Integer mess_id = (Integer) session.getAttribute("mess_id");
+		int mess_id = (int) session.getAttribute("mess_id");
 		List<MessStaff> staffList = messStaffService.getAllMessStaff(mess_id);
 		session.setAttribute("staffList", staffList);
-		System.out.println(staffList.size());
 		return "staffHome";
 	}
 	@RequestMapping("/staff/add/page")
 	public String messStaffAddPage (){
 		return "staffAdd";
 	}
-	@RequestMapping("/staff/add")
-	public @ResponseBody String messStaffAdd (@RequestParam String name, @RequestParam int account_no, int contact, String address, HttpSession session) {
+	@RequestMapping(value = "/staff/add", method = RequestMethod.POST)
+	public @ResponseBody String messStaffAdd (@RequestParam String name, @RequestParam Long account_no, Long contact, String address, HttpSession session) {
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		if (messStaffService.add(name, mess_id, account_no, contact, address)) {
 			return "added with staff id";
