@@ -61,12 +61,12 @@ public class StudentServiceImpl implements StudentService{
 	
 	@Transactional
 	@Override
-	public String add(int mis, String name, String room_no, short year_of_study, Long contact, String email, String password, int mess_id) {
-		String result = null;
+	public Boolean add(int mis, String name, String room_no, short year_of_study, Long contact, String email, String password, int mess_id) {
+		Boolean result = false;
 		Student newStudent = toStudent(mis, name, room_no, year_of_study, contact, email, password, mess_id);
 		try {
 			studentDAO.save(newStudent);
-			result = "Added successfully";
+			result = true;
 		}
 		catch (Exception e) {
 			e.printStackTrace();
