@@ -12,9 +12,19 @@
 
 </head>
 <body>
+<%	//This prevents browser from saving cache
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP1.1
+	response.setHeader("Pragma", "n-cache"); //HTTP 1.0
+	response.setHeader("Expires", "0"); //Proxies
+
+	if(session.getAttribute("log") == null) {
+		response.sendRedirect("studentLogin.jsp");
+	}
+%>
 	<br><br>
-	<h1> Hy ${admin} </h1>
+	<h1> Hello ${admin} </h1>
 	<h2> your id is ${mess_id}  </h2>
+	<h3>${status}</h3>
 	<hr>
 	<div class="align_left">
 
@@ -31,6 +41,10 @@
 	</form>
 	<br>	<button class="green_btn medium_btn" value="HII">Predict No. Of Meals</button><br><br>
 	<button class="green_btn medium_btn" value="HII">Menu</button><br><br>
+	<form action = "/mess/changePassword">
+		<input class = "green_btn medium_btn" type = "submit" title="Manage your account" value = "Change Password">
+	</form>
+	<br>
 	<button class="green_btn medium_btn" value="HII">Help</button><br><br>
 	</div>
 	<div class="align_center">

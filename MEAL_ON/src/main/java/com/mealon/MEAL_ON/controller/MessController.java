@@ -15,9 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/mess")
@@ -59,13 +61,55 @@ public class MessController {
 	@RequestMapping ("/")
 	public String messHome(HttpSession session) {
 		String l = (String) session.getAttribute("log");
-		if (l == "1") {
-			Integer mess_id = (Integer) session.getAttribute("mess_id");
-			Mess m = messService.get(mess_id);
-			session.setAttribute("admin", m.getMessadmin());
-			return "messHome";
+		
+		if (l == null) {
+			return "redirect:/adminlogin";
 		}
-		return "redirect:/adminlogin";
+		else if(l == "1") {
+			session.removeAttribute("status");
+		}
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
+		Mess m = messService.get(mess_id);
+		session.setAttribute("admin", m.getMessadmin());
+		session.setAttribute("log", "1");
+		return "messHome";
+	}
+	
+
+	@RequestMapping(value = "/passwordChangeUpdate", method = RequestMethod.POST)
+	public @ResponseBody RedirectView passwordChange(@RequestParam String oldpass, @RequestParam String newpass, @RequestParam String newpass1, HttpSession session) {
+		int mess_id = (int) session.getAttribute("mess_id");
+		session.removeAttribute("status");
+		if(newpass.equals(newpass1)) {
+			Boolean result = messService.changePassword(mess_id, oldpass, newpass);
+			if(result) {
+				session.setAttribute("status", "Successful");
+			}
+			else {
+				session.setAttribute("status", "Failed to change the password");
+			}
+		}
+		else {
+			session.setAttribute("status", "Please enter similar passwords!");
+			RedirectView redirectView = new RedirectView();
+		    redirectView.setUrl("/mess/changePassword");
+			return redirectView;
+		}
+		session.setAttribute("log", "2");
+		RedirectView redirectView = new RedirectView();
+	    redirectView.setUrl("/mess/?session="+session);
+		return redirectView;
+	
+	}
+	
+	@RequestMapping("/changePassword")
+	public String changePasswordPage(HttpSession session) {
+		String l = (String) session.getAttribute("log");
+		
+		if (l == null) {
+			return "redirect:/adminlogin";
+		}
+		return "messChangePassword";
 	}
 	
 	/*@RequestMapping ("/logout")
@@ -141,10 +185,31 @@ public class MessController {
 	 * 
 	 */
 	
+	@RequestMapping("/newstudent")
+	public String newStudent(HttpSession session) {
+		return "newStudent";
+	}
 	
-	@PostMapping("/student/signin")
-	public @ResponseBody String signinStudent(@RequestParam Integer mis, @RequestParam String name, @RequestParam String room_no, @RequestParam short year_of_study, @RequestParam Long contact, @RequestParam String email, @RequestParam String password, @RequestParam Integer mess_id) {
-		return studentService.add(mis, name, room_no, year_of_study, contact, email, password, mess_id);
+	@RequestMapping(value = "/student/signin", method = RequestMethod.POST)
+	public @ResponseBody RedirectView signinStudent(@RequestParam Integer mis, @RequestParam String name, @RequestParam String room_no, @RequestParam short year_of_study, @RequestParam Long contact, @RequestParam String email, @RequestParam String password, HttpSession session) {
+		String l = (String) session.getAttribute("log");
+		if (l == null) {
+			RedirectView redirectView = new RedirectView();
+		    redirectView.setUrl("/adminlogin");
+			return redirectView;
+		}
+		int mess_id = (int) session.getAttribute("mess_id");
+		Boolean result = studentService.add(mis, name, room_no, year_of_study, contact, email, password, mess_id);
+		if(result) {
+			session.setAttribute("status", "Added a student");
+		}
+		else {
+			session.setAttribute("status", "Failed to add student");
+		}
+		session.setAttribute("log", "2");
+		RedirectView redirectView = new RedirectView();
+	    redirectView.setUrl("/mess/?session="+session);
+		return redirectView;
 	}
 	
 	
@@ -190,7 +255,7 @@ public class MessController {
 		if (messStaffService.add(name, mess_id, account_no, contact, address)) {
 			return "added with staff id";
 		}
-		return "couldn't add";		
+		return "couldn't add";
 	}
 
 }
