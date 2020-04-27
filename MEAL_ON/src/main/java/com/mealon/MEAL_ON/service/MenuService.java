@@ -8,6 +8,7 @@ public interface MenuService {
 	
 	void add(Integer mess_id, String name);
 	
+	//Also used by WeeklyMenuService to check if the menu exists in particular mess
 	List<Menu> get(int mess_id);
 	Integer[] getMenuIDs(int mess_id);
 	//This will be rarely used
