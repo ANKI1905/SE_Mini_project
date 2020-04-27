@@ -54,7 +54,7 @@ public class StudentController {
 		return "studentHome";
 			
 	}
-	
+	/*
 	@RequestMapping ("/logout")
 	public String studentLogout(HttpSession session) {
 		//Student s = studentService.get(mis);
@@ -65,6 +65,7 @@ public class StudentController {
 		session.invalidate();
 		return "redirect:/studentlogin";
 	}
+	*/
 	
 	@PostMapping("/forgetPassword")
 	public @ResponseBody String passwordRecover(@RequestParam Integer mis, @RequestParam Long phone, @RequestParam String password) {
@@ -78,6 +79,7 @@ public class StudentController {
 	@RequestMapping(value = "/passwordChangeUpdate", method = RequestMethod.POST)
 	public @ResponseBody RedirectView passwordChange(@RequestParam String oldpass, @RequestParam String newpass, @RequestParam String newpass1, HttpSession session) {
 		int mis = (int) session.getAttribute("mis");
+		session.removeAttribute("status");
 		if(newpass.equals(newpass1)) {
 			Boolean result = studentService.changePassword(mis, oldpass, newpass);
 			if(result) {
@@ -102,7 +104,6 @@ public class StudentController {
 	
 	@RequestMapping("/changePassword")
 	public String changePasswordPage(HttpSession session) {
-		session.removeAttribute("status");
 		return "studentChangePassword";
 	}
 	

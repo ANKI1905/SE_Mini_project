@@ -24,7 +24,7 @@
 	<br><br>
 	<h1>Hello ${name} Welcome!</h1>
 	<h3>${status}</h3>
-	<form action = "/students/logout">
+	<form action = "/logout">
 		<input type = "submit" value = "Logout">
 	</form>
 	<form action = "/students/changePassword">
