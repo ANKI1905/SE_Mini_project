@@ -22,12 +22,12 @@
 	}
 %>
 	<br><br>
-	<h1> Hy ${name} </h1>
+	<h1>Hello ${name} Welcome!</h1>
 	<h3>${status}</h3>
-	<form action = "/logout">
+	<form action = "/students/logout">
 		<input type = "submit" value = "Logout">
 	</form>
-	<form action = "studentChangePassword">
+	<form action = "/students/changePassword">
 		<input type = "submit" value = "Change Password">
 	</form>
 	<hr>

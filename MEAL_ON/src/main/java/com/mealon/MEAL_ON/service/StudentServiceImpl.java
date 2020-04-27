@@ -117,12 +117,19 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public Boolean changePassword(Integer mis, String oldpass, String newpass) {
 		Boolean result = false;
-		Student s = studentDAO.findByMis(mis);
-		if (s.getPassword() == oldpass) {
-			s.setPassword(newpass);
-			studentDAO.save(s);
-			result = true;
+		Student student = studentDAO.findByMis(mis);
+		System.out.print(student.getPassword()  +  oldpass + student.getPassword().equals(oldpass));
+		if (student != null && student.getPassword().equals(oldpass)) {
+			student.setPassword(newpass);
+			try {
+				studentDAO.save(student);
+				result = true;
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+		System.out.print(result);
 		return result;
 	}
 	

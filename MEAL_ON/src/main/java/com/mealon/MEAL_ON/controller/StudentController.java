@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.mealon.MEAL_ON.model.Student;
 import com.mealon.MEAL_ON.service.StudentService;
@@ -38,19 +40,23 @@ public class StudentController {
 	public String studentHome(HttpSession session) {
 		//Student s = studentService.get(mis);
 		String l = (String) session.getAttribute("log");
-		session.removeAttribute("status");
+		
 		if (l == null) {
 			return "redirect:/studentlogin";
+		}
+		else if(l == "1") {
+			session.removeAttribute("status");
 		}
 		Integer mis = (Integer) session.getAttribute("mis");
 		Student s = studentService.get(mis);
 		session.setAttribute("name", s.getName());
+		session.setAttribute("log", "1");
 		return "studentHome";
 			
 	}
 	
 	@RequestMapping ("/logout")
-	public String studentLogout(@RequestParam Integer mis, @RequestParam String password, HttpSession session) {
+	public String studentLogout(HttpSession session) {
 		//Student s = studentService.get(mis);
 		
 
@@ -69,10 +75,10 @@ public class StudentController {
 		return "failed to update password";
 	}
 	
-	@PostMapping("/changePassword")
-	public @ResponseBody String passwordChange(@RequestParam String oldpass, @RequestParam String newpass, @RequestParam String newpass1, HttpSession session) {
+	@RequestMapping(value = "/passwordChangeUpdate", method = RequestMethod.POST)
+	public @ResponseBody RedirectView passwordChange(@RequestParam String oldpass, @RequestParam String newpass, @RequestParam String newpass1, HttpSession session) {
 		int mis = (int) session.getAttribute("mis");
-		if(newpass1 == newpass) {
+		if(newpass.equals(newpass1)) {
 			Boolean result = studentService.changePassword(mis, oldpass, newpass);
 			if(result) {
 				session.setAttribute("status", "Successful");
@@ -81,9 +87,23 @@ public class StudentController {
 				session.setAttribute("status", "Failed to change the password");
 			}
 		}
-		 
-		return "studentHome";		
+		else {
+			session.setAttribute("status", "Please enter similar passwords!");
+			RedirectView redirectView = new RedirectView();
+		    redirectView.setUrl("/students/changePassword");
+			return redirectView;
+		}
+		session.setAttribute("log", "2");
+		RedirectView redirectView = new RedirectView();
+	    redirectView.setUrl("/students/?session="+session);
+		return redirectView;
 	
+	}
+	
+	@RequestMapping("/changePassword")
+	public String changePasswordPage(HttpSession session) {
+		session.removeAttribute("status");
+		return "studentChangePassword";
 	}
 	
 	/*

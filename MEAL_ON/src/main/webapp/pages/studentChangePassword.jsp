@@ -11,9 +11,49 @@
 
 </head>
 <body>
-	<form action = "/changePassword">
-		New Password<input type = "password" name = "newpass"/>
-		Confirm Password<input type = "password" name = "newpass1">
+<%	//This prevents browser from saving cache
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP1.1
+	response.setHeader("Pragma", "n-cache"); //HTTP 1.0
+	response.setHeader("Expires", "0"); //Proxies
+
+	if(session.getAttribute("log") == null) {
+		response.sendRedirect("studentLogin.jsp");
+	}
+%>
+	<h1>${status}</h1>
+	<form action = "/students/passwordChangeUpdate" method = "POST">
+		Old Password<input type = "password" name = "oldpass" required/>
+		New Password<input type = "password" name = "newpass" required/>
+		Confirm Password<input type = "password" name = "newpass1" required/>
+		<input type = "Submit" value = "change" onclick="checkPassword(form)"/>
 	</form>
+	
+	<script>
+	function checkPassword(form) { 
+		oldpassword = form.oldpass.value;
+        password1 = form.newpass.value; 
+        password2 = form.newpass1.value; 
+		if(oldpassword == '')
+			alert("Please enter your current password");
+        // If password not entered 
+        if (password1 == '') 
+            alert ("Please enter Password"); 
+              
+        // If confirm password not entered 
+        else if (password2 == '') 
+            alert ("Please enter confirm password"); 
+              
+        // If Not same return False.     
+        else if (password1 != password2) { 
+            alert ("\nPassword did not match: Please try again...") 
+            return false; 
+        } 
+
+        // If same return True. 
+        else{ 
+            return true; 
+        } 
+    } 
+	</script>
 </body>
 </html>
