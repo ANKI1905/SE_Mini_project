@@ -24,13 +24,22 @@
 	<br><br>
 	<h1>Hello ${name} Welcome!</h1>
 	<h3>${status}</h3>
-	<form action = "/logout">
-		<input type = "submit" value = "Logout">
-	</form>
-	<form action = "/students/changePassword">
-		<input type = "submit" value = "Change Password">
-	</form>
 	<hr>
+	<form action="/students/menuToday">
+		<input class = "green_btn medium_btn" type="submit" title="View today's menu" value="Menu Timetable" />
+	</form>
+	<br>
+	<form action="/students/viewProfile">
+		<input class = "green_btn medium_btn" type="submit" title="View and Edit your profile" value="My Profile" />
+	</form>
+	<br>
+	<form action = "/students/changePassword">
+		<input class = "green_btn medium_btn" title = "Change Password of your account" type = "submit" value = "Change Password">
+	</form>
+	<br>
+	<form action = "/logout">
+		<input class = "green_btn medium_btn" title = "Logout" type = "submit" value = "Logout">
+	</form>
 	
 	
 </body>
