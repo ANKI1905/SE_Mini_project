@@ -1,5 +1,10 @@
 package com.mealon.MEAL_ON.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +16,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.mealon.MEAL_ON.model.Menu;
+import com.mealon.MEAL_ON.model.MessStaff;
+import com.mealon.MEAL_ON.model.SnacksMenu;
 import com.mealon.MEAL_ON.model.Student;
+import com.mealon.MEAL_ON.model.WeeklyMenu;
+import com.mealon.MEAL_ON.service.MenuService;
+import com.mealon.MEAL_ON.service.SnacksMenuService;
 import com.mealon.MEAL_ON.service.StudentService;
+import com.mealon.MEAL_ON.service.WeeklyMenuService;
 
 
 @Controller
@@ -21,6 +33,13 @@ public class StudentController {
 
 	@Autowired
 	private StudentService studentService;
+	@Autowired
+	private WeeklyMenuService weeklyMenuService;
+	@Autowired
+	private MenuService menuService;
+	@Autowired
+	private SnacksMenuService snacksMenuService;
+	
 	
 	@RequestMapping ("/check")
 	public String studentCheck(@RequestParam Integer mis, @RequestParam String password, HttpSession session) {
@@ -104,6 +123,46 @@ public class StudentController {
 	@RequestMapping("/changePassword")
 	public String changePasswordPage(HttpSession session) {
 		return "studentChangePassword";
+	}
+	
+	/*
+	 * Menu operations student side
+	 * 
+	 */
+	@RequestMapping("/menuToday")
+	public String allMenuList (HttpSession session){
+		String l = (String) session.getAttribute("log");
+		if (l == null) {
+			return "redirect:/studentlogin";
+		}
+		int messId = studentService.getMessid((int)session.getAttribute("mis"));
+		//This list contains menu_id. Theses menu_ids are confirmed that they foremost belong to that mess only.
+		List<WeeklyMenu> weeklyMenuList = weeklyMenuService.get(messId);
+		//Note: Each MenuId is unique, regardless of messId
+		List<List<String>> menuNames = new ArrayList<List<String>>();
+		for(WeeklyMenu weeklyMenu:weeklyMenuList) {
+			String menuIdList = weeklyMenu.getMenuidarray();
+		    List<Integer> checkList = Arrays.stream(menuIdList.split(",")).map(Integer::parseInt).collect(Collectors.toList());
+		    List<String> menuName = new ArrayList<>();
+		    for(Integer menuId:checkList) {
+		    	Menu menu = menuService.get(messId, menuId);
+		    	String name = menu.getName();
+		    	menuName.add(name);
+		    }
+		    menuNames.add(menuName);
+		}
+		List<SnacksMenu> snacksMenuList = snacksMenuService.get(messId);
+		int i, len = menuNames.size();
+		int[] totLength = new int[len];
+		for(i = 0;i < len; i++) {
+			totLength[i] = i;
+		}
+		session.setAttribute("size", totLength);
+		session.setAttribute("menuLists", menuNames);
+		session.setAttribute("weeklyMenuList", weeklyMenuList);
+		session.setAttribute("snacksList", snacksMenuList);
+		System.out.print(totLength[0]);
+		return "ViewMenu";
 	}
 	
 	/*
