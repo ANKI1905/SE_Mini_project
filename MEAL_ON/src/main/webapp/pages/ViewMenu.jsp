@@ -25,14 +25,14 @@
     <h2>This Week's Menu</h2>
     <div class="align_center">
     <select onchange="func(this)">
-    	<option value = "Monday">Monday</option>
-    	<option value = "Tuesday">Tuesday</option>
-    	<option value = "Wednesday">Wednesday</option>
-    	<option value = "Thursday">Thursday</option>
-    	<option value = "Friday">Friday</option>
-    	<option value = "Saturday">Saturday</option>
-    	<option value = "Sunday">Sunday</option>
-    	<option value = "AllDay" selected>This Week</option>
+    	<option id = "Monday">Monday</option>
+    	<option id = "Tuesday">Tuesday</option>
+    	<option id = "Wednesday">Wednesday</option>
+    	<option id = "Thursday">Thursday</option>
+    	<option id = "Friday">Friday</option>
+    	<option id = "Saturday">Saturday</option>
+    	<option id = "Sunday">Sunday</option>
+    	<option id = "AllDay" selected>This Week</option>
     </select>
     <br>
     
@@ -86,10 +86,20 @@
 </form>
 </div>
 <script>
+	var today = new Date();
+	var weekday = new Array(7);
+	weekday[0] = "Sunday";
+	weekday[1] = "Monday";
+	weekday[2] = "Tuesday";
+	weekday[3] = "Wednesday";
+	weekday[4] = "Thursday";
+	weekday[5] = "Friday";
+	weekday[6] = "Saturday";
+	document.getElementById(weekday[today.getDay()]).selected = true;
+	var selectTag = document.getElementsByTagName("select")[0];
+	func(selectTag);
 	function func(select) { 
-		
 		var input, filter, table, tr, td, i, txtValue;
-		
 		filter = select.value;
 		table = document.getElementById("MenuTable");
 		tr = table.getElementsByTagName("tr");
