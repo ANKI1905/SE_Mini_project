@@ -48,6 +48,21 @@ public class StudentServiceImpl implements StudentService{
 	
 	@Transactional
 	@Override
+	public int getMessid(int mis) {
+		int messid = 0;
+		try {
+			Student student = studentDAO.findByMis(mis);
+			messid = student.getMessid();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return messid;
+	}
+
+	
+	@Transactional
+	@Override
 	public List<Student> getAllStudent(int mess_id) {
 		List<Student> student = null;
 		try {
