@@ -25,14 +25,14 @@
     <h2>This Week's Menu</h2>
     <div class="align_center">
     <select onchange="func(this)">
+    	<option id = "Sunday">Sunday</option>
     	<option id = "Monday">Monday</option>
     	<option id = "Tuesday">Tuesday</option>
     	<option id = "Wednesday">Wednesday</option>
     	<option id = "Thursday">Thursday</option>
     	<option id = "Friday">Friday</option>
     	<option id = "Saturday">Saturday</option>
-    	<option id = "Sunday">Sunday</option>
-    	<option id = "AllDay" selected>This Week</option>
+    	<option id = "AllDay">This Week</option>
     </select>
     <br>
     
@@ -106,7 +106,7 @@
 		for(i = 0; i < tr.length; i++) {
 			td = tr[i].getElementsByTagName("td")[0];
 			txtValue = td.textContent;
-			if(txtValue.indexOf(filter) > -1 || filter == "AllDay") {
+			if(txtValue.indexOf(filter) > -1 || filter == "This Week") {
 				tr[i].style.display = "";	
 			}
 			else {
