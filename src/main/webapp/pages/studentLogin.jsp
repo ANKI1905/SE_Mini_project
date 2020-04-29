@@ -14,7 +14,6 @@
 	<br><br>
 	<h1>MealOn</h1>
 	<h2>Student Login</h2>
-	<h2>${message}</h2>
 	<br>
 	<div class="align_center">
 		<form action="studentauth" method="post">

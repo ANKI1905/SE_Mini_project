@@ -71,12 +71,33 @@ h1 {
   }
 
 .align_left {
-  text-align: left;
+  display: inline-block;
+  margin-left: 20%;
 }
 .align_right {
   text-align: right;
-}
+  display: inline-block;
+  margin-right: 20%;
 
-hr {
-  color: aliceblue;
 }
+.error {
+  width: 92%; 
+  margin: 0px auto; 
+  padding: 10px; 
+  border: 1px solid #a94442; 
+  color: #a94442; 
+  background: #f2dede; 
+  border-radius: 5px; 
+  text-align: left;
+}
+.red {
+  color: red;
+}
+table, th, td {
+  border: 1px solid black;
+  align-self: center;
+}
+.white {
+  color: white;
+}
+    

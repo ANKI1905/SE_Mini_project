@@ -11,11 +11,20 @@
 
 </head>
 <body>
+<%	//This prevents browser from saving cache
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP1.1
+	response.setHeader("Pragma", "n-cache"); //HTTP 1.0
+	response.setHeader("Expires", "0"); //Proxies
+
+	if(session.getAttribute("log") == null) {
+		response.sendRedirect("adminLogin.jsp");
+	}
+%>
 	<br><br>
 	<h1>MealOn</h1>
 	<h2>Add Student</h2>
 	<div class="align_center">
-		<form action="http://localhost:8081/mess/student/signin" method="post">
+		<form action="student/signin" method="post">
 			<input class ="form_data" required="required" type="number" name="mis"pattern="[0-9]{9}" placeholder="MIS"/><br></br>
 			<input class ="form_data" required="required" type="text" name="name" placeholder="Name" /><br></br>
             <input class ="form_data" required="required" type="text" name="room_no" placeholder="Room No" /><br></br>

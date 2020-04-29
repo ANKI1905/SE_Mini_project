@@ -12,8 +12,24 @@
 
 </head>
 <body>
+<%	//This prevents browser from saving cache
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP1.1
+	response.setHeader("Pragma", "n-cache"); //HTTP 1.0
+	response.setHeader("Expires", "0"); //Proxies
+
+	if(session.getAttribute("log") == null) {
+		response.sendRedirect("studentLogin.jsp");
+	}
+%>
 	<br><br>
-	<h1> Hy ${name} </h1>
+	<h1>Hello ${name} Welcome!</h1>
+	<h3>${status}</h3>
+	<form action = "/logout">
+		<input type = "submit" value = "Logout">
+	</form>
+	<form action = "/students/changePassword">
+		<input type = "submit" value = "Change Password">
+	</form>
 	<hr>
 	
 	

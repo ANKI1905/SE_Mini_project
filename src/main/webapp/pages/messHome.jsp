@@ -12,14 +12,22 @@
 
 </head>
 <body>
+<%	//This prevents browser from saving cache
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP1.1
+	response.setHeader("Pragma", "n-cache"); //HTTP 1.0
+	response.setHeader("Expires", "0"); //Proxies
+
+	if(session.getAttribute("log") == null) {
+		response.sendRedirect("adminLogin.jsp");
+	}
+%>
 	<br><br>
-	<h1> Hy ${admin} </h1>
+	<h1> Hello ${admin} </h1>
 	<h2> your id is ${mess_id}  </h2>
 	<hr>
 	<div class="align_left">
-
-	<form action="/mess/newstudent">
-            <input class = "green_btn medium_btn" type="submit" title="If you want to add new Student" value="Add Student" />
+	<form action="/mess/student">
+            <input class = "green_btn medium_btn" type="submit" title="If you want to add new Student" value="Manage Student" />
 	</form>
 	<br>
 	<form action="/mess/staff">
@@ -29,10 +37,18 @@
 	<form action="/mess/inventory">
 		<input class = "green_btn medium_btn" type="submit" title="Add, Remove, Update Inventory stock" value="Manage Inventory" />
 	</form>
-	<br>	<button class="green_btn medium_btn" value="HII">Predict No. Of Meals</button><br><br>
-	<button class="green_btn medium_btn" value="HII">Menu</button><br><br>
-	<button class="green_btn medium_btn" value="HII">Help</button><br><br>
-	</div>
+	<br>
+	<form action = "/mess/menu">
+		<input class = "green_btn medium_btn" type = "submit" title="Manage Menu" value = "Manage Menu">
+	</form>
+	<br>
+	<form action = "/mess/changePassword">
+		<input class = "green_btn medium_btn" type = "submit" title="Manage your account" value = "Change Password">
+	</form>
+	<br>
+	<form>
+		<input class = "green_btn medium_btn" type = "submit" title="Not available yet" value = "Predict No Of Meals">
+	</form>	</div>
 	<div class="align_center">
 	<form action="/logout" method="POST">
 		<input class="green_btn" type="submit" value="Logout">

@@ -13,7 +13,7 @@
     <h1>MealOn</h1>
 	<h2>Add Staff</h2>
     <div class="align_center">
-		<form action="http://localhost:8081/mess/staff/add" method="post">
+		<form action="/mess/staff/add" method="post">
 			<input class ="form_data" required="required" type="text" name="name" placeholder="Name"/><br></br>
 			<input class ="form_data" required="required" type="number" name="account_no" pattern="[0-9]{16}" placeholder="Account No" /><br></br>
 			<input class ="form_data" required="required" type="tel" name="contact"  placeholder="Phone No"/><br></br>
