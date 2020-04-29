@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS review_rating;
 DROP TABLE IF EXISTS menu_review;
 DROP TABLE IF EXISTS staff_salary;
 DROP TABLE IF EXISTS snacks_token;
-
+DROP TABLE IF EXISTS weekly_menu;
 
 
 
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS mess_staff (
   `staff_id` 		int(11) NOT NULL AUTO_INCREMENT,
   `name` 			varchar(30) NOT NULL,
   `mess_id` 		int(11) NOT NULL,
-  `accunt_no` 		bigint(20) NOT NULL,
+  `account_no` 		bigint(20) NOT NULL,
   `contact` 		bigint(20) NOT NULL,
   `address` 		varchar(50) NOT NULL,
    PRIMARY KEY (staff_id),
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS mess_staff (
 );
 
 CREATE TABLE IF NOT EXISTS menu (
-  `menu_id` 		int(11) NOT NULL,
+  `menu_id` 		int(11) NOT NULL AUTO_INCREMENT,
   `name` 			varchar(30) NOT NULL,
   `mess_id` 		int(11) NOT NULL,
    PRIMARY KEY (menu_id),
@@ -84,50 +84,54 @@ CREATE TABLE  IF NOT EXISTS inventory (
   
 CREATE TABLE  IF NOT EXISTS student_bill (
   `mis` bigint(20) UNSIGNED NOT NULL,
-  `month` varchar(20) NOT NULL,
+  `month_` varchar(20) NOT NULL,
   `nos_of_meals` tinyint(4) NOT NULL DEFAULT '62',
   `curr_bill` int(11) NOT NULL,
   `pay_status` tinyint(1) NOT NULL,
   `prev_bill` int(11) NOT NULL,
-   PRIMARY KEY (mis, month),
+   PRIMARY KEY (mis, month_),
    FOREIGN KEY (mis) REFERENCES student(mis) ON DELETE CASCADE
    
 );
 
 CREATE TABLE  IF NOT EXISTS stud_absentee (
   `mis` bigint(20) UNSIGNED NOT NULL,
-  `from` date NOT NULL,
-  `to` date NOT NULL,
-  `type` char(1) NOT NULL,
+  `from_` date NOT NULL,
+  `to_` date NOT NULL,
+  `type_` char(1) NOT NULL,
+   PRIMARY KEY (mis, from_, to_, type_),
    FOREIGN KEY (mis) REFERENCES student(mis),
    FOREIGN KEY (mis) REFERENCES student_bill(mis)
 );
 
 CREATE TABLE  IF NOT EXISTS review_rating(
-  `reviewId` 		int(11) NOT NULL,
+  `review_id` 		int(11) NOT NULL,
   `mis` 			bigint(11) UNSIGNED NOT NULL,
   `menu_id` 		int(11) NOT NULL,
   `rating` 			int(11) NOT NULL,
-  `comments` 		int(11) NOT NULL,
-  PRIMARY KEY (reviewId),
+  `comments` 		varchar(500) NOT NULL,
+  PRIMARY KEY (review_id),
   FOREIGN KEY (mis) REFERENCES student(mis),
   FOREIGN KEY (menu_id) REFERENCES menu(menu_id)
 );
 
 CREATE TABLE  IF NOT EXISTS menu_review (
+  `mess_id` int(11) NOT NULL,
   `menu_id` int(11) NOT NULL,
-  `avgRating` int(11) NOT NULL,
-  `commentOverview` varchar(500) NOT NULL,
-  FOREIGN KEY (menu_id) REFERENCES menu(menu_id)
+  `avg_rating` int(11) NOT NULL,
+  `comment_overview` varchar(500) NOT NULL,
+  PRIMARY KEY (menu_id),
+  FOREIGN KEY (mess_id) REFERENCES mess(mess_id) ON DELETE CASCADE,
+  FOREIGN KEY (menu_id) REFERENCES menu(menu_id) ON DELETE CASCADE
 );
 
 CREATE TABLE  IF NOT EXISTS staff_salary (
   `staff_id` int(11) NOT NULL,
   `nos_of_leaves` int(11) NOT NULL,
-  `month` int(11) NOT NULL,
+  `month_` varchar(11) NOT NULL,
   `salary` int(11) NOT NULL,
-  PRIMARY KEY (staff_id, month),
-  FOREIGN KEY (staff_id) REFERENCES mess_staff(staff_id)
+  PRIMARY KEY (staff_id, month_),
+  FOREIGN KEY (staff_id) REFERENCES mess_staff(staff_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS snacks_token(
@@ -138,5 +142,14 @@ CREATE TABLE IF NOT EXISTS snacks_token(
   `price` 			int(11) NOT NULL,
    PRIMARY KEY(date_time, mis, snacks_id, id),
    FOREIGN KEY(mis) REFERENCES student(mis),
-   FOREIGN KEY(snacks_id) REFERENCES snacks_menu(snacks_id)  
+   FOREIGN KEY(snacks_id) REFERENCES snacks_menu(snacks_id) ON DELETE CASCADE
 ) ;
+
+CREATE TABLE IF NOT EXISTS weekly_menu (
+  `mess_id` 		int(11) NOT NULL AUTO_INCREMENT,
+  `day_` 			varchar(30) NOT NULL,
+  `type_` 			char(1) NOT NULL,
+  `menu_id_array`	varchar(100),
+   PRIMARY KEY (mess_id, day_, type_),
+   FOREIGN KEY (mess_id) REFERENCES mess(mess_id) ON DELETE CASCADE
+);
