@@ -82,8 +82,11 @@ public class MessController {
 	 * 
 	 */
 	@RequestMapping("/menu")
-	public @ResponseBody List<Menu> getMenu(@RequestParam int mess_id){
-		return menuService.get(mess_id);
+	public String getMenu(HttpSession session){
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
+		session.setAttribute("menuList",menuService.get(mess_id));
+		System.out.println(menuService.get(mess_id));
+		return "menuHome";
 	}
 	
 	@RequestMapping("/menu/show")
@@ -91,10 +94,15 @@ public class MessController {
 		return menuService.get(mess_id, menu_id);
 	}
 	
+	@RequestMapping("/menu/add/page")
+	public String addMenuPage() {
+		return "addMenu";
+	}
 	@PostMapping("/menu/add")
-	public @ResponseBody String addMenu(@RequestParam Integer mess_id, @RequestParam String name) {
+	public String addMenu(@RequestParam String name, HttpSession session) {
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		menuService.add(mess_id, name);
-		return "saved";
+		return "redirect:/mess/menu";
 	}
 	
 	@PostMapping("/menu/delete")
@@ -105,17 +113,15 @@ public class MessController {
 	
 	
 	
-	
-	
 	/*
 	 * Inventory
 	 * 
 	 */
-	
 	@RequestMapping("/inventory")
-	public String getInventory(HttpSession session){
+	public String inventoryHome(HttpSession session) {
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
-		session.setAttribute("menu_list", inventoryService.get(mess_id));
+		List<Inventory> inventoryList = inventoryService.getAllInventory(mess_id);
+		session.setAttribute("inventoryList", inventoryList);
 		return "inventoryHome";
 	}
 	
@@ -149,25 +155,31 @@ public class MessController {
 		return inventoryService.updateStock(name, stock, mess_id);
 	}
 	
-	
 	/*
 	 * Student
 	 * 
 	 */
+	@RequestMapping("/students")
+	public String studentHome(HttpSession session) {
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
+		List<Student> studentList = studentService.getAllStudents(mess_id);
+		session.setAttribute("studentList", studentList);
+		return "messStudentHome";
+	}
 	@RequestMapping("/newstudent")
 	public String newStudent() {
 		return "newStudent";
 	}
 	
 	@PostMapping("/student/signin")
-	public @ResponseBody String signinStudent(@RequestParam Integer mis, @RequestParam String name, @RequestParam String room_no, @RequestParam short year_of_study, @RequestParam String contact, @RequestParam String email, @RequestParam String password, HttpSession session) {
+	public String signinStudent(@RequestParam Integer mis, @RequestParam String name, @RequestParam String room_no, @RequestParam short year_of_study, @RequestParam String contact, @RequestParam String email, @RequestParam String password, HttpSession session) {
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		Long c = Long.parseLong(contact);
 		Boolean res =  studentService.add(mis, name, room_no, year_of_study, c, email, password, mess_id);
 		if (res) {
-			return "added";
+			return "redirect:/mess/students";
 		}
-		return "could not add";
+		return "redirect:/mess/students";
 	}
 	
 	
@@ -200,7 +212,6 @@ public class MessController {
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		List<MessStaff> staffList = messStaffService.getAllMessStaff(mess_id);
 		session.setAttribute("staffList", staffList);
-		System.out.println(staffList.size());
 		return "staffHome";
 	}
 	@RequestMapping("/staff/add/page")
@@ -208,13 +219,20 @@ public class MessController {
 		return "staffAdd";
 	}
 	@RequestMapping("/staff/add")
-	public @ResponseBody String messStaffAdd (@RequestParam String name, @RequestParam Long account_no, Long contact, String address, HttpSession session) {
+	public String messStaffAdd (@RequestParam String name, @RequestParam Long account_no, Long contact, String address, HttpSession session) {
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		if (messStaffService.add(name, mess_id, account_no, contact, address)) {
-			return "added with staff id";
+			session.setAttribute("msg", "Added Successfully");
+			return "redirect:/mess/staff";
 		}
-		return "couldn't add";		
+		session.setAttribute("msg", "Failed To Add, Please Re-try");
+		return "redirect:/mess/staff";		
 	}
-
+	
+	@RequestMapping("/mess/staff/delete")
+	public String messStaffDelete (@RequestParam Integer staff_id) {
+		messStaffService.delete(staff_id);
+		return "redirect:/mess/staff";
+	}
 
 }
