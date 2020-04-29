@@ -17,7 +17,7 @@ public class Menu {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="menu_id")
+	@Column(name="menu_id", nullable = false)
 	private int menuid;
 	@Column(name="name")
 	private String name;
@@ -43,6 +43,10 @@ public class Menu {
 	public void setMessid(int messid) {
 		this.messid = messid;
 	}
-
+	@Override
+	public String toString() {
+		return "Menu [menuid=" + menuid + ", name=" + name + ", messid=" + messid + "]";
+	}
+	
 
 }
