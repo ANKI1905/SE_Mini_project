@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mealon.MEAL_ON.dao.MessDAO;
 import com.mealon.MEAL_ON.model.Mess;
-import com.mealon.MEAL_ON.model.Student;
 
 @Service
 public class MessServiceImpl implements MessService{

@@ -45,20 +45,7 @@ public class StudentServiceImpl implements StudentService{
 		}
 		return student;
 	}
-	
-	@Transactional
-	@Override
-	public List<Student> getAllStudent(int mess_id) {
-		List<Student> student = null;
-		try {
-			student = studentDAO.findByMessid(mess_id);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return student;
-	}
-	
+		
 	@Transactional
 	@Override
 	public Boolean add(int mis, String name, String room_no, short year_of_study, Long contact, String email, String password, int mess_id) {
@@ -138,5 +125,13 @@ public class StudentServiceImpl implements StudentService{
 		newStudent.setPassword(password);
 		newStudent.setMessid(mess_id);
 		return newStudent;
+	}
+
+	@Override
+	public List<Student> getAllStudents(Integer mess_id) {
+		// TODO Auto-generated method stub
+		List<Student> studentList = null;
+		studentList = studentDAO.findByMessid(mess_id);
+		return studentList;
 	}
 }

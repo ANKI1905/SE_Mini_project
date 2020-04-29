@@ -19,16 +19,17 @@ public class InventoryServiceImpl implements InventoryService {
 	
 	@Transactional
     @Override
-    public List<Inventory> get(int mess_id) {
-		List<Inventory> allInventoryList = null;
+	public List<Inventory> get(int mess_id) {
+		List<Inventory> inventory = null;
 		try {
-			allInventoryList = inventoryDAO.findByMessid(mess_id);
+			inventory = inventoryDAO.findAllByMessid(mess_id);
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
-		return allInventoryList;
-    }
+		System.out.println(inventory);
+		return inventory;
+	}
 
 	@Transactional
     @Override
@@ -145,5 +146,13 @@ public class InventoryServiceImpl implements InventoryService {
 		List<Inventory> list = new ArrayList<>(); 
 		optional.ifPresent(list::add); 
 		return list; 
+	}
+	
+	@Transactional
+	@Override
+	public List<Inventory> getAllInventory(int mess_id) {
+		List<Inventory> allInventoryList = null;
+		allInventoryList = inventoryDAO.findAllByMessid(mess_id);
+		return allInventoryList;
 	}
 }

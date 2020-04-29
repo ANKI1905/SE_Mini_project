@@ -108,6 +108,30 @@ public class MessStaffServiceImpl implements MessStaffService{
 		return result;
 	}
 	
+	
+	@Transactional
+	@Override
+	public Boolean delete(Integer staff_id) {
+		/* 
+		 * Success if messStaff with the name does not exists,
+		 * Success if messStaff is deleted.
+		 */
+		Boolean result = false;
+		MessStaff messStaff = null;
+		try {
+			messStaff = messStaffDAO.findByStaffid(staff_id);
+			if(messStaff != null) {
+				messStaffDAO.delete(messStaff);
+			}
+			result = true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
 	@Transactional
 	@Override
 	public List<Integer> getStaffIdList(int mess_id) {

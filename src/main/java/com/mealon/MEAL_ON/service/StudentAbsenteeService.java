@@ -3,7 +3,6 @@ package com.mealon.MEAL_ON.service;
 
 import java.util.List;
 
-import com.mealon.MEAL_ON.model.Student;
 import com.mealon.MEAL_ON.model.StudentAbsentee;
 
 public interface StudentAbsenteeService {
