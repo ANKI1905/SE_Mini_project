@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mealon.MEAL_ON.model.Student;
 import com.mealon.MEAL_ON.service.MessService;
 import com.mealon.MEAL_ON.service.StudentService;
 
