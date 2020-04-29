@@ -105,7 +105,7 @@ CREATE TABLE  IF NOT EXISTS stud_absentee (
 );
 
 CREATE TABLE  IF NOT EXISTS review_rating(
-  `review_id` 		int(11) NOT NULL,
+  `review_id` 		int(11) NOT NULL AUTO_INCREMENT,
   `mis` 			bigint(11) UNSIGNED NOT NULL,
   `menu_id` 		int(11) NOT NULL,
   `rating` 			int(11) NOT NULL,

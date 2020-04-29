@@ -16,5 +16,5 @@ public interface MenuService {
 	
 	void delete(int mess_id, String name);
 
-
+	int getMenuID(int mess_id, String name);
 }

@@ -2,9 +2,14 @@ package com.mealon.MEAL_ON.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +27,7 @@ import com.mealon.MEAL_ON.model.SnacksMenu;
 import com.mealon.MEAL_ON.model.Student;
 import com.mealon.MEAL_ON.model.WeeklyMenu;
 import com.mealon.MEAL_ON.service.MenuService;
+import com.mealon.MEAL_ON.service.ReviewRatingService;
 import com.mealon.MEAL_ON.service.SnacksMenuService;
 import com.mealon.MEAL_ON.service.StudentService;
 import com.mealon.MEAL_ON.service.WeeklyMenuService;
@@ -39,6 +45,8 @@ public class StudentController {
 	private MenuService menuService;
 	@Autowired
 	private SnacksMenuService snacksMenuService;
+	@Autowired
+	private ReviewRatingService reviewRatingService;
 	
 	
 	@RequestMapping ("/check")
@@ -68,6 +76,7 @@ public class StudentController {
 		Integer mis = (Integer) session.getAttribute("mis");
 		Student s = studentService.get(mis);
 		session.setAttribute("name", s.getName());
+		session.setAttribute("messid", studentService.getMessid(mis));
 		session.setAttribute("log", "1");
 		return "studentHome";
 			
@@ -135,7 +144,7 @@ public class StudentController {
 		if (l == null) {
 			return "redirect:/studentlogin";
 		}
-		int messId = studentService.getMessid((int)session.getAttribute("mis"));
+		int messId = (int) session.getAttribute("messid");
 		//This list contains menu_id. Theses menu_ids are confirmed that they foremost belong to that mess only.
 		List<WeeklyMenu> weeklyMenuList = weeklyMenuService.get(messId);
 		//Note: Each MenuId is unique, regardless of messId
@@ -163,6 +172,122 @@ public class StudentController {
 		session.setAttribute("snacksList", snacksMenuList);
 		System.out.print(totLength[0]);
 		return "ViewMenu";
+	}
+	
+	@RequestMapping("/review")
+	public String giveReviewRating (HttpSession session){
+		String l = (String) session.getAttribute("log");
+		if (l == null) {
+			return "redirect:/studentlogin";
+		}
+		int messId = (int)session.getAttribute("messid");
+		//This list contains menu_id. Theses menu_ids are confirmed that they foremost belong to that mess only.
+		List<WeeklyMenu> weeklyMenuList = weeklyMenuService.get(messId);
+		Calendar calender= Calendar.getInstance();
+		int today = calender.get(Calendar.DAY_OF_WEEK);
+		
+		
+		for(WeeklyMenu weeklyMenu: weeklyMenuList) {
+			switch (weeklyMenu.getDay()) {
+				case "Saturday":
+					if(7 <= today) {
+						break;
+					}
+					weeklyMenuList.remove(weeklyMenu);
+					break;
+				case "Friday":
+					if(6 <= today) {
+						break;
+					}
+					weeklyMenuList.remove(weeklyMenu);
+					break;
+				case "Thursday":
+					if(5 <= today) {
+						break;
+					}
+					weeklyMenuList.remove(weeklyMenu);
+					break;				
+				case "Wednesday":
+					if(4 <= today) {
+						break;
+					}
+					weeklyMenuList.remove(weeklyMenu);
+					break;
+				case "Tuesday":
+					if(3 <= today) {
+						break;
+					}
+					weeklyMenuList.remove(weeklyMenu);
+					break;
+				case "Monday":
+					if(2 <= today) {
+						break;
+					}
+					weeklyMenuList.remove(weeklyMenu);
+					break;
+				case "Sunday":
+					if(1 <= today) {
+						break;
+					}
+					break;
+			}
+		}
+		//Note: Each MenuId is unique, regardless of messId
+		Set<String> menuNames = new HashSet<String>();
+		for(WeeklyMenu weeklyMenu:weeklyMenuList) {
+			String menuIdList = weeklyMenu.getMenuidarray();
+		    List<Integer> checkList = Arrays.stream(menuIdList.split(",")).map(Integer::parseInt).collect(Collectors.toList());
+		    for(Integer menuId:checkList) {
+		    	Menu menu = menuService.get(messId, menuId);
+		    	String name = menu.getName();
+		    	menuNames.add(name);
+		    }
+		}
+		
+		session.setAttribute("menuLists", menuNames);
+		session.setAttribute("sizeDisplayReview", menuNames.size());
+		return "giveReviewMenu";
+	}
+	
+	@RequestMapping("/reviewRatingData")
+	public String reviewRatingSubmission (HttpServletRequest request, HttpSession session){
+		int i, size, mis, mess_id, menu_id, rating;
+		String MenuName, review;
+		Map<String, String[]> parameters;
+		String l = (String) session.getAttribute("log");
+		if (l == null) {
+			return "redirect:/studentlogin";
+		}
+		i = 0;
+		parameters = request.getParameterMap();
+		size = (int)session.getAttribute("sizeDisplayReview");
+		mis = (int)session.getAttribute("mis");
+		mess_id = (int)session.getAttribute("messid");
+		menu_id = 0;
+		rating = 0;
+		review = "";
+		for(String key : parameters.keySet()) {
+			if(i % 2 == 0) {
+		        MenuName = key.substring(4);  //star
+		        rating = parameters.get(key)[0].toCharArray()[0];
+		        menu_id = menuService.getMenuID(mess_id, MenuName);
+		        //if menu_id does not exists :: This case can happen if front end is changed intentionally/unintentionally by user
+		        if(menu_id == 0)
+		        	break;
+		        i++;
+			}
+			else {
+				MenuName = key.substring(6);  //review
+	        	review = parameters.get(key)[0];
+	        	if(!reviewRatingService.add(mis, menu_id, rating, review)) {
+					System.out.print("Failed to add review");
+				}
+	        	i++;
+			}
+			
+	    }
+		System.out.print("Saved!");
+		return "giveReviewMenu";
 	}
 	
 	/*
