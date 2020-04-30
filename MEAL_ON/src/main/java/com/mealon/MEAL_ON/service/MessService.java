@@ -7,10 +7,14 @@ import com.mealon.MEAL_ON.model.Mess;
 
 public interface MessService {
 	
-	String add(Integer mess_id, String name, String password, String messadmin, Integer rate);
+	Integer add(String name, String password, String messadmin);
+	Boolean check(Integer mess_id, String password);
+	//Very rarely used::
 	List<Mess> get();
-	Mess get(String name, String password);
-	String update(Integer mess_id, String name, String password, String messadmin, Integer rate);
-	String delete(int mess_id, String name, String password);
+	//Used only when MessAdmin is logged in
+	Mess get(Integer mess_id);
+	Boolean update(Integer mess_id, String name, String messadmin, Integer rate);
+	Boolean changePassword(Integer mess_id, String oldpass, String newpass);
+	Boolean delete(int mess_id, String name, String password);
 
 }
