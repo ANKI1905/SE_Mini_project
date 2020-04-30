@@ -23,13 +23,28 @@ public class ReviewRatingServiceImpl implements ReviewRatingService {
 	@Override
 	public Boolean add(int mis, int menu_id, int rating, String comments) {
 		Boolean result = false;
-		ReviewRating newReviewRating = toReviewRating(mis, menu_id, rating, comments);
-		try {
-			reviewRatingDAO.save(newReviewRating);
-			result = true;
-		}
-		catch (Exception e) {
-			e.printStackTrace();
+		ReviewRating reviewRating = reviewRatingDAO.findByMenuidAndMis(menu_id, mis);
+		//If Menu_id and MIS does not exists
+		if(reviewRating == null) {
+			ReviewRating newReviewRating = toReviewRating(mis, menu_id, rating, comments);
+			try {
+				reviewRatingDAO.save(newReviewRating);
+				result = true;
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		} //If Menu_id and MIS exists
+		else {
+			ReviewRating newReviewRating = toReviewRating(mis, menu_id, rating, comments);
+			newReviewRating.setReviewid(reviewRating.getReviewid());
+			try {
+				reviewRatingDAO.save(newReviewRating);
+				result = true;
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return result;
 		
