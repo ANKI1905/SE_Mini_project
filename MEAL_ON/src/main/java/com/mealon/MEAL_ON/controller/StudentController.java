@@ -269,7 +269,13 @@ public class StudentController {
 		for(String key : parameters.keySet()) {
 			if(i % 2 == 0) {
 		        MenuName = key.substring(4);  //star
-		        rating = Integer.parseInt(parameters.get(key)[0]);
+		        try {
+		        	rating = Integer.parseInt(parameters.get(key)[0]);
+		        }
+		        catch (Exception e) {
+					rating = 0;
+		        	continue;
+				}
 		        menu_id = menuService.getMenuID(mess_id, MenuName);
 		        //if menu_id does not exists :: This case can happen if front end is changed intentionally/unintentionally by user
 		        if(menu_id == 0)
@@ -279,7 +285,7 @@ public class StudentController {
 			else {
 				MenuName = key.substring(6);  //review
 	        	review = parameters.get(key)[0];
-	        	if(!reviewRatingService.add(mis, menu_id, rating, review)) {
+	        	if(rating == 0 || !reviewRatingService.add(mis, menu_id, rating, review)) {
 					System.out.print("Failed to add review");
 				}
 	        	i++;
