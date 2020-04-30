@@ -22,7 +22,7 @@ public class MessStaff {
         private String name;
         @Column(name="mess_id")
         private int messid;
-        @Column(name="accunt_no")
+        @Column(name="account_no")
         private Long accountno;
         @Column(name="contact")
         private Long contact;
