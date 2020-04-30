@@ -16,12 +16,12 @@ public class MessStaff {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "staffid", nullable = false)
-        private Long staffid;
+        @Column(name = "staff_id", nullable = false)
+        private int staffid;
         @Column(name="name")
         private String name;
         @Column(name="mess_id")
-        private Long messid;
+        private int messid;
         @Column(name="account_no")
         private Long accountno;
         @Column(name="contact")
@@ -29,16 +29,13 @@ public class MessStaff {
         @Column(name="address")
         private String address;
         
-       
-        public Long getStaffid() {
+        public int getStaffid() {
 			return staffid;
 		}
 
-
-		public void setStaffid(Long staffid) {
+		public void setStaffid(int staffid) {
 			this.staffid = staffid;
 		}
-
 
 		public String getName() {
 			return name;
@@ -50,12 +47,12 @@ public class MessStaff {
 		}
 
 
-		public Long getMessid() {
+		public int getMessid() {
 			return messid;
 		}
 
 
-		public void setMessid(Long messid) {
+		public void setMessid(int messid) {
 			this.messid = messid;
 		}
 
@@ -97,4 +94,3 @@ public class MessStaff {
         }
 
 }
-
