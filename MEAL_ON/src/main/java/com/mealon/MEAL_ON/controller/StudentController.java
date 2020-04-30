@@ -269,7 +269,7 @@ public class StudentController {
 		for(String key : parameters.keySet()) {
 			if(i % 2 == 0) {
 		        MenuName = key.substring(4);  //star
-		        rating = parameters.get(key)[0].toCharArray()[0];
+		        rating = Integer.parseInt(parameters.get(key)[0]);
 		        menu_id = menuService.getMenuID(mess_id, MenuName);
 		        //if menu_id does not exists :: This case can happen if front end is changed intentionally/unintentionally by user
 		        if(menu_id == 0)

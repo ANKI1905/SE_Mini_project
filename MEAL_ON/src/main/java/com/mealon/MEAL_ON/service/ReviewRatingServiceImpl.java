@@ -161,7 +161,7 @@ public class ReviewRatingServiceImpl implements ReviewRatingService {
 	
 	private ReviewRating toReviewRating(int mis, int menu_id, int rating, String comments) {
 		ReviewRating newReviewRating = new ReviewRating();
-		//review_id wil be generated automatically
+		//review_id will be generated automatically
 		newReviewRating.setMis(mis);
 		newReviewRating.setMenuid(menu_id);
 		newReviewRating.setRating(rating);

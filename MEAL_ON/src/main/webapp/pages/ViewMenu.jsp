@@ -39,9 +39,9 @@
     <!--show all weekly menu of the mess joined by student-->   
 	<table border = 1 id="MenuTable" align = "center">
 		<tr>
-			<td>Day</td>
-			<td>Type</td>
-			<td>Menu</td>
+			<th>Day</th>
+			<th>Type</th>
+			<th>Menu</th>
 		</tr>
     <c:forEach var = "i" items="${size}">
     
@@ -61,6 +61,7 @@
 	        		${menuName}<br>
 	        	</c:forEach>
 	        </td>  
+	        
     	</tr>
     </c:forEach>
     </table>
@@ -103,7 +104,7 @@
 		filter = select.value;
 		table = document.getElementById("MenuTable");
 		tr = table.getElementsByTagName("tr");
-		for(i = 0; i < tr.length; i++) {
+		for(i = 1; i < tr.length; i++) {
 			td = tr[i].getElementsByTagName("td")[0];
 			txtValue = td.textContent;
 			if(txtValue.indexOf(filter) > -1 || filter == "This Week") {
