@@ -121,7 +121,7 @@ public class MessController {
 	 */
 	
 	@RequestMapping("/menu")
-	public @ResponseBody String getMenu(HttpSession session){
+	public String getMenu(HttpSession session){
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		List<Menu> menuList = menuService.get(mess_id);
 		session.setAttribute("menuList", menuList);
