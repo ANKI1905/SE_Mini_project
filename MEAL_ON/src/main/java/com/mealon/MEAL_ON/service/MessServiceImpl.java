@@ -87,14 +87,14 @@ public class MessServiceImpl implements MessService{
 	}
 	@Transactional
 	@Override
-	public Boolean update(Integer mess_id, String name, String password, String messadmin, Integer rate) {
+	public Boolean update(Integer mess_id, String name, String messadmin, Integer rate) {
 		/* Fails if Mess with given name does not exists in database
 		 * Success if Mess is updated
 		 */
 		Boolean result = false;
 		Mess mess = get(mess_id);
 		if(mess != null) {
-			Mess newMess = toMess(name, password, messadmin, rate);
+			Mess newMess = toMess(name, mess.getPassword(), messadmin, rate);
 			newMess.setMessid(mess_id);
 			try {
 				messDAO.save(newMess);
@@ -104,6 +104,26 @@ public class MessServiceImpl implements MessService{
 				e.printStackTrace();
 			}
 		}
+		return result;
+	}
+	
+	@Transactional
+	@Override
+	public Boolean changePassword(Integer mess_id, String oldpass, String newpass) {
+		Boolean result = false;
+		Mess mess= messDAO.findByMessid(mess_id);
+		System.out.print(mess.getPassword()  +  oldpass + mess.getPassword().equals(oldpass));
+		if (mess != null && mess.getPassword().equals(oldpass)) {
+			mess.setPassword(newpass);
+			try {
+				messDAO.save(mess);
+				result = true;
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.print(result);
 		return result;
 	}
 	
