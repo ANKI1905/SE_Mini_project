@@ -17,18 +17,18 @@ public class MessStaffServiceImpl implements MessStaffService{
 	
 	@Transactional
 	@Override
-	public Boolean add(String name, int mess_id, Long account_no, Long contact, String address) {
+	public Integer add(String name, int mess_id, Long account_no, Long contact, String address) {
 		/* Fails if same Mess name already exists in database
 		 * Fails also when DAO is unable to save::: not to be informed to the customer
 		 * Success if Mess name is unique
 		 */
-		Boolean result = false;
+		Integer result = 0;
 		MessStaff messStaff = messStaffDAO.findByNameAndMessid(name, mess_id);
 		if(messStaff == null) {
 			MessStaff newMessStaff = toMessStaff(name, mess_id, account_no, contact, address);
 			try {
 				messStaffDAO.save(newMessStaff);
-				result = true;
+				result = newMessStaff.getStaffid();
 			}
 			catch (Exception e) {
 				e.printStackTrace();
