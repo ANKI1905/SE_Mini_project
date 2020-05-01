@@ -29,6 +29,10 @@
 		<input class = "green_btn medium_btn" type="submit" title="View today's menu" value="Menu Timetable" />
 	</form>
 	<br>
+	<form action="/students/markAbsentee">
+		<input class = "green_btn medium_btn" type="submit" title="Mark your absentee" value="Mark Absentee" />
+	</form>
+	<br>
 	<form action="/students/review">
 		<input class = "green_btn medium_btn" type="submit" title="Give feedback to improve your mess" value="Review/Ratings" />
 	</form>

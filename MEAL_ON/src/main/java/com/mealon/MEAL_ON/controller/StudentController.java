@@ -24,10 +24,12 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.mealon.MEAL_ON.model.Menu;
 import com.mealon.MEAL_ON.model.SnacksMenu;
 import com.mealon.MEAL_ON.model.Student;
+import com.mealon.MEAL_ON.model.StudentAbsentee;
 import com.mealon.MEAL_ON.model.WeeklyMenu;
 import com.mealon.MEAL_ON.service.MenuService;
 import com.mealon.MEAL_ON.service.ReviewRatingService;
 import com.mealon.MEAL_ON.service.SnacksMenuService;
+import com.mealon.MEAL_ON.service.StudentAbsenteeService;
 import com.mealon.MEAL_ON.service.StudentService;
 import com.mealon.MEAL_ON.service.WeeklyMenuService;
 
@@ -46,6 +48,8 @@ public class StudentController {
 	private SnacksMenuService snacksMenuService;
 	@Autowired
 	private ReviewRatingService reviewRatingService;
+	@Autowired
+	private StudentAbsenteeService studentAbsenteeService;
 	
 	
 	@RequestMapping ("/check")
@@ -130,6 +134,10 @@ public class StudentController {
 	
 	@RequestMapping("/changePassword")
 	public String changePasswordPage(HttpSession session) {
+		String l = (String) session.getAttribute("log");
+		if (l == null) {
+			return "redirect:/studentlogin";
+		}
 		return "studentChangePassword";
 	}
 	
@@ -293,6 +301,18 @@ public class StudentController {
 	    }
 		System.out.print("Saved!");
 		return "giveReviewMenu";
+	}
+	
+	@RequestMapping("/markAbsentee")
+	public String markAbsentee (HttpSession session){
+		String l = (String) session.getAttribute("log");	
+		if (l == null) {
+			return "redirect:/studentlogin";
+		}
+		int mis = (int) session.getAttribute("mis");
+		List<StudentAbsentee> absenteeRecords = studentAbsenteeService.getStudentAbsentees(mis);
+		session.setAttribute("absenteeRecords", absenteeRecords);
+		return "markAbsentee";
 	}
 	
 	/*
