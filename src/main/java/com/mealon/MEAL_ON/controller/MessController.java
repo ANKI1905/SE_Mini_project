@@ -2,8 +2,6 @@ package com.mealon.MEAL_ON.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
-
 import com.mealon.MEAL_ON.model.*;
 import com.mealon.MEAL_ON.service.InventoryService;
 import com.mealon.MEAL_ON.service.MenuService;
@@ -11,7 +9,6 @@ import com.mealon.MEAL_ON.service.MessService;
 import com.mealon.MEAL_ON.service.MessStaffService;
 import com.mealon.MEAL_ON.service.StudentService;
 
-import org.hibernate.id.IntegralDataTypeHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -105,10 +102,11 @@ public class MessController {
 		return "redirect:/mess/menu";
 	}
 	
-	@PostMapping("/menu/delete")
-	public @ResponseBody String delMenu(@RequestParam Integer mess_id, @RequestParam String name) {
+	@RequestMapping("/menu/delete")
+	public String delMenu(@RequestParam String name, HttpSession session) {
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		menuService.delete(mess_id, name);
-		return "saved";
+		return "redirect:/mess/menu";
 	}
 	
 	
@@ -153,6 +151,12 @@ public class MessController {
 	@PostMapping("/inventory/{name}/updateStock")
 	public @ResponseBody String updateInventoryStock(@PathVariable("name") String name, @RequestParam int stock, @RequestParam int mess_id) {
 		return inventoryService.updateStock(name, stock, mess_id);
+	}
+	//http://localhost:8081/mess/inventory/delete?inventory_id=1
+	@RequestMapping("/inventory/delete")
+	public String inventoryDelete (@RequestParam Integer inventory_id) {
+		inventoryService.delete(inventory_id);
+		return "redirect:/mess/inventory";
 	}
 	
 	/*
@@ -221,7 +225,7 @@ public class MessController {
 	@RequestMapping("/staff/add")
 	public String messStaffAdd (@RequestParam String name, @RequestParam Long account_no, Long contact, String address, HttpSession session) {
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
-		if (messStaffService.add(name, mess_id, account_no, contact, address)) {
+		if (messStaffService.add(name, mess_id, account_no, contact, address) != 0) {
 			session.setAttribute("msg", "Added Successfully");
 			return "redirect:/mess/staff";
 		}
@@ -229,7 +233,7 @@ public class MessController {
 		return "redirect:/mess/staff";		
 	}
 	
-	@RequestMapping("/mess/staff/delete")
+	@RequestMapping("/staff/delete")
 	public String messStaffDelete (@RequestParam Integer staff_id) {
 		messStaffService.delete(staff_id);
 		return "redirect:/mess/staff";
