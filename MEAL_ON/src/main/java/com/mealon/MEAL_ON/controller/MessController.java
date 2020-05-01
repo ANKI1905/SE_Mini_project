@@ -147,7 +147,7 @@ public class MessController {
 	}
 	
 	@PostMapping("/menu/delete")
-	public String delMenu(@RequestParam Integer mess_id, @RequestParam String name) {
+	public String delMenu(@RequestParam String name, HttpSession session) {
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		menuService.delete(mess_id, name);
 		return "redirect:/mess/menu";

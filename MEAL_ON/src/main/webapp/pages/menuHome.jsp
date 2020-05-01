@@ -40,7 +40,7 @@
 	</table>
 <div class="align_center">
 </div>
-<br><br<br>
+<br><br><br>
 <br><br>
 <hr>
 <h2>Add Menu</h2>
