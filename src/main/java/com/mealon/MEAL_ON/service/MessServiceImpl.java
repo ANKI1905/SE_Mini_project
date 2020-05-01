@@ -109,6 +109,26 @@ public class MessServiceImpl implements MessService{
 	
 	@Transactional
 	@Override
+	public Boolean changePassword(Integer mess_id, String oldpass, String newpass) {
+		Boolean result = false;
+		Mess mess= messDAO.findByMessid(mess_id);
+		System.out.print(mess.getPassword()  +  oldpass + mess.getPassword().equals(oldpass));
+		if (mess != null && mess.getPassword().equals(oldpass)) {
+			mess.setPassword(newpass);
+			try {
+				messDAO.save(mess);
+				result = true;
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.print(result);
+		return result;
+	}
+	
+	@Transactional
+	@Override
 	public Boolean delete(int mess_id, String name, String password) {
 		/* Fails if password does not match,
 		 * Fails if name does not match.

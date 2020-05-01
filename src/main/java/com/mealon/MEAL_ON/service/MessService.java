@@ -15,5 +15,7 @@ public interface MessService {
 	Mess get(Integer mess_id);
 	Boolean update(Integer mess_id, String name, String password, String messadmin, Integer rate);
 	Boolean delete(int mess_id, String name, String password);
+	public Boolean changePassword(Integer mess_id, String oldpass, String newpass);
+
 
 }
