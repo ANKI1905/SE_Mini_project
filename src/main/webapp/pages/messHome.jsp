@@ -26,7 +26,7 @@
 	<h2> your id is ${mess_id}  </h2>
 	<hr>
 	<div class="align_left">
-	<form action="/mess/student">
+	<form action="/mess/students">
             <input class = "green_btn medium_btn" type="submit" title="If you want to add new Student" value="Manage Student" />
 	</form>
 	<br>
