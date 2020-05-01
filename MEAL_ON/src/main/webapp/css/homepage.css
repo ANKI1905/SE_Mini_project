@@ -1,123 +1,143 @@
 @charset "UTF-8";
 body {
-  background-color: #2e3436;   
-  font-family: "Times New Roman", Times, serif;
+	background-color: #2e3436;
+	font-family: "Times New Roman", Times, serif;
 }
 h1 {
-    color : white;
-    text-align: center;
-    font-size: 90px;
-    font-family: "Times New Roman", Times, serif;
-  }
+	color : white;
+	text-align: center;
+	font-size: 90px;
+	font-family: "Times New Roman", Times, serif;
+}
   
-  h2 {
-    color: rgb(146, 184, 12);
-    text-align: center;
-    font-size: 50px;
-  }
+h2 {
+	color: rgb(146, 184, 12);
+	text-align: center;
+	font-size: 50px;
+}
 
-  .nav {
-      background-color: lightslategray;
-      color: white;
-      justify-content :center;
-      align-items: center;
-      display: flex;
-      color: whitesmoke;
-      font-size: 30px;
-      height: 100px;
-  }
+.nav {
+	background-color: lightslategray;
+	color: white;
+	justify-content :center;
+	align-items: center;
+	display: flex;
+	color: whitesmoke;
+	font-size: 30px;
+	height: 100px;
+}
   
-  .green_btn {
-      background-color: #4CAF50;
-      color: white;
-      padding: 15px 32px;
-      text-align: center;
-      border-radius: 10px;
-      cursor:pointer;
-      font-family: cursive;
-      border: darkgray;
-      box-shadow: darkgreen;
+.green_btn {
+	background-color: #4CAF50;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	border-radius: 10px;
+	cursor:pointer;
+	font-family: cursive;
+	border: darkgray;
+	box-shadow: darkgreen;
+}
 
-      
-  }
-  
-  .big_btn {
-    font-size: large;
-    font-size: 40px;
-  }
-  
-  .medium_btn {
-    font-size: 15px;
-    font-size: medium;
-    width: 290px;
-  }
-  .align_center {
-      text-align: center;
-  }
-  
-  .form_data {
-      height: 30px;
-      width: 390px;
-      border-radius: 5px;
-  }
-  
-  .btn {
-    padding: 10px;
-    font-size: 15px;
-    color: white;
-    background: #1b578b;
-    border: none;
-    border-radius: 5px;
-  }
+.big_btn {
+	font-size: large;
+	font-size: 40px;
+}
+
+.medium_btn {
+	font-size: 15px;
+	font-size: medium;
+	width: 290px;
+}
+.align_center {
+	text-align: center;
+}
+
+.form_data {
+	height: 30px;
+	width: 390px;
+	border-radius: 5px;
+}
+
+.btn {
+	padding: 10px;
+	font-size: 15px;
+	color: white;
+	background: #1b578b;
+	border: none;
+	border-radius: 5px;
+}
 
 .align_left {
-  text-align: left;
+	display: inline-block;
+	margin-left: 20%;
 }
 .align_right {
-  text-align: right;
+	text-align: right;
+	display: inline-block;
+	margin-right: 20%;
 }
 
 hr {
-  color: aliceblue;
+	color: aliceblue;
 }
 
-
 .hide {
-    display: none;
+	display: none;
 }
 
 .rating {
-    width: 90px;
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    text-align: center;
-    position: relative;
+	width: auto;
+	unicode-bidi: bidi-override;
+	direction: rtl;
+	text-align: center;
+	position: relative;
 }
 
 .rating > label {
-    float: right;
-    display: inline;
-    padding: 0em;
-    margin-left: 0em;
-    position: relative;
-    width: 0.72em;
-    cursor: pointer;
-    color: #000;
-    font-size: 1.5em;
+	float: right;
+	display: inline;
+	padding: 0em;
+	margin-left: 0em;
+	position: relative;
+	width: 0.72em;
+	cursor: pointer;
+	color: #000;
+	font-size: 2em;
 }
 
 .rating > label:hover,
 .rating > label:hover ~ label,
 .rating > input.radio-btn:checked ~ label {
-    color: transparent;
+	color: transparent;
 }
 
 .rating > label:hover:before,
 .rating > label:hover ~ label:before,
 .rating > input.radio-btn:checked ~ label:before,
 .rating > input.radio-btn:checked ~ label:before {
-    content: "\2605";
-    position: absolute;
-    left: 0;
-    color: #FFD700;
+	content: "\2605";
+	position: absolute;
+	left: 0;
+	color: #FFD700;
+}
+.error {
+	width: 92%;
+	margin: 0px auto;
+	padding: 10px;
+	border: 1px solid #a94442;
+	color: #a94442;
+	background: #f2dede;
+	border-radius: 5px;
+	text-align: left;
+}
+.red {
+	color: red;
+}
+table, th, td {
+	border: 1px solid black;
+	align-self: center;
+}
+.white {
+	color: white;
 }

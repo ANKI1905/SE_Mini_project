@@ -63,7 +63,7 @@ public class StudentServiceImpl implements StudentService{
 	
 	@Transactional
 	@Override
-	public List<Student> getAllStudent(int mess_id) {
+	public List<Student> getAllStudents(Integer mess_id) {
 		List<Student> student = null;
 		try {
 			student = studentDAO.findByMessid(mess_id);
@@ -133,7 +133,6 @@ public class StudentServiceImpl implements StudentService{
 	public Boolean changePassword(Integer mis, String oldpass, String newpass) {
 		Boolean result = false;
 		Student student = studentDAO.findByMis(mis);
-		System.out.print(student.getPassword()  +  oldpass + student.getPassword().equals(oldpass));
 		if (student != null && student.getPassword().equals(oldpass)) {
 			student.setPassword(newpass);
 			try {
@@ -144,7 +143,6 @@ public class StudentServiceImpl implements StudentService{
 				e.printStackTrace();
 			}
 		}
-		System.out.print(result);
 		return result;
 	}
 	

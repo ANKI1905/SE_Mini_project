@@ -49,8 +49,12 @@ public class StaffSalary {
 		public void setSalary(int salary) {
 			this.salary = salary;
 		}
+		@Override
+		public String toString() {
+			return "StaffSalary [staffid=" + staffid + ", nosofleaves=" + nosofleaves + ", month=" + month + ", salary="
+					+ salary + "]";
+		}
         
         
 
 }
-

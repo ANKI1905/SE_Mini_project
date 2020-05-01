@@ -9,7 +9,7 @@ public interface StudentService {
 	Boolean add(int mis, String name, String room_no, short year_of_study, Long contact, String email, String password, int mess_id);
 	Boolean check(int mis, String password);
 	//List<Student> getAllStudent(int mess_id) used only by messAdmin
-	List<Student> getAllStudent(int mess_id);
+	List<Student> getAllStudents(Integer mess_id);
 	Student get(int mis);
 	int getMessid(int mis);
 	String update(int mis, String name, String room_no, short year_of_study, Long contact, String email, String password, int mess_id);

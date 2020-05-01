@@ -13,12 +13,8 @@
     <h1>MealOn</h1>
 	<h2>Add Staff</h2>
     <div class="align_center">
-		<form action="/mess/staff/add" method="post">
+		<form action="/mess/menu/add" method="post">
 			<input class ="form_data" required="required" type="text" name="name" placeholder="Name"/><br></br>
-			<input class ="form_data" required="required" type="number" name="account_no" pattern="[0-9]{16}" placeholder="Account No" /><br></br>
-			<input class ="form_data" required="required" type="tel" name="contact"  placeholder="Phone No"/><br></br>
-			<input class ="form_data" required="required" type="text" name="address" placeholder="Address"/><br></br>
-			<input class ="form_data" required="required" type="number" name="salary" placeholder="Salary"/><br></br>
 			<input class="green_btn medium_btn" type="submit" value="Login" />
 		</form>
 		<br><br><br>

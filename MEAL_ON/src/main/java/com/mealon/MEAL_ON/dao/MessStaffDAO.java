@@ -10,5 +10,5 @@ public interface MessStaffDAO extends CrudRepository <MessStaff, Integer>{
 	
 	MessStaff findByNameAndMessid(String name, int messid);
     List<MessStaff> findAllByMessid(int mess_id);
-
+    MessStaff findByStaffid(int staff_id);
 }

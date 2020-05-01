@@ -29,16 +29,13 @@ public class MessStaff {
         @Column(name="address")
         private String address;
         
-       
         public int getStaffid() {
 			return staffid;
 		}
 
-
 		public void setStaffid(int staffid) {
 			this.staffid = staffid;
 		}
-
 
 		public String getName() {
 			return name;
@@ -97,4 +94,3 @@ public class MessStaff {
         }
 
 }
-

@@ -9,6 +9,8 @@
 <title>MealOn Staff Home</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="/css/homepage.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script src="/js/index.js"></script>
 </head>
 <body>
 <%	//This prevents browser from saving cache
@@ -25,12 +27,14 @@
     <h2>Give Reviews and Ratings</h2>
     <div class="align_center">
     <form action = "/students/reviewRatingData" method = "GET">
-    <table border = 1 align = "center">
-		<tr>
-			<th>Menu</th>
-			<th>Ratings</th>
-			<th>Review</th>
-		</tr>
+    <table class="table table-dark table-striped table-hover ">
+    	<thead class="thead-dark">
+			<tr>
+				<th>Menu</th>
+				<th>Ratings</th>
+				<th>Review</th>
+			</tr>
+		</thead>
     <c:forEach var="menu" items="${menuLists}">
     
         <tr>

@@ -40,7 +40,7 @@ public class MessServiceImpl implements MessService{
 	
 	@Transactional
 	@Override
-	public Boolean check(Integer mess_id, String password) {
+	public Boolean check(Integer mess_id , String password) {
 		/* Fails if password of mess does not match with the saved password
 		 * Success if password matches
 		 */
@@ -48,6 +48,7 @@ public class MessServiceImpl implements MessService{
 		try {
 			Mess mess = messDAO.findByMessid(mess_id);
 			String pass = mess.getPassword();
+			System.out.println(mess.getName());
 			if(pass.equals(password)) {
 				result = true;
 			}
@@ -106,7 +107,6 @@ public class MessServiceImpl implements MessService{
 		return result;
 	}
 	
-
 	@Transactional
 	@Override
 	public Boolean changePassword(Integer mess_id, String oldpass, String newpass) {
@@ -172,7 +172,7 @@ public class MessServiceImpl implements MessService{
 	private List<Mess> iterableToList(Iterable<Mess> iterator) { 
 		List<Mess> list = new ArrayList<>(); 
 		iterator.forEach(list::add); 
-		return list; 
+		 return list; 
 	}
 	
 	private List<Mess> optionalToList(Optional<Mess> optional) {

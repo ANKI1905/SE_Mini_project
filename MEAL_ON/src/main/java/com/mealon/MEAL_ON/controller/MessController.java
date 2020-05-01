@@ -10,16 +10,18 @@ import com.mealon.MEAL_ON.service.MessService;
 import com.mealon.MEAL_ON.service.MessStaffService;
 import com.mealon.MEAL_ON.service.StudentService;
 
+import org.hibernate.id.IntegralDataTypeHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
+
 
 @Controller
 @RequestMapping("/mess")
@@ -61,17 +63,12 @@ public class MessController {
 	@RequestMapping ("/")
 	public String messHome(HttpSession session) {
 		String l = (String) session.getAttribute("log");
-		
 		if (l == null) {
 			return "redirect:/adminlogin";
-		}
-		else if(l == "1") {
-			session.removeAttribute("status");
 		}
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		Mess m = messService.get(mess_id);
 		session.setAttribute("admin", m.getMessadmin());
-		session.setAttribute("log", "1");
 		return "messHome";
 	}
 	
@@ -124,8 +121,12 @@ public class MessController {
 	 */
 	
 	@RequestMapping("/menu")
-	public @ResponseBody List<Menu> getMenu(@RequestParam int mess_id){
-		return menuService.get(mess_id);
+	public String getMenu(HttpSession session){
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
+		List<Menu> menuList = menuService.get(mess_id);
+		session.setAttribute("menuList", menuList);
+		System.out.println(menuList);
+		return "menuHome";
 	}
 	
 	@RequestMapping("/menu/show")
@@ -134,9 +135,15 @@ public class MessController {
 	}
 	
 	@PostMapping("/menu/add")
-	public @ResponseBody String addMenu(@RequestParam Integer mess_id, @RequestParam String name) {
+	public @ResponseBody String addMenu(@RequestParam String name, HttpSession session) {
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		menuService.add(mess_id, name);
-		return "saved";
+		return "redirect:/mess/menu";
+	}
+	
+	@RequestMapping("/menu/add/page")
+	public String addMenuPage() {
+		return "addMenu";
 	}
 	
 	@PostMapping("/menu/delete")
@@ -155,8 +162,11 @@ public class MessController {
 	 */
 	
 	@RequestMapping("/inventory")
-	public @ResponseBody List<Inventory> getInventory(@RequestParam int mess_id){
-		return inventoryService.get(mess_id);
+	public String inventoryHome(HttpSession session) {
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
+		List<Inventory> inventoryList = inventoryService.getAllInventory(mess_id);
+		session.setAttribute("inventoryList", inventoryList);
+		return "inventoryHome";
 	}
 	
 	@RequestMapping("/inventory/{name}")
@@ -165,8 +175,19 @@ public class MessController {
 	}
 	
 	@PostMapping("/inventory/add")
-	public @ResponseBody String addInventory(@RequestParam Integer id, @RequestParam String name, @RequestParam int stock, @RequestParam int avg_price, @RequestParam int mess_id) {
-		return inventoryService.add(name, stock, avg_price, mess_id);
+	public String addInventory(@RequestParam String name, @RequestParam int stock, @RequestParam int avg_price, HttpSession session) {
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
+		String result = inventoryService.add(name, stock, avg_price, mess_id);
+		session.setAttribute("message", result);
+		return "redirect:/mess/inventory";
+	}
+	
+	@GetMapping("/inventory/add/page")
+	public String addInventoryPage(HttpSession session) {
+		if ((String)session.getAttribute("log") == "1") {
+			return "inventoryAdd";
+		}
+		return "redirect:/adminlogin";
 	}
 	
 	@PostMapping("/inventory/{name}/update")
@@ -184,6 +205,22 @@ public class MessController {
 	 * Student
 	 * 
 	 */
+	
+	@RequestMapping("/students")
+	public String studentHome(HttpSession session) {
+		String l = (String) session.getAttribute("log");
+		if (l == null) {
+			return "redirect:/adminlogin";
+		}
+		else if(l == "1") {
+			session.removeAttribute("status");
+		}
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
+		List<Student> studentList = studentService.getAllStudents(mess_id);
+		session.setAttribute("studentList", studentList);
+		session.setAttribute("log", "1");
+		return "messStudentHome";
+	}
 	
 	@RequestMapping("/newstudent")
 	public String newStudent(HttpSession session) {
@@ -208,7 +245,7 @@ public class MessController {
 		}
 		session.setAttribute("log", "2");
 		RedirectView redirectView = new RedirectView();
-	    redirectView.setUrl("/mess/?session="+session);
+	    redirectView.setUrl("/mess/students/?session="+session);
 		return redirectView;
 	}
 	
@@ -251,10 +288,19 @@ public class MessController {
 	@RequestMapping(value = "/staff/add", method = RequestMethod.POST)
 	public @ResponseBody String messStaffAdd (@RequestParam String name, @RequestParam Long account_no, Long contact, String address, HttpSession session) {
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
-		if (messStaffService.add(name, mess_id, account_no, contact, address)) {
-			return "added with staff id";
+		if (messStaffService.add(name, mess_id, account_no, contact, address) != 0) {
+			session.setAttribute("msg", "Added Successfully");
+			return "redirect:/mess/staff";
 		}
-		return "couldn't add";
+		session.setAttribute("msg", "Failed To Add, Please Re-try");
+		return "redirect:/mess/staff";
 	}
-
+	
+	@RequestMapping("/staff/delete")
+	public String messStaffDelete (@RequestParam Integer staff_id) {
+		messStaffService.delete(staff_id);
+		return "redirect:/mess/staff";
+	}
+	
+	
 }

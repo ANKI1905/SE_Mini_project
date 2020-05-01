@@ -19,16 +19,17 @@ public class InventoryServiceImpl implements InventoryService {
 	
 	@Transactional
     @Override
-    public List<Inventory> get(int mess_id) {
-		List<Inventory> allInventoryList = null;
+	public List<Inventory> get(int mess_id) {
+		List<Inventory> inventory = null;
 		try {
-			allInventoryList = inventoryDAO.findByMessid(mess_id);
+			inventory = inventoryDAO.findAllByMessid(mess_id);
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
-		return allInventoryList;
-    }
+		System.out.println(inventory);
+		return inventory;
+	}
 
 	@Transactional
     @Override
@@ -53,7 +54,7 @@ public class InventoryServiceImpl implements InventoryService {
 		String result = null;
 		try {
 			inventoryDAO.save(inventory);
-			result = "Successfully updated";
+			result = "Successfully Added item with id :" + inventory.getInventoryid();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -79,6 +80,17 @@ public class InventoryServiceImpl implements InventoryService {
 		
 		return result;
     }
+
+	private Inventory toInventory(int inventoryid, String name, int stock, int avg_price, int mess_id) {
+		// TODO Auto-generated method stub
+		Inventory inventory = new Inventory();
+		inventory.setInventoryid(inventoryid);
+		inventory.setName(name);
+		inventory.setStock(stock);
+		inventory.setAvgprice(avg_price);
+		inventory.setMessid(mess_id);
+		return inventory;
+	}
 
 	@Transactional
     @Override
@@ -113,16 +125,6 @@ public class InventoryServiceImpl implements InventoryService {
 		return result;
     }	
 	
-	private Inventory toInventory(Integer inventoryid, String name, int stock, int avgprice, int messid) {
-		Inventory inventory = new Inventory();
-		inventory.setInventoryid(inventoryid);
-		inventory.setName(name);
-		inventory.setStock(stock);
-		inventory.setAvgprice(avgprice);
-		inventory.setMessid(messid);
-		return inventory;
-	}
-	
 	private Inventory toInventory(String name, int stock, int avgprice, int messid) {
 		Inventory inventory = new Inventory();
 		inventory.setName(name);
@@ -131,6 +133,7 @@ public class InventoryServiceImpl implements InventoryService {
 		inventory.setMessid(messid);
 		return inventory;
 	}
+	
 	/*
 	private List<Inventory> iterableToList(Iterable<Inventory> iterator) { 
 		List<Inventory> list = new ArrayList<>(); 
@@ -143,5 +146,13 @@ public class InventoryServiceImpl implements InventoryService {
 		List<Inventory> list = new ArrayList<>(); 
 		optional.ifPresent(list::add); 
 		return list; 
+	}
+	
+	@Transactional
+	@Override
+	public List<Inventory> getAllInventory(int mess_id) {
+		List<Inventory> allInventoryList = null;
+		allInventoryList = inventoryDAO.findAllByMessid(mess_id);
+		return allInventoryList;
 	}
 }

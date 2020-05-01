@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mealon.MEAL_ON.dao.StudentAbsenteeDAO;
-import com.mealon.MEAL_ON.dao.StudentDAO;
-import com.mealon.MEAL_ON.model.Student;
 import com.mealon.MEAL_ON.model.StudentAbsentee;
 import com.mealon.MEAL_ON.model.StudentAbsenteeID;
 

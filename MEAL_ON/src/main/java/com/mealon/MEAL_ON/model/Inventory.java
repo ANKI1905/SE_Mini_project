@@ -14,6 +14,7 @@ public class Inventory {
 	
 		//Create such @Entity for all the tables in SQL
 		
+		
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name="inventory_id")
@@ -58,6 +59,10 @@ public class Inventory {
 		public void setMessid(int messid) {
 			this.messid = messid;
 		}
-
+		@Override
+		public String toString() {
+			return "Inventory [inventoryid=" + inventoryid + ", name=" + name + ", stock=" + stock + ", avgprice="
+					+ avgprice + ", messid=" + messid + "]";
+		}
         
 }

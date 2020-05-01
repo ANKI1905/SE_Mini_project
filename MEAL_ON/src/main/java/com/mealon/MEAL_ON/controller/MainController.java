@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.mealon.MEAL_ON.model.Mess;
-import com.mealon.MEAL_ON.model.Student;
 import com.mealon.MEAL_ON.service.MessService;
 import com.mealon.MEAL_ON.service.StudentService;
 
@@ -21,8 +18,7 @@ import com.mealon.MEAL_ON.service.StudentService;
 public class MainController {
 	@Autowired
 	private MessService messService;
-	@Autowired
-	private StudentService studentService;
+
 	
 	//returns homepage
 	@RequestMapping("/")

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.mealon.MEAL_ON.model.Menu;
-import com.mealon.MEAL_ON.model.MessStaff;
 import com.mealon.MEAL_ON.model.SnacksMenu;
 import com.mealon.MEAL_ON.model.Student;
 import com.mealon.MEAL_ON.model.WeeklyMenu;

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -13,25 +13,21 @@
 <body>
     <br><br>
     <h1>MealOn</h1>
-    <h2>Manage Inventory</h2>
+	<h2>Manage Inventory</h2>
     <!--show all inventory here and an option to edit them-->   
     <table class="table table-dark table-striped table-hover ">
         <thead class="thead-dark">
 			<tr>
-				<td>ID</td>
 				<td>Name</td>
-				<td>Stock</td>
-				<td>Average Price</td>
+				<td>Mark For Today</td>
 				<td>Actions </td>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var = "i" items="${inventoryList}">
+			<c:forEach var = "i" items="${menuList}">
 				<tr>
-					<td>${i.inventoryid}</td>
 					<td>${i.name}</td>  
-					<td>${i.stock}</td>  
-					<td>${i.avgprice}</td>  
+					<td>checkbox here</td>  
 					<td>
 						<button class="btn btn-danger" >Delete</button>
 					</td>
@@ -40,8 +36,8 @@
 			</tbody>
 	</table>
 <div class="align_center">
-<form action="/mess/inventory/add/page">
-    <input class = "green_btn medium_btn" type="submit" title="Add an item in Inventory" value="Add Item" />
+<form action="/mess/menu/add/page">
+    <input class = "green_btn medium_btn" type="submit" title="Add an item in Menu" value="Add Menu Item" />
 </form>
 </div>
 </body>
