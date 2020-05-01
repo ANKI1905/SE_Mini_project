@@ -12,5 +12,6 @@ public interface InventoryService {
     String update(int inventoryid, String name, int stock, int avg_price, int mess_id);
     String updateStock(String name, int stock, int mess_id);
     String delete(int mess_id, String name);
+    Boolean delete (int inventory_id);
 
 }
