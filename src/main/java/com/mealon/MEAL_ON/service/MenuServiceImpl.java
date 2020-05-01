@@ -66,6 +66,21 @@ public class MenuServiceImpl implements MenuService {
 	
 	@Transactional
 	@Override
+	public int getMenuID(int mess_id, String name) {
+		Menu menu;
+		int menu_id=0;
+		try {
+			menu = menuDAO.findByMessidAndName(mess_id, name);
+			menu_id = menu.getMenuId();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return menu_id ;
+	}
+	
+	@Transactional
+	@Override
 	public Menu get(int mess_id, int menu_id) {
 		Menu menu = null;
 		try {

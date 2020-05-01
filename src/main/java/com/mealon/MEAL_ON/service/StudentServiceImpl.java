@@ -45,7 +45,35 @@ public class StudentServiceImpl implements StudentService{
 		}
 		return student;
 	}
-		
+	
+	@Transactional
+	@Override
+	public int getMessid(int mis) {
+		int messid = 0;
+		try {
+			Student student = studentDAO.findByMis(mis);
+			messid = student.getMessid();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return messid;
+	}
+
+	
+	@Transactional
+	@Override
+	public List<Student> getAllStudents(Integer mess_id) {
+		List<Student> student = null;
+		try {
+			student = studentDAO.findByMessid(mess_id);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return student;
+	}
+	
 	@Transactional
 	@Override
 	public Boolean add(int mis, String name, String room_no, short year_of_study, Long contact, String email, String password, int mess_id) {
@@ -104,11 +132,16 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public Boolean changePassword(Integer mis, String oldpass, String newpass) {
 		Boolean result = false;
-		Student s = studentDAO.findByMis(mis);
-		if (s.getPassword() == oldpass) {
-			s.setPassword(newpass);
-			studentDAO.save(s);
-			result = true;
+		Student student = studentDAO.findByMis(mis);
+		if (student != null && student.getPassword().equals(oldpass)) {
+			student.setPassword(newpass);
+			try {
+				studentDAO.save(student);
+				result = true;
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return result;
 	}
@@ -125,13 +158,5 @@ public class StudentServiceImpl implements StudentService{
 		newStudent.setPassword(password);
 		newStudent.setMessid(mess_id);
 		return newStudent;
-	}
-
-	@Override
-	public List<Student> getAllStudents(Integer mess_id) {
-		// TODO Auto-generated method stub
-		List<Student> studentList = null;
-		studentList = studentDAO.findByMessid(mess_id);
-		return studentList;
 	}
 }
