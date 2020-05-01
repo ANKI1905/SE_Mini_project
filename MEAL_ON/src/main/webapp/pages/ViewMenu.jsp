@@ -37,12 +37,14 @@
     <br>
     
     <!--show all weekly menu of the mess joined by student-->   
-	<table border = 1 id="MenuTable" align = "center">
-		<tr>
-			<th>Day</th>
-			<th>Type</th>
-			<th>Menu</th>
-		</tr>
+	<table id="MenuTable" class="table table-dark table-striped table-hover">
+		<thead class="thead-dark">
+			<tr>
+				<th>Day</th>
+				<th>Type</th>
+				<th>Menu</th>
+			</tr>
+		<thead>
     <c:forEach var = "i" items="${size}">
     
         <tr>
@@ -67,13 +69,15 @@
     </table>
     <br>
     <hr>
-    <h4>Breakfast/Snacks Items</h4>
+    <h2>Breakfast/Snacks Items</h2>
     <br>
-    <table border = 1 align = "center">
-		<tr>
-			<td>Dish</td>
-			<td>Price</td>
-		</tr>
+    <table class="table table-dark table-striped table-hover">
+		<thead class="thead-dark">
+			<tr>
+				<td>Dish</td>
+				<td>Price</td>
+			</tr>
+		</thead>
     <c:forEach var = "snack" items="${snacksList}">
         <tr>
 	        <td>${snack.name}</td>
