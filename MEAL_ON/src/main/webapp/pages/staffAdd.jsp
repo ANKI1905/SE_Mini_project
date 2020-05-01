@@ -19,7 +19,7 @@
 			<input class ="form_data" required="required" type="tel" name="contact"  placeholder="Phone No"/><br></br>
 			<input class ="form_data" required="required" type="text" name="address" placeholder="Address"/><br></br>
 			<input class ="form_data" required="required" type="number" name="salary" placeholder="Salary"/><br></br>
-			<input class="green_btn medium_btn" type="submit" value="Login" />
+			<input class="green_btn medium_btn" type="submit" value="Add" />
 		</form>
 		<br><br><br>
 	</div>

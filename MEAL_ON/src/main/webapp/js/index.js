@@ -1,13 +1,30 @@
-function removeUser(deleteURL) {
+function removeUser(staff_id) {
 	var txt;
-	var password = prompt("Please enter your password to Delete" + deleteURL +":", "Password Here");
+	var password = prompt("Please enter your password to Delete" + staff_id +":", "Password Here");
 //	$.redirect('/', {'arg1': 'value1', 'arg2': 'value2'});
 	if (password) {
 		//check is password is correct
-		window.location.href = "/mess/staff/delete?staff_id=" + deleteURL
+		window.location.href = "staff/delete?staff_id=" + staff_id
 	}	
-	//http://localhost:8081/mess/home?mess_id=3&password=123
+}
+function removeInventory(inventory_id) {
+	var txt;
+	var password = prompt("Please enter your password to Delete" + inventory_id +":", "Password Here");
+//	$.redirect('/', {'arg1': 'value1', 'arg2': 'value2'});
+	if (password) {
+		//check is password is correct
+		window.location.href = "inventory/delete?inventory_id=" + inventory_id
+	}	
+}
 
+function removeMenu(name) {
+	var txt;
+	var password = prompt("Please enter your password to Delete" + name +":", "Password Here");
+//	$.redirect('/', {'arg1': 'value1', 'arg2': 'value2'});
+	if (password) {
+		//check is password is correct
+		window.location.href = "menu/delete?name=" + name
+	}	
 }
 /*$(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip();

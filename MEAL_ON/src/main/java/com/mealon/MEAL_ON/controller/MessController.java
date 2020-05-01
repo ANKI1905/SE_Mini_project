@@ -135,7 +135,7 @@ public class MessController {
 	}
 	
 	@PostMapping("/menu/add")
-	public @ResponseBody String addMenu(@RequestParam String name, HttpSession session) {
+	public String addMenu(@RequestParam String name, HttpSession session) {
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		menuService.add(mess_id, name);
 		return "redirect:/mess/menu";
@@ -147,9 +147,10 @@ public class MessController {
 	}
 	
 	@PostMapping("/menu/delete")
-	public @ResponseBody String delMenu(@RequestParam Integer mess_id, @RequestParam String name) {
+	public String delMenu(@RequestParam Integer mess_id, @RequestParam String name) {
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		menuService.delete(mess_id, name);
-		return "saved";
+		return "redirect:/mess/menu";
 	}
 	
 	
@@ -200,6 +201,11 @@ public class MessController {
 		return inventoryService.updateStock(name, stock, mess_id);
 	}
 	
+	@RequestMapping("/inventory/delete")
+	public String inventoryDelete (@RequestParam Integer inventory_id) {
+		inventoryService.delete(inventory_id);
+		return "redirect:/mess/inventory";
+	}
 	
 	/*
 	 * Student
@@ -286,7 +292,7 @@ public class MessController {
 		return "staffAdd";
 	}
 	@RequestMapping(value = "/staff/add", method = RequestMethod.POST)
-	public @ResponseBody String messStaffAdd (@RequestParam String name, @RequestParam Long account_no, Long contact, String address, HttpSession session) {
+	public String messStaffAdd (@RequestParam String name, @RequestParam Long account_no, Long contact, String address, HttpSession session) {
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		if (messStaffService.add(name, mess_id, account_no, contact, address) != 0) {
 			session.setAttribute("msg", "Added Successfully");

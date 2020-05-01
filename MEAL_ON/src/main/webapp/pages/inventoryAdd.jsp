@@ -17,7 +17,7 @@
 			<input class ="form_data" required="required" type="text" name="name" placeholder="Item Name"/><br></br>
 			<input class ="form_data" required="required" type="number" name="stock" placeholder="Stock" /><br></br>
 			<input class ="form_data" required="required" type="number" step="0.01" name="avg_price"  placeholder="Average Price"/><br></br>
-			<input class="green_btn medium_btn" type="submit" value="Login" />
+			<input class="green_btn medium_btn" type="submit" value="Add" />
 		</form>
 		<br><br><br>
 	</div>

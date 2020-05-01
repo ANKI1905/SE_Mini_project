@@ -155,4 +155,16 @@ public class InventoryServiceImpl implements InventoryService {
 		allInventoryList = inventoryDAO.findAllByMessid(mess_id);
 		return allInventoryList;
 	}
+	
+	@Override
+	public Boolean delete(int inventory_id) {
+		// TODO Auto-generated method stub
+		try {
+			inventoryDAO.delete(inventoryDAO.findByInventoryid(inventory_id));	
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+
+	}
 }
