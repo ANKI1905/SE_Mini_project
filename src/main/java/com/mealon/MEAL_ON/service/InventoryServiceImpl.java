@@ -19,16 +19,18 @@ public class InventoryServiceImpl implements InventoryService {
 	
 	@Transactional
     @Override
-	public List<Inventory> get(int mess_id) {
-		List<Inventory> inventory = null;
+	public Inventory get(int inventory_id) {
+		Inventory i = null;
 		try {
-			inventory = inventoryDAO.findAllByMessid(mess_id);
+			Optional<Inventory> iList = inventoryDAO.findById(inventory_id);
+			if (iList.isPresent()) {
+				i = iList.get();
+			}
 		}
 		catch (Exception e) {
-			//e.printStackTrace();
+			i = null;
 		}
-		System.out.println(inventory);
-		return inventory;
+		return i;
 	}
 
 	@Transactional
@@ -160,7 +162,12 @@ public class InventoryServiceImpl implements InventoryService {
 	public Boolean delete(int inventory_id) {
 		// TODO Auto-generated method stub
 		try {
-			inventoryDAO.delete(inventoryDAO.findByInventoryid(inventory_id));	
+			Optional<Inventory> iList = inventoryDAO.findById(inventory_id);
+			if (iList.isPresent()) {
+				Inventory i = iList.get();
+				inventoryDAO.delete(i);
+			}
+			//inventoryDAO.delete(inventoryDAO.findById(inventory_id));	
 			return true;
 		} catch (Exception e) {
 			return false;
