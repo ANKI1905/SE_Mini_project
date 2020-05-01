@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/mess")
@@ -68,7 +70,31 @@ public class MessController {
 		}
 		return "redirect:/adminlogin";
 	}
+	@RequestMapping(value = "/passwordChangeUpdate", method = RequestMethod.POST)
+	public @ResponseBody RedirectView passwordChange(@RequestParam String oldpass, @RequestParam String newpass, @RequestParam String newpass1, HttpSession session) {
+		int mess_id = (int) session.getAttribute("mess_id");
+		session.removeAttribute("status");
+		if(newpass.equals(newpass1)) {
+			Boolean result = messService.changePassword(mess_id, oldpass, newpass);
+			if(result) {
+				session.setAttribute("status", "Successful");
+			}
+			else {
+				session.setAttribute("status", "Failed to change the password");
+			}
+		}
+		else {
+			session.setAttribute("status", "Please enter similar passwords!");
+			RedirectView redirectView = new RedirectView();
+		    redirectView.setUrl("/mess/changePassword");
+			return redirectView;
+		}
+		session.setAttribute("log", "2");
+		RedirectView redirectView = new RedirectView();
+	    redirectView.setUrl("/mess/?session="+session);
+		return redirectView;
 	
+	}
 	/*@RequestMapping ("/logout")
 	public @ResponseBody String messLogout(HttpSession session) {
 		session.invalidate();
@@ -152,10 +178,18 @@ public class MessController {
 	public @ResponseBody String updateInventoryStock(@PathVariable("name") String name, @RequestParam int stock, @RequestParam int mess_id) {
 		return inventoryService.updateStock(name, stock, mess_id);
 	}
-	//http://localhost:8081/mess/inventory/delete?inventory_id=1
+	
 	@RequestMapping("/inventory/delete")
-	public String inventoryDelete (@RequestParam Integer inventory_id) {
-		inventoryService.delete(inventory_id);
+	public String inventoryDelete (@RequestParam Integer inventory_id, @RequestParam String pass) {
+		Inventory i = inventoryService.get(inventory_id);
+		if (i.equals(null)) {
+			return "redirect:/mess/inventory";
+		}
+		int mess_id = i.getMessid();
+		Mess m = messService.get(mess_id);
+		if (m.getPassword().equals(pass)) {
+			inventoryService.delete(inventory_id);
+		} 
 		return "redirect:/mess/inventory";
 	}
 	
@@ -234,9 +268,16 @@ public class MessController {
 	}
 	
 	@RequestMapping("/staff/delete")
-	public String messStaffDelete (@RequestParam Integer staff_id) {
-		messStaffService.delete(staff_id);
+	public String messStaffDelete (@RequestParam Integer staff_id, @RequestParam String pass) {
+		MessStaff s = messStaffService.get(staff_id);
+		if (s.equals(null)) {
+			return "redirect:/mess/staff";
+		}
+		int mess_id = s.getMessid();
+		Mess m = messService.get(mess_id);
+		if (m.getPassword().equals(pass)) {
+			messStaffService.delete(staff_id);
+		} 
 		return "redirect:/mess/staff";
 	}
-
 }
