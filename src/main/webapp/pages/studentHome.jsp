@@ -16,7 +16,6 @@
 	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP1.1
 	response.setHeader("Pragma", "n-cache"); //HTTP 1.0
 	response.setHeader("Expires", "0"); //Proxies
-
 	if(session.getAttribute("log") == null) {
 		response.sendRedirect("studentLogin.jsp");
 	}
@@ -24,13 +23,26 @@
 	<br><br>
 	<h1>Hello ${name} Welcome!</h1>
 	<h3>${status}</h3>
-	<form action = "/logout">
-		<input type = "submit" value = "Logout">
-	</form>
-	<form action = "/students/changePassword">
-		<input type = "submit" value = "Change Password">
-	</form>
 	<hr>
+	<form action="/students/menuToday">
+		<input class = "green_btn medium_btn" type="submit" title="View today's menu" value="Menu Timetable" />
+	</form>
+	<br>
+	<form action="/students/review">
+		<input class = "green_btn medium_btn" type="submit" title="Give feedback to improve your mess" value="Review/Ratings" />
+	</form>
+	<br>
+	<form action="/students/viewProfile">
+		<input class = "green_btn medium_btn" type="submit" title="View and Edit your profile" value="My Profile" />
+	</form>
+	<br>
+	<form action = "/students/changePassword">
+		<input class = "green_btn medium_btn" title = "Change Password of your account" type = "submit" value = "Change Password">
+	</form>
+	<br>
+	<form action = "/logout">
+		<input class = "green_btn medium_btn" title = "Logout" type = "submit" value = "Logout">
+	</form>
 	
 	
 </body>
