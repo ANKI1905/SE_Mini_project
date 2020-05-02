@@ -23,8 +23,10 @@
 %>
 <br><br>
 <h1>MealOn</h1>
-<h2>Manage Staff</h2>
-
+<h2>Manage Students</h2>
+<br><br>
+<p class="success"> ${status}</p>
+<br><br>
 <!--show all mess students here and an option to edit them-->   
 <table class="table table-dark table-striped table-hover ">
     <thead class="thead-dark">
@@ -46,7 +48,7 @@
               <td>0</td>  
 
                 <td>
-                    <button class="btn btn-danger" >Delete</button>
+                    <button class="btn btn-danger" onclick="removeStudent('${i.mis}')">Delete</button>
                 </td>
             </tr>
         </c:forEach>

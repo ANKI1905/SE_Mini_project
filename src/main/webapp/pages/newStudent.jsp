@@ -32,7 +32,7 @@
 			<input class ="form_data" required="required" type="tel" name="contact"  placeholder="Phone No"/><br></br>
 			<input class ="form_data" required="required" type="email" name="email" placeholder="Email"/><br></br>
 			<input class ="form_data" required="required" type="password" name="password" placeholder="Password"/><br></br>
-			<input class="green_btn medium_btn" type="submit" value="Login" />
+			<input class="green_btn medium_btn" type="submit" value="Add" />
 		</form>
 		<br><br><br>
 	</div>

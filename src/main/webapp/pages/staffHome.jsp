@@ -17,7 +17,10 @@
     <h1>MealOn</h1>
 	<h2>Manage Staff</h2>
     <!--show all mess employes here and an option to edit them-->   
-    <table class="table table-dark table-striped table-hover ">
+	<br><br>
+	<p class="success"> ${status}</p>
+	<br><br>
+	<table class="table table-dark table-striped table-hover ">
         <thead class="thead-dark">
 			<tr>
 				<td>ID</td>

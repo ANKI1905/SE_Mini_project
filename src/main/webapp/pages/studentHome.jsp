@@ -22,7 +22,7 @@
 %>
 	<br><br>
 	<h1>Hello ${name} Welcome!</h1>
-	<h3>${status}</h3>
+	<p class="success"> ${status}</p>
 	<hr>
 	<form action="/students/menuToday">
 		<input class = "green_btn medium_btn" type="submit" title="View today's menu" value="Menu Timetable" />
