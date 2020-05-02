@@ -1,12 +1,18 @@
 package com.mealon.MEAL_ON.controller;
+import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
+
 import com.mealon.MEAL_ON.model.*;
 import com.mealon.MEAL_ON.service.InventoryService;
 import com.mealon.MEAL_ON.service.MenuService;
 import com.mealon.MEAL_ON.service.MessService;
 import com.mealon.MEAL_ON.service.MessStaffService;
+import com.mealon.MEAL_ON.service.StaffSalaryService;
+import com.mealon.MEAL_ON.service.StudentBillService;
 import com.mealon.MEAL_ON.service.StudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
+
 
 @Controller
 @RequestMapping("/mess")
@@ -33,19 +40,20 @@ public class MessController {
 	private MessService messService;
 	@Autowired
 	private MessStaffService messStaffService;
-	
+	@Autowired
+	private StaffSalaryService staffSalaryService;
+	@Autowired
+	private StudentBillService studentBillService;
 	/*
 	 * Mess
 	 * 
 	 */
-	/*
-	 * 
-	 * 
+	
 	@PostMapping("/add")
 	public @ResponseBody String messAdd(@RequestParam String name, @RequestParam String password, @RequestParam String messadmin) {
-		return messService.add(name, password, messadmin);
+		return "" + messService.add(name, password, messadmin);
 		
-	}*/
+	}
 	
 	@RequestMapping ("/check")
 	public String messHome(@RequestParam Integer mess_id, @RequestParam String password, HttpSession session) {
@@ -62,14 +70,16 @@ public class MessController {
 	@RequestMapping ("/")
 	public String messHome(HttpSession session) {
 		String l = (String) session.getAttribute("log");
-		if (l == "1") {
-			Integer mess_id = (Integer) session.getAttribute("mess_id");
-			Mess m = messService.get(mess_id);
-			session.setAttribute("admin", m.getMessadmin());
-			return "messHome";
+		if (l == null) {
+			return "redirect:/adminlogin";
 		}
-		return "redirect:/adminlogin";
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
+		Mess m = messService.get(mess_id);
+		session.setAttribute("admin", m.getMessadmin());
+		return "messHome";
 	}
+	
+
 	@RequestMapping(value = "/passwordChangeUpdate", method = RequestMethod.POST)
 	public @ResponseBody RedirectView passwordChange(@RequestParam String oldpass, @RequestParam String newpass, @RequestParam String newpass1, HttpSession session) {
 		int mess_id = (int) session.getAttribute("mess_id");
@@ -95,20 +105,34 @@ public class MessController {
 		return redirectView;
 	
 	}
+	
+	@RequestMapping("/changePassword")
+	public String changePasswordPage(HttpSession session) {
+		String l = (String) session.getAttribute("log");
+		
+		if (l == null) {
+			return "redirect:/adminlogin";
+		}
+		return "messChangePassword";
+	}
+	
 	/*@RequestMapping ("/logout")
 	public @ResponseBody String messLogout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/adminlogin";
 	}*/
+	
 	/*
 	 * Menu
 	 * 
 	 */
+	
 	@RequestMapping("/menu")
 	public String getMenu(HttpSession session){
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
-		session.setAttribute("menuList",menuService.get(mess_id));
-		System.out.println(menuService.get(mess_id));
+		List<Menu> menuList = menuService.get(mess_id);
+		session.setAttribute("menuList", menuList);
+		System.out.println(menuList);
 		return "menuHome";
 	}
 	
@@ -117,23 +141,25 @@ public class MessController {
 		return menuService.get(mess_id, menu_id);
 	}
 	
-	@RequestMapping("/menu/add/page")
-	public String addMenuPage() {
-		return "addMenu";
-	}
 	@PostMapping("/menu/add")
-	public String addMenu(@RequestParam String name, HttpSession session) {
+	public @ResponseBody String addMenu(@RequestParam String name, HttpSession session) {
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		menuService.add(mess_id, name);
 		return "redirect:/mess/menu";
 	}
 	
-	@RequestMapping("/menu/delete")
-	public String delMenu(@RequestParam String name, HttpSession session) {
-		Integer mess_id = (Integer) session.getAttribute("mess_id");
-		menuService.delete(mess_id, name);
-		return "redirect:/mess/menu";
+	@RequestMapping("/menu/add/page")
+	public String addMenuPage() {
+		return "addMenu";
 	}
+	
+	@PostMapping("/menu/delete")
+	public @ResponseBody String delMenu(@RequestParam Integer mess_id, @RequestParam String name) {
+		menuService.delete(mess_id, name);
+		return "saved";
+	}
+	
+	
 	
 	
 	
@@ -141,6 +167,7 @@ public class MessController {
 	 * Inventory
 	 * 
 	 */
+	
 	@RequestMapping("/inventory")
 	public String inventoryHome(HttpSession session) {
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
@@ -154,19 +181,20 @@ public class MessController {
 		return inventoryService.getInfo(mess_id, name);
 	}
 	
+	@PostMapping("/inventory/add")
+	public String addInventory(@RequestParam String name, @RequestParam int stock, @RequestParam int avg_price, HttpSession session) {
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
+		String result = inventoryService.add(name, stock, avg_price, mess_id);
+		session.setAttribute("message", result);
+		return "redirect:/mess/inventory";
+	}
+	
 	@GetMapping("/inventory/add/page")
 	public String addInventoryPage(HttpSession session) {
 		if ((String)session.getAttribute("log") == "1") {
 			return "inventoryAdd";
 		}
 		return "redirect:/adminlogin";
-	}
-	
-	@PostMapping("/inventory/add")
-	public String addInventory(@RequestParam String name, @RequestParam int stock, @RequestParam int avg_price, HttpSession session) {
-		Integer mess_id = (Integer) session.getAttribute("mess_id");
-		session.setAttribute("message", inventoryService.add(name, stock, avg_price, mess_id));
-		return "redirect:/mess/inventory";
 	}
 	
 	@PostMapping("/inventory/{name}/update")
@@ -179,45 +207,74 @@ public class MessController {
 		return inventoryService.updateStock(name, stock, mess_id);
 	}
 	
-	@RequestMapping("/inventory/delete")
-	public String inventoryDelete (@RequestParam Integer inventory_id, @RequestParam String pass) {
-		Inventory i = inventoryService.get(inventory_id);
-		if (i.equals(null)) {
-			return "redirect:/mess/inventory";
-		}
-		int mess_id = i.getMessid();
-		Mess m = messService.get(mess_id);
-		if (m.getPassword().equals(pass)) {
-			inventoryService.delete(inventory_id);
-		} 
-		return "redirect:/mess/inventory";
-	}
 	
 	/*
 	 * Student
 	 * 
 	 */
-	@RequestMapping("/students")
+	
+	@RequestMapping("/student")
 	public String studentHome(HttpSession session) {
+		String l = (String) session.getAttribute("log");
+		if (l == null) {
+			return "redirect:/adminlogin";
+		}
+		else if(l == "1") {
+			session.removeAttribute("status");
+		}
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		List<Student> studentList = studentService.getAllStudents(mess_id);
 		session.setAttribute("studentList", studentList);
+		session.setAttribute("log", "1");
 		return "messStudentHome";
 	}
+	
 	@RequestMapping("/newstudent")
-	public String newStudent() {
+	public String newStudent(HttpSession session) {
 		return "newStudent";
 	}
 	
-	@PostMapping("/student/signin")
-	public String signinStudent(@RequestParam Integer mis, @RequestParam String name, @RequestParam String room_no, @RequestParam short year_of_study, @RequestParam String contact, @RequestParam String email, @RequestParam String password, HttpSession session) {
-		Integer mess_id = (Integer) session.getAttribute("mess_id");
-		Long c = Long.parseLong(contact);
-		Boolean res =  studentService.add(mis, name, room_no, year_of_study, c, email, password, mess_id);
-		if (res) {
-			return "redirect:/mess/students";
+	@RequestMapping(value = "/student/signin", method = RequestMethod.POST)
+	public @ResponseBody RedirectView signinStudent(@RequestParam Integer mis, @RequestParam String name, @RequestParam String room_no, @RequestParam short year_of_study, @RequestParam Long contact, @RequestParam String email, @RequestParam String password, HttpSession session) {
+		String l = (String) session.getAttribute("log");
+		if (l == null) {
+			RedirectView redirectView = new RedirectView();
+		    redirectView.setUrl("/adminlogin");
+			return redirectView;
 		}
-		return "redirect:/mess/students";
+		Student s = null;
+		s = studentService.get(mis);
+		if (s == null) {
+			int mess_id = (int) session.getAttribute("mess_id");
+			Boolean result = studentService.add(mis, name, room_no, year_of_study, contact, email, password, mess_id);
+			if(result) {
+				Calendar cal = Calendar.getInstance();
+				String month = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+				int numDays = cal.getActualMaximum(Calendar.DATE);
+				int d = cal.get(Calendar.DAY_OF_MONTH);
+				int days_remaining = numDays -d;
+				short numMeals = (short) (days_remaining*2);
+				LocalTime cmp = LocalTime.parse("13:30");
+				LocalTime c = LocalTime.now();
+				if (c.isBefore(cmp)){
+					numMeals = (short) (numMeals + 1);
+				}
+				numMeals = (short) (numMeals + 1);
+				studentBillService.add(mis, month, numMeals, (short)0, (short)0, (short)0);
+				session.setAttribute("status", "Added a student");
+			}
+			else {
+				session.setAttribute("status", "Failed to add student");
+			}
+		}
+		else {
+			session.setAttribute("status", "MIS Already Exists, PLease Re-Check");
+		}
+		
+		session.setAttribute("log", "2");
+		RedirectView redirectView = new RedirectView();
+	    redirectView.setUrl("/mess/student/?session="+session);
+		return redirectView;
 	}
 	
 	
@@ -228,9 +285,21 @@ public class MessController {
 		return studentService.update(mis, name, room_no, year_of_study, contact, email, password, mess_id);
 	}
 	
-	@PostMapping("/student/delete")
-	public @ResponseBody String deleteStudent(@RequestParam Integer mis, @RequestParam String name, @RequestParam String room_no, @RequestParam short year_of_study, @RequestParam Integer contact, @RequestParam String email, @RequestParam String password, @RequestParam Integer mess_id) {
-		return studentService.delete(mis);
+	//http://localhost:8081/student/delete?mis=1&pass=1
+	@RequestMapping("/student/delete")
+	public String deleteStudent(@RequestParam Integer mis, @RequestParam String pass, HttpSession session) {
+		session.removeAttribute("status");
+		Student s = studentService.get(mis);
+		int mess_id = s.getMessid();
+		Mess m = messService.get(mess_id);
+		if (m.getPassword().equals(pass)) {
+			studentService.delete(mis);
+			session.setAttribute("status", "Student Removed Successfully");
+		}
+		else {
+			session.setAttribute("status", "Password Incorrect!!, Please Enter Correct Password");
+		}
+		return "redirect:/mess/student";
 	}
 	
 	//Manage menu
@@ -240,14 +309,14 @@ public class MessController {
 	//Manage inventory
 	//Add daily menu
 	//review feedback
-
+	
 	/*
 	 * Staff
 	 * 
 	 */
 	@RequestMapping("/staff")
 	public String messStaffHome (HttpSession session){
-		Integer mess_id = (Integer) session.getAttribute("mess_id");
+		int mess_id = (int) session.getAttribute("mess_id");
 		List<MessStaff> staffList = messStaffService.getAllMessStaff(mess_id);
 		session.setAttribute("staffList", staffList);
 		return "staffHome";
@@ -256,28 +325,37 @@ public class MessController {
 	public String messStaffAddPage (){
 		return "staffAdd";
 	}
-	@RequestMapping("/staff/add")
-	public String messStaffAdd (@RequestParam String name, @RequestParam Long account_no, Long contact, String address, HttpSession session) {
+	@RequestMapping(value = "/staff/add", method = RequestMethod.POST)
+	public String messStaffAdd (@RequestParam String name, @RequestParam Long account_no, Long contact, String address, Integer salary, HttpSession session) {
+		Calendar cal = Calendar.getInstance();
+		String month = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+		session.removeAttribute("status");
+		//session.removeAttribute("error");
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
-		if (messStaffService.add(name, mess_id, account_no, contact, address) != 0) {
-			session.setAttribute("msg", "Added Successfully");
+		Integer staff_id = messStaffService.add(name, mess_id, account_no, contact, address);
+		if (staff_id != 0) {
+			staffSalaryService.add(staff_id, 0, month, salary);
+			session.setAttribute("status", "Added Successfully");
 			return "redirect:/mess/staff";
 		}
-		session.setAttribute("msg", "Failed To Add, Please Re-try");
+		session.setAttribute("status", "Failed To Add, Please Re-try");
 		return "redirect:/mess/staff";		
 	}
 	
 	@RequestMapping("/staff/delete")
-	public String messStaffDelete (@RequestParam Integer staff_id, @RequestParam String pass) {
+	public String messStaffDelete (@RequestParam Integer staff_id, @RequestParam String pass, HttpSession session) {
+		session.removeAttribute("status");
 		MessStaff s = messStaffService.get(staff_id);
-		if (s.equals(null)) {
-			return "redirect:/mess/staff";
-		}
 		int mess_id = s.getMessid();
 		Mess m = messService.get(mess_id);
 		if (m.getPassword().equals(pass)) {
 			messStaffService.delete(staff_id);
-		} 
+			session.setAttribute("status", "Staff Member Removed Successfully");
+		}
+		else {
+			session.setAttribute("status", "Password Incorrect!!, Please Enter Correct Password");
+		}
 		return "redirect:/mess/staff";
 	}
+	
 }
