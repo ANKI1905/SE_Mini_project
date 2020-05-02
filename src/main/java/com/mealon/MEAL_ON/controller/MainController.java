@@ -16,7 +16,6 @@ public class MainController {
 	@Autowired
 	private MessService messService;
 
-	
 	//returns homepage
 	@RequestMapping("/")
 	public String homePage() {
