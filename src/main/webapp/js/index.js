@@ -1,6 +1,6 @@
 function removeUser(staff_id) {
 	var txt;
-	var password = prompt("Please enter your password to Delete" + staff_id +":", "Password Here");
+	var password = prompt("Please enter your password to Delete " + staff_id +":", "Password Here");
 //	$.redirect('/', {'arg1': 'value1', 'arg2': 'value2'});
 	if (password) {
 		//check is password is correct
@@ -9,11 +9,20 @@ function removeUser(staff_id) {
 }
 function removeInventory(inventory_id) {
 	var txt;
-	var password = prompt("Please enter your password to Delete" + inventory_id +":", "Password Here");
+	var password = prompt("Please enter your password to Delete " + inventory_id +":", "Password Here");
 //	$.redirect('/', {'arg1': 'value1', 'arg2': 'value2'});
 	if (password) {
 		//check is password is correct
-		window.location.href = "inventory/delete?inventory_id=" + inventory_id
+		window.location.href = "inventory/delete?inventory_id=" + inventory_id+"&pass="+password
+	}	
+}
+function removeStudent(mis) {
+	var txt;
+	var password = prompt("Please enter your password to Delete " + mis +":", "Password Here");
+//	$.redirect('/', {'arg1': 'value1', 'arg2': 'value2'});
+	if (password) {
+		//check is password is correct
+		window.location.href = "student/delete?mis=" + mis +"&pass="+password
 	}	
 }
 
