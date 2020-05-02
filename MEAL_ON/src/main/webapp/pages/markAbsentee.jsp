@@ -28,8 +28,12 @@
  	<br><br>
     <h1>MealOn</h1>
     <h2>Mark Absentee</h2>
+    <div class="w3-bar w3-black">
+		<button class="w3-bar-item w3-button" onclick="openTab('weeksAbsentee')">Weekly</button>
+		<button class="w3-bar-item w3-button" onclick="openTab('bulkAbsentee')" title="Mark absentee for a long time">Long period</button>
+	</div>
     <div class="align_center">
-    <div id="weeksAbsentee" class="absetnee">
+    <div id="weeksAbsentee" class="absentee">
      <table>
    		<thead>
    			<tr>
@@ -40,10 +44,26 @@
    		</thead>
    		<tr>
    			<td>
-   				 <c:set var="today" value="<%=new Date()%>"/>
+   				 <!--<c:set var="today" value="<%=new Date()%>"/>
 					<c:set var="tomorrow" value="<%=new Date(new Date().getTime() + 60*60*24*1000)%>"/>
 					Today: <fmt:formatDate type="date" value="${today}" pattern="d"/>   
 					Tomorrow: <fmt:formatDate type="date" value="${tomorrow}" pattern="d"/>
+					--
+					--					Mark Absentee of current week
+					---------------------------------------------------------------------
+					|					|  Day  |  Lunch  |  Dinner  |					|
+					---------------------------------------------------------------------
+					|					| Thurday |	| |	  |    | |   |					|
+					|					| Friday  |	| |	  |    | |   |					|
+					|					|Saturday |	| |	  |    | |   |					|
+					|					| Sunday  |	| |	  |    | |   |					|
+					|					| Monday  |	| |	  |    | |   |					|
+					|					| Tuesday |	| |	  |    | |   |					|
+					|					|Wednesday|	| |	  |    | |   |					|
+					---------------------------------------------------------------------
+					--
+					--
+					-->
 					   		
    			</td>
    			<td>
@@ -66,6 +86,8 @@
     </form>
     </div>
     
+	
+
     <br>
     Your marked absentees
     <table class="table table-dark table-striped table-hover">
@@ -90,5 +112,15 @@
     		</c:forEach>
     </table>
    </div>
+   <script>
+		function openTab(tabName) {
+			var i;
+			var x = document.getElementsByClassName("absentee");
+			for (i = 0; i < x.length; i++) {
+				x[i].style.display = "none";
+			}
+			document.getElementById(tabName).style.display = "block";
+		}
+   </script>
 </body>
 </html>

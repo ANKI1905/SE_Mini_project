@@ -315,6 +315,43 @@ public class StudentController {
 		return "markAbsentee";
 	}
 	
+	@RequestMapping("/markAbsenteeData")
+	public String markAbsenteeData (HttpSession session, HttpServletRequest request){
+		Map<String, String[]> parameters;
+		int mis, mess_id;
+		String from, to, type = "";
+		Boolean checkType;
+		String l = (String) session.getAttribute("log");	
+		if (l == null) {
+			return "redirect:/studentlogin";
+		}
+		mis = (int) session.getAttribute("mis");
+		
+		parameters = request.getParameterMap();
+		mess_id = (int)session.getAttribute("messid");
+		from = parameters.get("from")[0];
+		to = parameters.get("to")[0];
+		checkType = parameters.containsKey("lunch");
+		if(checkType) {
+			type = "L";
+		}
+		else if(checkType == false) {
+			//This is to check that at least one checkbox is selected
+			checkType = parameters.containsKey("dinner");
+			if(checkType) {
+				type = "D";
+			}
+		}
+		//checkTyoe will be true if type is checked by user
+		if(checkType) {
+			//Reusing checkType
+			checkType = studentAbsenteeService.add(mis, from, to, type);			
+	    }
+		List<StudentAbsentee> absenteeRecords = studentAbsenteeService.getStudentAbsentees(mis);
+		session.setAttribute("absenteeRecords", absenteeRecords);
+		return "markAbsentee";
+	}
+	
 	/*
 	 * Musadiq's work
 	 * Need to separate this in StudentServiceImpl
