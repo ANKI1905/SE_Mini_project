@@ -19,11 +19,11 @@ public class StudentBill {
 	@Column(name="mis")
 	private int mis;
 	@Id
-	@Column(name="month")
+	@Column(name="month_")
 	private String month;
 	@Column(name="nos_of_meals")
 	private short nosofmeal;
-	@Column(name="curr_bil")
+	@Column(name="curr_bill")
 	private int currbill;
 	@Column(name="pay_status")
 	private short paystatus;
