@@ -30,17 +30,7 @@ public class Student {
         private String password;
 		@Column(name="mess_id")
         private int messid;
-		@Transient
-		private Boolean loggedIn;
-        
 		
-        public Boolean getLoggedIn() {
-			return loggedIn;
-		}
-
-		public void setLoggedIn(Boolean loggedIn) {
-			this.loggedIn = loggedIn;
-		}
 
 		public int getMis() {
 			return mis;
