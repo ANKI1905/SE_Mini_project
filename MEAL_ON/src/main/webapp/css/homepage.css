@@ -129,7 +129,15 @@ hr {
 	color: #a94442;
 	background: #f2dede;
 	border-radius: 5px;
-	text-align: left;
+}
+.success {
+	width: fit-content;
+	margin: 0px auto;
+	padding: 10px;
+	border: 1px solid green;
+	color: rgb(0, 12, 0);
+	background: rgb(200, 255, 0);
+	border-radius: 5px;
 }
 .red {
 	color: red;
