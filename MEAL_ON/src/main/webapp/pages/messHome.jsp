@@ -25,29 +25,30 @@
 	<h2> your id is ${mess_id}  </h2>
 	<hr>
 	<div class="align_left">
-	<form action="/mess/student">
-            <input class = "green_btn medium_btn" type="submit" title="If you want to add new Student" value="Manage Student" />
-	</form>
-	<br>
-	<form action="/mess/staff">
-		<input class = "green_btn medium_btn" type="submit" title="Add, Remove Employes; pay their salary" value="Manage Employes" />
-	</form>
-	<br>
-	<form action="/mess/inventory">
-		<input class = "green_btn medium_btn" type="submit" title="Add, Remove, Update Inventory stock" value="Manage Inventory" />
-	</form>
-	<br>
-	<form action = "/mess/menu">
-		<input class = "green_btn medium_btn" type = "submit" title="Manage Menu" value = "Manage Menu">
-	</form>
-	<br>
-	<form action = "/mess/changePassword" method="POST">
-		<input class = "green_btn medium_btn" type = "submit" title="Manage your account" value = "Change Password">
-	</form>
-	<br>
-	<form>
-		<input class = "green_btn medium_btn" type = "submit" title="Not available yet" value = "Predict No Of Meals">
-	</form>	
+		<form action="/mess/student">
+	            <input class = "green_btn medium_btn" type="submit" title="If you want to add new Student" value="Manage Student" />
+		</form>
+		<br>
+		<form action="/mess/staff">
+			<input class = "green_btn medium_btn" type="submit" title="Add, Remove Employes; pay their salary" value="Manage Employes" />
+		</form>
+		<br>
+		<form action="/mess/inventory">
+			<input class = "green_btn medium_btn" type="submit" title="Add, Remove, Update Inventory stock" value="Manage Inventory" />
+		</form>
+		<br>
+		<form action = "/mess/menu">
+			<input class = "green_btn medium_btn" type = "submit" title="Manage Menu" value = "Manage Menu">
+		</form>
+		<br>
+		<form action = "/mess/changePassword" method="POST">
+			<input class = "green_btn medium_btn" type = "submit" title="Manage your account" value = "Change Password">
+		</form>
+		<br>
+		<form>
+			<input class = "green_btn medium_btn" type = "submit" title="Not available yet" value = "Predict No Of Meals">
+		</form>	
+		<br>
 		<button class="green_btn medium_btn" value="HII">Help</button><br><br>
 	</div>
 	<div class="align_center">

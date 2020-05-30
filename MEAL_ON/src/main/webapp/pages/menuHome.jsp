@@ -29,7 +29,7 @@
 			<c:forEach var = "i" items="${menuList}">
 				<tr>
 					<td>${i.name}</td>  
-					<td>checkbox here</td>  
+					<td><input type = "checkbox"></td>  
 					<td>
 						<!--there is some issue here in showing menu_id so deleting by name for now-->
 						<button class="btn btn-danger" onclick="removeMenu('${i.name}')">Delete</button>

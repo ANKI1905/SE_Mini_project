@@ -22,7 +22,7 @@
 	}
 %>
 	<br><br>
-	<h1>Hello ${name} Welcome!</h1>
+	<h2>Hello ${name} Welcome!</h2>
 	<p class="success"> ${status}</p>
 	<hr>
 	<form action="/students/menuToday">

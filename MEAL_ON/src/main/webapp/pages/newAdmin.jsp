@@ -25,7 +25,7 @@
             <br></br>
             <input class ="form_data" required="required" type="text" name="messadmin" placeholder="Admin Name"/><br></br>
 			<br></br>
-			<input class="green_btn medium_btn" type="submit" value="Login" />
+			<input class="green_btn medium_btn" type="submit" value="Signup" />
 		</form>
 		<br><br><br>
 	</div>

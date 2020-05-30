@@ -1,5 +1,8 @@
 package com.mealon.MEAL_ON.controller;
+import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,9 +11,10 @@ import com.mealon.MEAL_ON.service.InventoryService;
 import com.mealon.MEAL_ON.service.MenuService;
 import com.mealon.MEAL_ON.service.MessService;
 import com.mealon.MEAL_ON.service.MessStaffService;
+import com.mealon.MEAL_ON.service.StaffSalaryService;
+import com.mealon.MEAL_ON.service.StudentBillService;
 import com.mealon.MEAL_ON.service.StudentService;
 
-import org.hibernate.id.IntegralDataTypeHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +40,10 @@ public class MessController {
 	private MessService messService;
 	@Autowired
 	private MessStaffService messStaffService;
-	
+	@Autowired
+	private StaffSalaryService staffSalaryService;
+	@Autowired
+	private StudentBillService studentBillService;
 	/*
 	 * Mess
 	 * 
@@ -265,7 +272,7 @@ public class MessController {
 		}
 		session.setAttribute("log", "2");
 		RedirectView redirectView = new RedirectView();
-	    redirectView.setUrl("/mess/students/?session="+session);
+	    redirectView.setUrl("/mess/student/?session="+session);
 		return redirectView;
 	}
 	
@@ -278,8 +285,8 @@ public class MessController {
 	}
 	
 	//Only mess admins can delete a student account
-	@PostMapping("/student/delete")
-	public @ResponseBody String deleteStudent(@RequestParam Integer mis, @RequestParam String pass, HttpSession session) {
+	@RequestMapping("/student/delete")
+	public String deleteStudent(@RequestParam Integer mis, @RequestParam String pass, HttpSession session) {
 		session.removeAttribute("status");
 		Student s = studentService.get(mis);
 		int mess_id = s.getMessid();
@@ -318,7 +325,7 @@ public class MessController {
 		return "staffAdd";
 	}
 	@RequestMapping(value = "/staff/add", method = RequestMethod.POST)
-	public String messStaffAdd (@RequestParam String name, @RequestParam Long account_no, Long contact, String address, HttpSession session) {
+	public String messStaffAdd (@RequestParam String name, @RequestParam Long account_no, @RequestParam Long contact, @RequestParam String address, @RequestParam Integer salary, HttpSession session) {
 		Calendar cal = Calendar.getInstance();
 		String month = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
 		session.removeAttribute("status");
@@ -335,12 +342,12 @@ public class MessController {
 	}
 	
 	@RequestMapping("/staff/delete")
-	public String messStaffDelete (@RequestParam Integer staff_id) {
+	public String messStaffDelete (@RequestParam Integer staff_id, @RequestParam String password, HttpSession session) {
 		session.removeAttribute("status");
 		MessStaff s = messStaffService.get(staff_id);
 		int mess_id = s.getMessid();
 		Mess m = messService.get(mess_id);
-		if (m.getPassword().equals(pass)) {
+		if (m.getPassword().equals(password)) {
 			messStaffService.delete(staff_id);
 			session.setAttribute("status", "Staff Member Removed Successfully");
 		}
