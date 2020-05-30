@@ -41,7 +41,7 @@
 		<input class = "green_btn medium_btn" type = "submit" title="Manage Menu" value = "Manage Menu">
 	</form>
 	<br>
-	<form action = "/mess/changePassword">
+	<form action = "/mess/changePassword" method="POST">
 		<input class = "green_btn medium_btn" type = "submit" title="Manage your account" value = "Change Password">
 	</form>
 	<br>
