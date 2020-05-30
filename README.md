@@ -1,4 +1,8 @@
 # SE_Mini_project
+Download STS SpringBoot
+import the project in it
+configure following things via cmd or manually go to files and edit them.
+
 To run The project after cloning:
 	Extract the project
 	cd MEAL_ON
