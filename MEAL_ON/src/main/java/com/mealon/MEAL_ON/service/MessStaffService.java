@@ -15,5 +15,6 @@ public interface MessStaffService {
 	Boolean delete(int mess_id, String name);
 	List<Integer> getStaffIdList(int mess_id);
 	Boolean delete(Integer staff_id);
+	MessStaff get(Integer staff_id);
 
 }

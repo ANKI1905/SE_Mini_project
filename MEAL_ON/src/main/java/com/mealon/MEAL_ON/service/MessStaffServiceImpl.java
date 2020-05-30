@@ -2,6 +2,7 @@ package com.mealon.MEAL_ON.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -153,5 +154,16 @@ public class MessStaffServiceImpl implements MessStaffService{
 		newMessStaff.setAddress(address);
 		return newMessStaff;
 	}
+
+	@Override
+	public MessStaff get(Integer staff_id) {
+		// TODO Auto-generated method stub
+		MessStaff m = null;
+		Optional<MessStaff> sList = messStaffDAO.findById(staff_id);
+		if(sList.isPresent()) {
+			m = sList.get();
+		}
+		return m;
+		}
 	
 }

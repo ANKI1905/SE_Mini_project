@@ -87,14 +87,17 @@ public class MessServiceImpl implements MessService{
 	}
 	@Transactional
 	@Override
-	public Boolean update(Integer mess_id, String name, String messadmin, Integer rate) {
+	public Boolean update(Integer mess_id, String name, String password, String messadmin, Integer rate) {
+		//This function is not used for updating password
 		/* Fails if Mess with given name does not exists in database
 		 * Success if Mess is updated
 		 */
 		Boolean result = false;
 		Mess mess = get(mess_id);
 		if(mess != null) {
-			Mess newMess = toMess(name, mess.getPassword(), messadmin, rate);
+			if(mess.getPassword() != password)
+				return result;
+			Mess newMess = toMess(name, password, messadmin, rate);
 			newMess.setMessid(mess_id);
 			try {
 				messDAO.save(newMess);

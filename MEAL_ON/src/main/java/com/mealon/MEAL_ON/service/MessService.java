@@ -13,8 +13,9 @@ public interface MessService {
 	List<Mess> get();
 	//Used only when MessAdmin is logged in
 	Mess get(Integer mess_id);
-	Boolean update(Integer mess_id, String name, String messadmin, Integer rate);
-	Boolean changePassword(Integer mess_id, String oldpass, String newpass);
+	Boolean update(Integer mess_id, String name, String password, String messadmin, Integer rate);
 	Boolean delete(int mess_id, String name, String password);
+	Boolean changePassword(Integer mess_id, String oldpass, String newpass);
+
 
 }
