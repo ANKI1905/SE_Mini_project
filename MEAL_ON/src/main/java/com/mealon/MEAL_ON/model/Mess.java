@@ -26,6 +26,17 @@ public class Mess {
         private String messadmin;
         @Column(name="rate")
         private int rate;
+		@Transient
+		private Boolean loggedIn;
+        
+		public Boolean getLoggedIn() {
+			return loggedIn;
+		}
+		
+		public void setLoggedIn(Boolean loggedIn) {
+			this.loggedIn = loggedIn;
+		}
+		
 		public int getMessid() {
 			return messid;
 		}

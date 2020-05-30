@@ -15,7 +15,7 @@ public class StaffSalary {
 		//Create such @Entity for all the tables in SQL
 
         @Id
-        @Column(name = "staffid", nullable = false)
+        @Column(name = "staff_id", nullable = false)
         private int staffid;
         @Column(name="nos_of_leaves")
         private int nosofleaves;
