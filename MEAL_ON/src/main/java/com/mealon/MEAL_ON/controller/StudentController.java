@@ -24,10 +24,12 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.mealon.MEAL_ON.model.Menu;
 import com.mealon.MEAL_ON.model.SnacksMenu;
 import com.mealon.MEAL_ON.model.Student;
+import com.mealon.MEAL_ON.model.StudentAbsentee;
 import com.mealon.MEAL_ON.model.WeeklyMenu;
 import com.mealon.MEAL_ON.service.MenuService;
 import com.mealon.MEAL_ON.service.ReviewRatingService;
 import com.mealon.MEAL_ON.service.SnacksMenuService;
+import com.mealon.MEAL_ON.service.StudentAbsenteeService;
 import com.mealon.MEAL_ON.service.StudentService;
 import com.mealon.MEAL_ON.service.WeeklyMenuService;
 
@@ -46,6 +48,8 @@ public class StudentController {
 	private SnacksMenuService snacksMenuService;
 	@Autowired
 	private ReviewRatingService reviewRatingService;
+	@Autowired
+	private StudentAbsenteeService studentAbsenteeService;
 	
 	
 	@RequestMapping ("/check")
@@ -85,7 +89,6 @@ public class StudentController {
 	public String studentLogout(HttpSession session) {
 		//Student s = studentService.get(mis);
 		
-
 		session.removeAttribute("mis");
 		session.removeAttribute("log");
 		session.invalidate();
@@ -130,6 +133,10 @@ public class StudentController {
 	
 	@RequestMapping("/changePassword")
 	public String changePasswordPage(HttpSession session) {
+		String l = (String) session.getAttribute("log");
+		if (l == null) {
+			return "redirect:/studentlogin";
+		}
 		return "studentChangePassword";
 	}
 	
@@ -295,6 +302,55 @@ public class StudentController {
 		return "giveReviewMenu";
 	}
 	
+	@RequestMapping("/markAbsentee")
+	public String markAbsentee (HttpSession session){
+		String l = (String) session.getAttribute("log");	
+		if (l == null) {
+			return "redirect:/studentlogin";
+		}
+		int mis = (int) session.getAttribute("mis");
+		List<StudentAbsentee> absenteeRecords = studentAbsenteeService.getStudentAbsentees(mis);
+		session.setAttribute("absenteeRecords", absenteeRecords);
+		return "markAbsentee";
+	}
+	
+	@RequestMapping("/markAbsenteeData")
+	public String markAbsenteeData (HttpSession session, HttpServletRequest request){
+		Map<String, String[]> parameters;
+		int mis, mess_id;
+		String from, to, type = "";
+		Boolean checkType;
+		String l = (String) session.getAttribute("log");	
+		if (l == null) {
+			return "redirect:/studentlogin";
+		}
+		mis = (int) session.getAttribute("mis");
+		
+		parameters = request.getParameterMap();
+		mess_id = (int)session.getAttribute("messid");
+		from = parameters.get("from")[0];
+		to = parameters.get("to")[0];
+		checkType = parameters.containsKey("lunch");
+		if(checkType) {
+			type = "L";
+		}
+		else if(checkType == false) {
+			//This is to check that at least one checkbox is selected
+			checkType = parameters.containsKey("dinner");
+			if(checkType) {
+				type = "D";
+			}
+		}
+		//checkTyoe will be true if type is checked by user
+		if(checkType) {
+			//Reusing checkType
+			checkType = studentAbsenteeService.add(mis, from, to, type);			
+	    }
+		List<StudentAbsentee> absenteeRecords = studentAbsenteeService.getStudentAbsentees(mis);
+		session.setAttribute("absenteeRecords", absenteeRecords);
+		return "markAbsentee";
+	}
+	
 	/*
 	 * Musadiq's work
 	 * Need to separate this in StudentServiceImpl
@@ -315,7 +371,6 @@ public class StudentController {
                 studentDAO.save(s);
                 return "saved";
         }
-
         @RequestMapping(path = "/view/{MIS}")
         public @ResponseBody String showStudent(@PathVariable("MIS")int MIS) {
                 Student s = new Student();

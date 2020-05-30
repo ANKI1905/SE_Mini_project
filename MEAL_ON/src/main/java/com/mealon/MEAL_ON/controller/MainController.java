@@ -7,11 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mealon.MEAL_ON.service.MessService;
-import com.mealon.MEAL_ON.service.StudentService;
-
 
 @Controller
 @RequestMapping("")
@@ -78,11 +75,7 @@ public class MainController {
 	
 	/* original
 	// create an admin account
-	@PostMapping("/admin/signin")
-	public @ResponseBody String signinAdmin(@RequestParam Integer mess_id, @RequestParam String name, @RequestParam String password, @RequestParam String messadmin, @RequestParam Integer rate) {
-		String result = messService.add(mess_id, name, password, messadmin, rate);
-		return result;
-	}
+
 	
 	@PostMapping("/admin/login")
 	public @ResponseBody Mess logInAdmin(@RequestParam Integer mess_id, @RequestParam String name, @RequestParam String password, @RequestParam String messadmin, @RequestParam Integer rate) {
@@ -119,7 +112,6 @@ public class MainController {
 	///Need to do Student
 	
 	
-
 	
 	@PostMapping("/student/update")
 	public @ResponseBody String updateStudent(@RequestParam Integer mess_id, @RequestParam String name, @RequestParam String password, @RequestParam String messadmin, @RequestParam Integer rate) {

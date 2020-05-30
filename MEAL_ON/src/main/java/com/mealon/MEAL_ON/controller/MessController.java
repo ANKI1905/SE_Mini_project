@@ -135,7 +135,7 @@ public class MessController {
 	}
 	
 	@PostMapping("/menu/add")
-	public @ResponseBody String addMenu(@RequestParam String name, HttpSession session) {
+	public String addMenu(@RequestParam String name, HttpSession session) {
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		menuService.add(mess_id, name);
 		return "redirect:/mess/menu";
@@ -147,9 +147,10 @@ public class MessController {
 	}
 	
 	@PostMapping("/menu/delete")
-	public @ResponseBody String delMenu(@RequestParam Integer mess_id, @RequestParam String name) {
+	public String delMenu(@RequestParam String name, HttpSession session) {
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		menuService.delete(mess_id, name);
-		return "saved";
+		return "redirect:/mess/menu";
 	}
 	
 	
@@ -200,13 +201,18 @@ public class MessController {
 		return inventoryService.updateStock(name, stock, mess_id);
 	}
 	
+	@RequestMapping("/inventory/delete")
+	public String inventoryDelete (@RequestParam Integer inventory_id) {
+		inventoryService.delete(inventory_id);
+		return "redirect:/mess/inventory";
+	}
 	
 	/*
 	 * Student
 	 * 
 	 */
 	
-	@RequestMapping("/students")
+	@RequestMapping("/student")
 	public String studentHome(HttpSession session) {
 		String l = (String) session.getAttribute("log");
 		if (l == null) {
@@ -236,8 +242,22 @@ public class MessController {
 			return redirectView;
 		}
 		int mess_id = (int) session.getAttribute("mess_id");
+		//existence of student check done internally
 		Boolean result = studentService.add(mis, name, room_no, year_of_study, contact, email, password, mess_id);
 		if(result) {
+			Calendar cal = Calendar.getInstance();
+			String month = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+			int numDays = cal.getActualMaximum(Calendar.DATE);
+			int d = cal.get(Calendar.DAY_OF_MONTH);
+			int days_remaining = numDays -d;
+			short numMeals = (short) (days_remaining*2);
+			LocalTime cmp = LocalTime.parse("13:30");
+			LocalTime c = LocalTime.now();
+			if (c.isBefore(cmp)){
+				numMeals = (short) (numMeals + 1);
+			}
+			numMeals = (short) (numMeals + 1);
+			studentBillService.add(mis, month, numMeals, (short)0, (short)0, (short)0);
 			session.setAttribute("status", "Added a student");
 		}
 		else {
@@ -257,9 +277,21 @@ public class MessController {
 		return studentService.update(mis, name, room_no, year_of_study, contact, email, password, mess_id);
 	}
 	
+	//Only mess admins can delete a student account
 	@PostMapping("/student/delete")
-	public @ResponseBody String deleteStudent(@RequestParam Integer mis, @RequestParam String name, @RequestParam String room_no, @RequestParam short year_of_study, @RequestParam Long contact, @RequestParam String email, @RequestParam String password, @RequestParam Integer mess_id) {
-		return "" + studentService.delete(mis);
+	public @ResponseBody String deleteStudent(@RequestParam Integer mis, @RequestParam String pass, HttpSession session) {
+		session.removeAttribute("status");
+		Student s = studentService.get(mis);
+		int mess_id = s.getMessid();
+		Mess m = messService.get(mess_id);
+		if (m.getPassword().equals(pass)) {
+			studentService.delete(mis);
+			session.setAttribute("status", "Student Removed Successfully");
+		}
+		else {
+			session.setAttribute("status", "Password Incorrect!!, Please Enter Correct Password");
+		}
+		return "redirect:/mess/student";
 	}
 	
 	//Manage menu
@@ -286,19 +318,35 @@ public class MessController {
 		return "staffAdd";
 	}
 	@RequestMapping(value = "/staff/add", method = RequestMethod.POST)
-	public @ResponseBody String messStaffAdd (@RequestParam String name, @RequestParam Long account_no, Long contact, String address, HttpSession session) {
+	public String messStaffAdd (@RequestParam String name, @RequestParam Long account_no, Long contact, String address, HttpSession session) {
+		Calendar cal = Calendar.getInstance();
+		String month = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+		session.removeAttribute("status");
+		//session.removeAttribute("error");
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
-		if (messStaffService.add(name, mess_id, account_no, contact, address) != 0) {
-			session.setAttribute("msg", "Added Successfully");
+		Integer staff_id = messStaffService.add(name, mess_id, account_no, contact, address);
+		if (staff_id != 0) {
+			staffSalaryService.add(staff_id, 0, month, salary);
+			session.setAttribute("status", "Added Successfully");
 			return "redirect:/mess/staff";
 		}
-		session.setAttribute("msg", "Failed To Add, Please Re-try");
-		return "redirect:/mess/staff";
+		session.setAttribute("status", "Failed To Add, Please Re-try");
+		return "redirect:/mess/staff";	
 	}
 	
 	@RequestMapping("/staff/delete")
 	public String messStaffDelete (@RequestParam Integer staff_id) {
-		messStaffService.delete(staff_id);
+		session.removeAttribute("status");
+		MessStaff s = messStaffService.get(staff_id);
+		int mess_id = s.getMessid();
+		Mess m = messService.get(mess_id);
+		if (m.getPassword().equals(pass)) {
+			messStaffService.delete(staff_id);
+			session.setAttribute("status", "Staff Member Removed Successfully");
+		}
+		else {
+			session.setAttribute("status", "Password Incorrect!!, Please Enter Correct Password");
+		}
 		return "redirect:/mess/staff";
 	}
 	

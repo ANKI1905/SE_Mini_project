@@ -78,6 +78,9 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public Boolean add(int mis, String name, String room_no, short year_of_study, Long contact, String email, String password, int mess_id) {
 		Boolean result = false;
+		Student student = get(mis);
+		if(student != null)
+			return result;
 		Student newStudent = toStudent(mis, name, room_no, year_of_study, contact, email, password, mess_id);
 		try {
 			studentDAO.save(newStudent);
