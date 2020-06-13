@@ -319,7 +319,7 @@ public class StudentController {
 		Map<String, String[]> parameters;
 		int mis, mess_id;
 		String from, to, type = "";
-		Boolean checkType;
+		Boolean checkTypeL, checkTypeD;
 		String l = (String) session.getAttribute("log");	
 		if (l == null) {
 			return "redirect:/studentlogin";
@@ -330,22 +330,19 @@ public class StudentController {
 		mess_id = (int)session.getAttribute("messid");
 		from = parameters.get("from")[0];
 		to = parameters.get("to")[0];
-		checkType = parameters.containsKey("lunch");
-		if(checkType) {
+		checkTypeL = parameters.containsKey("lunch");
+		checkTypeD = parameters.containsKey("dinner");
+		if(!checkTypeL && !checkTypeD) {
+			return "markAbsentee";
+		}
+		if(checkTypeL) {
 			type = "L";
+			studentAbsenteeService.add(mis, from, to, type);
 		}
-		else if(checkType == false) {
-			//This is to check that at least one checkbox is selected
-			checkType = parameters.containsKey("dinner");
-			if(checkType) {
-				type = "D";
-			}
+		if(checkTypeD) {
+			type = "D";
+			studentAbsenteeService.add(mis, from, to, type);
 		}
-		//checkTyoe will be true if type is checked by user
-		if(checkType) {
-			//Reusing checkType
-			checkType = studentAbsenteeService.add(mis, from, to, type);			
-	    }
 		List<StudentAbsentee> absenteeRecords = studentAbsenteeService.getStudentAbsentees(mis);
 		session.setAttribute("absenteeRecords", absenteeRecords);
 		return "markAbsentee";
