@@ -21,7 +21,7 @@
 			<br>
 			<input class ="form_data" required="required" type="password" name="password" placeholder="password" /><br></br>
             <br>
-            <input class ="form_data" required="required" type="password" name="confirm_password" placeholder="password" /><br></br>
+            <input class ="form_data" required="required" type="password" name="confirm_password" placeholder="confirm password" /><br></br>
             <br>
             <input class ="form_data" required="required" type="text" name="messadmin" placeholder="Admin Name"/><br></br>
 			<br>

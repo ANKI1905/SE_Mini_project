@@ -22,7 +22,6 @@
 %>
 	<br><br>
 	<h2> Welcome ${admin} </h2>
-	<h2> your id is ${mess_id}  </h2>
 	<hr>
 	<div class="align_left">
 		<form action="/mess/student">
@@ -49,12 +48,11 @@
 			<input class = "green_btn medium_btn" type = "submit" title="Not available yet" value = "Predict No Of Meals">
 		</form>	
 		<br>
-		<button class="green_btn medium_btn" value="HII">Help</button><br><br>
-	</div>
-	<div class="align_center">
-	<form action="/logout" method="POST">
-		<input class="green_btn" type="submit" value="Logout">
-	</form>
+			<button class="green_btn medium_btn" value="HII">Help</button><br>
+		<br>
+		<form action="/logout" method="POST">
+			<input class="green_btn medium_btn" type="submit" value="Logout">
+		</form>
 	</div>
 	
 </body>

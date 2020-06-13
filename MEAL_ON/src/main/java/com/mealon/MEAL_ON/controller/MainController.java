@@ -62,11 +62,14 @@ public class MainController {
 
 	// create an admin account
 	@PostMapping("/admin/signin")
-	public String signinAdmin(@RequestParam String name, @RequestParam String password, @RequestParam String messadmin, HttpSession session) {
+	public String signinAdmin(@RequestParam String name, @RequestParam String password, @RequestParam String confirm_password, @RequestParam String messadmin, HttpSession session) {
+		if(!password.contentEquals(confirm_password))
+			return "redirect:/";
 		Integer mess_id = messService.add(name, password, messadmin);
 		if (mess_id != 0) {
 			session.setAttribute("mess_id", mess_id);
 			session.setAttribute("messadmin", messadmin);
+			session.setAttribute("log", "1");
 			return "redirect:/mess/";
 		}
 		session.invalidate();
