@@ -46,7 +46,11 @@
 		<br>
 		<form>
 			<input class = "green_btn medium_btn" type = "submit" title="Not available yet" value = "Predict No Of Meals">
-		</form>	
+		</form>
+		<br>
+		<form action="/mess/viewProfile">
+			<input class = "green_btn medium_btn" type="submit" title="View and Edit your profile" value="My Profile" />
+		</form>
 		<br>
 			<button class="green_btn medium_btn" value="HII">Help</button><br>
 		<br>

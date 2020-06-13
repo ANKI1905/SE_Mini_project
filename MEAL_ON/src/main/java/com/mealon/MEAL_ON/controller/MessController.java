@@ -109,13 +109,21 @@ public class MessController {
 	@RequestMapping("/changePassword")
 	public String changePasswordPage(HttpSession session) {
 		String l = (String) session.getAttribute("log");
-		
 		if (l == null) {
 			return "redirect:/adminlogin";
 		}
 		return "messChangePassword";
 	}
 	
+	
+	@RequestMapping("/viewProfile")
+	public String viewAdminProfile(HttpSession session) {
+		String l = (String) session.getAttribute("log");
+		if (l == null) {
+			return "redirect:/adminlogin";
+		}
+		return "adminProfile";
+	}
 	/*@RequestMapping ("/logout")
 	public @ResponseBody String messLogout(HttpSession session) {
 		session.invalidate();
