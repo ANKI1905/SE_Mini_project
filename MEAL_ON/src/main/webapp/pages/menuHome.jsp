@@ -49,7 +49,10 @@
 		<input class ="form_data" required="required" type="text" name="name" placeholder="Name"/><br></br>
 		<input class="green_btn medium_btn" type="submit" value="Add" />
 	</form>
-	<br><br><br>
+	<br>
+    <form action="/mess/">
+    	<input class = "green_btn medium_btn" type="submit" title="go to Home" value="Home" />
+	</form>
 </div>
 </body>
 </html>

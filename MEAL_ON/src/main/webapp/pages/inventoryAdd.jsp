@@ -19,7 +19,10 @@
 			<input class ="form_data" required="required" type="number" step="0.01" name="avg_price"  placeholder="Average Price"/><br></br>
 			<input class="green_btn medium_btn" type="submit" value="Add" />
 		</form>
-		<br><br><br>
+		<br>
+	    <form action="/mess/inventory">
+	    	<input class = "green_btn medium_btn" type="submit" title="Back" value="Back" />
+		</form>
 	</div>
 </body>
 </html>

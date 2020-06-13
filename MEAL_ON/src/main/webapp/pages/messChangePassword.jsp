@@ -30,7 +30,7 @@
 	</form>
 	<br>
 
-    <form action="/students/">
+    <form action="/mess/">
     	<input class = "green_btn medium_btn" type="submit" title="go to Home" value="Home" />
 	</form>
 	<script>

@@ -58,5 +58,10 @@
     <form action="/mess/newstudent">
         <input class = "green_btn medium_btn" type="submit" title="Add an Student" value="Add Student" />
     </form>
+	<br>
+    <form action="/mess/">
+    	<input class = "green_btn medium_btn" type="submit" title="go to Home" value="Home" />
+	</form>
+</div>
 </body>
 </html>

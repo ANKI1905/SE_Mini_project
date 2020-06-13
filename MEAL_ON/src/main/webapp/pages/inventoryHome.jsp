@@ -42,9 +42,13 @@
 			</tbody>
 	</table>
 <div class="align_center">
-<form action="/mess/inventory/add/page">
-    <input class = "green_btn medium_btn" type="submit" title="Add an item in Inventory" value="Add Item" />
-</form>
+	<form action="/mess/inventory/add/page">
+	    <input class = "green_btn medium_btn" type="submit" title="Add an item in Inventory" value="Add Item" />
+	</form>
+	<br>
+    <form action="/mess/">
+    	<input class = "green_btn medium_btn" type="submit" title="go to Home" value="Home" />
+	</form>
 </div>
 </body>
 </html>

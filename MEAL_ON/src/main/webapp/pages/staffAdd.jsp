@@ -21,7 +21,10 @@
 			<input class ="form_data" required="required" type="number" name="salary" placeholder="Salary"/><br></br>
 			<input class="green_btn medium_btn" type="submit" value="Add" />
 		</form>
-		<br><br><br>
+	<br>
+    <form action="/mess/staff">
+    	<input class = "green_btn medium_btn" type="submit" title="Back" value="Back" />
+	</form>
 	</div>
 
 </body>

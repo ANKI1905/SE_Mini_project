@@ -50,5 +50,10 @@
 		<form action="/mess/staff/add/page">
 			<input class = "green_btn medium_btn" type="submit" title="Add an Employee" value="Add Employe" />
 		</form>
+		<br>
+	    <form action="/mess/">
+	    	<input class = "green_btn medium_btn" type="submit" title="go to Home" value="Home" />
+		</form>
+	</div>
 </body>
 </html>
