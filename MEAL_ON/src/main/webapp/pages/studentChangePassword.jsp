@@ -20,7 +20,7 @@
 		response.sendRedirect("studentLogin.jsp");
 	}
 %>
-	<h1>${status}</h1>
+	<h6 class = "white">${status}</h6>
 	<form action = "/students/passwordChangeUpdate" method = "POST">
 		<p style = "color:white">Old Password</p><input type = "password" name = "oldpass" required/>
 		<p style = "color:white">New Password</p><input type = "password" name = "newpass" required/>

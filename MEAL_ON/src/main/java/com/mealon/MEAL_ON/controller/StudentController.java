@@ -140,6 +140,15 @@ public class StudentController {
 		return "studentChangePassword";
 	}
 	
+	@RequestMapping("/viewProfile")
+	public String viewAdminProfile(HttpSession session) {
+		String l = (String) session.getAttribute("log");
+		if (l == null) {
+			return "redirect:/studentlogin";
+		}
+		return "studentProfile";
+	}
+	
 	/*
 	 * Menu operations student side
 	 * 

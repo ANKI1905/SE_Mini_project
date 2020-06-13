@@ -4,7 +4,7 @@ function removeUser(staff_id) {
 //	$.redirect('/', {'arg1': 'value1', 'arg2': 'value2'});
 	if (password) {
 		//check is password is correct
-		window.location.href = "staff/delete?staff_id=" + staff_id+"&pass="+password
+		window.location.href = "staff/delete?staff_id=" + staff_id+"&password="+password
 	}	
 }
 function removeInventory(inventory_id) {
