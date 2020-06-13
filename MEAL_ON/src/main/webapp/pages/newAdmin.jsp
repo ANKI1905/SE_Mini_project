@@ -18,13 +18,13 @@
 	<div class="align_center">
 		<form action="/admin/signin" method="post">
 			<input class ="form_data" required="required" type="text" name="name" placeholder="Mess Name"/><br></br>
-			<br></br>
+			<br>
 			<input class ="form_data" required="required" type="password" name="password" placeholder="password" /><br></br>
-            <br></br>
+            <br>
             <input class ="form_data" required="required" type="password" name="confirm_password" placeholder="password" /><br></br>
-            <br></br>
+            <br>
             <input class ="form_data" required="required" type="text" name="messadmin" placeholder="Admin Name"/><br></br>
-			<br></br>
+			<br>
 			<input class="green_btn medium_btn" type="submit" value="Signup" />
 		</form>
 		<br><br><br>

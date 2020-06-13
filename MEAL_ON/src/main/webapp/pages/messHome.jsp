@@ -21,7 +21,7 @@
 	}
 %>
 	<br><br>
-	<h1> Hello ${admin} </h1>
+	<h2> Welcome ${admin} </h2>
 	<h2> your id is ${mess_id}  </h2>
 	<hr>
 	<div class="align_left">

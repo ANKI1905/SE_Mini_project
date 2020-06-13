@@ -23,32 +23,33 @@
 %>
 	<br><br>
 	<h2>Hello ${name} Welcome!</h2>
-	<p class="success"> ${status}</p>
+	<p class="success">${status}</p>
 	<hr>
-	<form action="/students/menuToday">
-		<input class = "green_btn medium_btn" type="submit" title="View today's menu" value="Menu Timetable" />
-	</form>
-	<br>
-	<form action="/students/markAbsentee">
-		<input class = "green_btn medium_btn" type="submit" title="Mark your absentee" value="Mark Absentee" />
-	</form>
-	<br>
-	<form action="/students/review">
-		<input class = "green_btn medium_btn" type="submit" title="Give feedback to improve your mess" value="Review/Ratings" />
-	</form>
-	<br>
-	<form action="/students/viewProfile">
-		<input class = "green_btn medium_btn" type="submit" title="View and Edit your profile" value="My Profile" />
-	</form>
-	<br>
-	<form action = "/students/changePassword">
-		<input class = "green_btn medium_btn" title = "Change Password of your account" type = "submit" value = "Change Password">
-	</form>
-	<br>
-	<form action = "/logout">
-		<input class = "green_btn medium_btn" title = "Logout" type = "submit" value = "Logout">
-	</form>
-	
+	<div class="align_left">
+		<form action="/students/menuToday">
+			<input class = "green_btn medium_btn" type="submit" title="View today's menu" value="Menu Timetable" />
+		</form>
+		<br>
+		<form action="/students/markAbsentee">
+			<input class = "green_btn medium_btn" type="submit" title="Mark your absentee" value="Mark Absentee" />
+		</form>
+		<br>
+		<form action="/students/review">
+			<input class = "green_btn medium_btn" type="submit" title="Give feedback to improve your mess" value="Review/Ratings" />
+		</form>
+		<br>
+		<form action="/students/viewProfile">
+			<input class = "green_btn medium_btn" type="submit" title="View and Edit your profile" value="My Profile" />
+		</form>
+		<br>
+		<form action = "/students/changePassword">
+			<input class = "green_btn medium_btn" title = "Change Password of your account" type = "submit" value = "Change Password">
+		</form>
+		<br>
+		<form action = "/logout">
+			<input class = "green_btn medium_btn" title = "Logout" type = "submit" value = "Logout">
+		</form>
+	</div>
 	
 </body>
 </html>
