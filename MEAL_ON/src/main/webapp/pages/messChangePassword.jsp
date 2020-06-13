@@ -25,9 +25,14 @@
 		<p style = "color:white">Old Password</p><input type = "password" name = "oldpass" required/>
 		<p style = "color:white">New Password</p><input type = "password" name = "newpass" required/>
 		<p style = "color:white">Confirm Password</p><input type = "password" name = "newpass1" required/>
-		<input type = "Submit" value = "change" onclick="checkPassword(form)"/>
+		<br><br>
+		<input class = "green_btn medium_btn" type = "Submit" value = "change" onclick="checkPassword(form)"/>
 	</form>
-	
+	<br>
+
+    <form action="/students/">
+    	<input class = "green_btn medium_btn" type="submit" title="go to Home" value="Home" />
+	</form>
 	<script>
 	function checkPassword(form) { 
 		oldpassword = form.oldpass.value;

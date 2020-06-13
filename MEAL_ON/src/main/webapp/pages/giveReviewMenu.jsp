@@ -64,6 +64,10 @@
     </table>
     <input class="green_btn medium_btn" type="submit" value="Give feedback">
     </form>
+    <br>
+    <form action="/students/">
+    	<input class = "green_btn medium_btn" type="submit" title="go to Home" value="Home" />
+	</form>
    </div>
 </body>
 </html>

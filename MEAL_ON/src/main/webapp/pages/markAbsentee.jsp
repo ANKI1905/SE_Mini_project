@@ -29,13 +29,13 @@
     <h1>MealOn</h1>
     <h2>Mark Absentee</h2>
     <div class="w3-bar w3-black">
-		<button class="w3-bar-item w3-button" onclick="openTab('weeksAbsentee')">Weekly</button>
-		<button class="w3-bar-item w3-button" onclick="openTab('bulkAbsentee')" title="Mark absentee for a long time">Long period</button>
+		<button class="w3-bar-item w3-button green_btn medium_btn" onclick="openTab('weeksAbsentee')">Weekly</button>
+		<button class="w3-bar-item w3-button green_btn medium_btn" onclick="openTab('bulkAbsentee')" title="Mark absentee for a long time">Long period</button>
 	</div>
     <div class="align_center">
     <div id="weeksAbsentee" class="absentee">
      <table>
-   		<thead>
+   		<thead class = "white">
    			<tr>
    				<th>Day</th>
    				<th>Lunch</th>
@@ -75,14 +75,25 @@
    		</tr>
    	</table>
     </div>
-    <div id="bulkAbsentee" class="absentee">
+    <div id="bulkAbsentee" class="absentee white" style="display:none">
     *select Lunch/Dinner to mark absentee
     <form action = "/students/markAbsenteeData" method = "GET">
-      	<input type="date" name="from" value="From" require/>
-    	<input type="date" name="to" value="To" required/>
-    	<input type="checkbox" name="lunch" value="Lunch"/>
-    	<input type="checkbox" name="dinner" value="Dinner"/>
-    	<input class="green_btn medium_btn" type="submit" value="Mark Absentee"/>
+    	<table align = "center">
+	    	<tr>
+		    	<td></td>
+		    	<td></td>
+		    	<td>Lunch</td>
+		    	<td>Dinner</td>
+		    	<td></td>
+	    	</tr>
+	    	<tr>
+		      	<td><input type="date" name="from" value="From" require/></td>
+		    	<td><input type="date" name="to" value="To" required/></td>
+		    	<td><input type="checkbox" name="lunch" value="Lunch"/></td>
+		    	<td><input type="checkbox" name="dinner" value="Dinner"/></td>
+		    	<td><input class="green_btn medium_btn" type="submit" value="Mark Absentee"/></td>
+	    	</tr>
+    	</table>
     </form>
     </div>
     
@@ -111,7 +122,12 @@
     			</tr>
     		</c:forEach>
     </table>
+    <br>
+    <form action="/students/">
+    	<input class = "green_btn medium_btn" type="submit" title="go to Home" value="Home" />
+	</form>
    </div>
+   
    <script>
 		function openTab(tabName) {
 			var i;
