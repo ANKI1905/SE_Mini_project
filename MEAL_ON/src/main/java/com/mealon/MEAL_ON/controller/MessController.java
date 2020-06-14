@@ -1,5 +1,6 @@
 package com.mealon.MEAL_ON.controller;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import com.mealon.MEAL_ON.model.*;
 import com.mealon.MEAL_ON.service.InventoryService;
+import com.mealon.MEAL_ON.service.MenuReviewService;
 import com.mealon.MEAL_ON.service.MenuService;
 import com.mealon.MEAL_ON.service.MessService;
 import com.mealon.MEAL_ON.service.MessStaffService;
@@ -32,6 +34,8 @@ import org.springframework.web.servlet.view.RedirectView;
 public class MessController {
 	@Autowired
 	private MenuService menuService;
+	@Autowired
+	private MenuReviewService menuReviewService;
 	@Autowired
 	private InventoryService inventoryService;
 	@Autowired
@@ -76,6 +80,7 @@ public class MessController {
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		Mess m = messService.get(mess_id);
 		session.setAttribute("admin", m.getMessadmin());
+		session.removeAttribute("status");
 		return "messHome";
 	}
 	
@@ -122,6 +127,22 @@ public class MessController {
 		if (l == null) {
 			return "redirect:/adminlogin";
 		}
+		int mess_id, menu_id, size, i;
+		mess_id = (int) session.getAttribute("mess_id");
+		List<MenuReview> menuReviewList = menuReviewService.get(mess_id);
+		List<String> menuNameList = new ArrayList<String>();
+		size = menuReviewList.size();
+		List<Integer> sizeList = new ArrayList<Integer>();
+		for(i = 0; i < size; i++) {
+			sizeList.add(i);
+		}
+		for(MenuReview menuReview:menuReviewList) {
+			menu_id = menuReview.getMenuid();
+			menuNameList.add(menuService.get(mess_id, menu_id).getName());
+		}
+		session.setAttribute("menuReviewList", menuReviewList);
+		session.setAttribute("menuNameList", menuNameList);
+		session.setAttribute("size", sizeList);
 		return "adminProfile";
 	}
 	/*@RequestMapping ("/logout")

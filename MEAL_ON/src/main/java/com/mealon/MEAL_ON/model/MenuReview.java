@@ -18,7 +18,7 @@ public class MenuReview {
 	@Column(name="mess_id")
 	private int messid;
 	@Column(name="avg_rating")
-	private int avgrating;
+	private float avgrating;
 	@Column(name="comment_overview")
 	private String commentoverview;
 	
@@ -35,10 +35,10 @@ public class MenuReview {
 	public void setMenuid(int menuid) {
 		this.menuid = menuid;
 	}
-	public int getAvgrating() {
+	public float getAvgrating() {
 		return avgrating;
 	}
-	public void setAvgrating(int avgrating) {
+	public void setAvgrating(float avgrating) {
 		this.avgrating = avgrating;
 	}
 	public String getCommentoverview() {

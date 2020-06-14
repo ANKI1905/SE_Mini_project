@@ -198,55 +198,6 @@ public class StudentController {
 		int messId = (int)session.getAttribute("messid");
 		//This list contains menu_id. Theses menu_ids are confirmed that they foremost belong to that mess only.
 		List<WeeklyMenu> weeklyMenuList = weeklyMenuService.get(messId);
-		Calendar calender= Calendar.getInstance();
-		int today = calender.get(Calendar.DAY_OF_WEEK);
-		
-		
-		for(WeeklyMenu weeklyMenu: weeklyMenuList) {
-			switch (weeklyMenu.getDay()) {
-				case "Saturday":
-					if(7 <= today) {
-						break;
-					}
-					weeklyMenuList.remove(weeklyMenu);
-					break;
-				case "Friday":
-					if(6 <= today) {
-						break;
-					}
-					weeklyMenuList.remove(weeklyMenu);
-					break;
-				case "Thursday":
-					if(5 <= today) {
-						break;
-					}
-					weeklyMenuList.remove(weeklyMenu);
-					break;				
-				case "Wednesday":
-					if(4 <= today) {
-						break;
-					}
-					weeklyMenuList.remove(weeklyMenu);
-					break;
-				case "Tuesday":
-					if(3 <= today) {
-						break;
-					}
-					weeklyMenuList.remove(weeklyMenu);
-					break;
-				case "Monday":
-					if(2 <= today) {
-						break;
-					}
-					weeklyMenuList.remove(weeklyMenu);
-					break;
-				case "Sunday":
-					if(1 <= today) {
-						break;
-					}
-					break;
-			}
-		}
 		//Note: Each MenuId is unique, regardless of messId
 		Set<String> menuNames = new HashSet<String>();
 		for(WeeklyMenu weeklyMenu:weeklyMenuList) {
@@ -291,6 +242,7 @@ public class StudentController {
 					rating = 0;
 		        	continue;
 				}
+		        System.out.println(MenuName);
 		        menu_id = menuService.getMenuID(mess_id, MenuName);
 		        //if menu_id does not exists :: This case can happen if front end is changed intentionally/unintentionally by user
 		        if(menu_id == 0)

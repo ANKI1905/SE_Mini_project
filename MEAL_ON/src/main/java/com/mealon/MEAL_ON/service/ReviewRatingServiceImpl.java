@@ -17,12 +17,20 @@ public class ReviewRatingServiceImpl implements ReviewRatingService {
 	@Autowired
 	private ReviewRatingDAO reviewRatingDAO;
 	
+	@Autowired
+	private MenuReviewService menuReviewService;
+	@Autowired
+	private StudentService studentService;
 	
 
 	@Transactional
 	@Override
 	public Boolean add(int mis, int menu_id, int rating, String comments) {
 		Boolean result = false;
+		int mess_id, totRating;
+		float avgRating;
+		String commentOverview;
+		List<ReviewRating> reviewRatingList;
 		ReviewRating reviewRating = reviewRatingDAO.findByMenuidAndMis(menu_id, mis);
 		//If Menu_id and MIS does not exists
 		if(reviewRating == null) {
@@ -46,6 +54,19 @@ public class ReviewRatingServiceImpl implements ReviewRatingService {
 				e.printStackTrace();
 			}
 		}
+		mess_id = studentService.getMessid(mis);
+		reviewRatingList = getByMenuid(menu_id);
+		totRating = 0;
+		commentOverview = "";
+		for(ReviewRating review : reviewRatingList) {
+			totRating += review.getRating();
+		}
+		for(ReviewRating comment : reviewRatingList) {
+			commentOverview += comment.getComments() + ", ";
+		}
+		avgRating = (float)totRating/(float)reviewRatingList.size();
+		System.out.println(avgRating);
+		result = menuReviewService.add(mess_id, menu_id, avgRating, commentOverview);
 		return result;
 		
 	}

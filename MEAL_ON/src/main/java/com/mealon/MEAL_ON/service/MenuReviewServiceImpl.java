@@ -20,7 +20,7 @@ public class MenuReviewServiceImpl implements MenuReviewService {
 
 	@Transactional
 	@Override
-	public Boolean add(int mess_id, int menu_id, Integer avgRating, String commentOverview) {
+	public Boolean add(int mess_id, int menu_id, float avgRating, String commentOverview) {
 		Boolean result = false;
 		MenuReview newMenuReview = toMenuReview(mess_id, menu_id, avgRating, commentOverview);
 		try {
@@ -36,7 +36,7 @@ public class MenuReviewServiceImpl implements MenuReviewService {
 
 	@Transactional
 	@Override
-	public Boolean update(int mess_id, int menu_id, Integer avgRating, String commentOverview) {
+	public Boolean update(int mess_id, int menu_id, float avgRating, String commentOverview) {
 		//check for mess_id in controller
 		Boolean result = false;
 		if(menuReviewDAO.findById(menu_id)  != null) {
@@ -89,7 +89,7 @@ public class MenuReviewServiceImpl implements MenuReviewService {
 		
 	}
 	
-	private MenuReview toMenuReview(int mess_id, int menu_id, int avgRating, String commentOverview) {
+	private MenuReview toMenuReview(int mess_id, int menu_id, float avgRating, String commentOverview) {
 		MenuReview newMenuReview = new MenuReview();
 		newMenuReview.setMessid(mess_id);
 		newMenuReview.setMenuid(menu_id);
