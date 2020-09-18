@@ -1,6 +1,5 @@
 package com.mealon.MEAL_ON.service;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +20,20 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public void add(Integer mess_id, String name) {
 		Menu newMenu = toMenu(mess_id, name);
-		try {
-			menuDAO.save(newMenu);
+		Menu x = menuDAO.findByMessidAndName(mess_id, name);
+		if (x != null) {
+			if (x.getName().equalsIgnoreCase(name)) {
+				//do nothing 
+				// entry exists
+			}
 		}
-		catch (Exception e) {
-			e.printStackTrace();
+		else {
+			try {
+				menuDAO.save(newMenu);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}
