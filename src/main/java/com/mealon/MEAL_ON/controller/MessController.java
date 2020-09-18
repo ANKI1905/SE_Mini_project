@@ -142,7 +142,7 @@ public class MessController {
 	}
 	
 	@PostMapping("/menu/add")
-	public @ResponseBody String addMenu(@RequestParam String name, HttpSession session) {
+	public String addMenu(@RequestParam String name, HttpSession session) {
 		Integer mess_id = (Integer) session.getAttribute("mess_id");
 		menuService.add(mess_id, name);
 		return "redirect:/mess/menu";
@@ -153,10 +153,13 @@ public class MessController {
 		return "addMenu";
 	}
 	
-	@PostMapping("/menu/delete")
-	public @ResponseBody String delMenu(@RequestParam Integer mess_id, @RequestParam String name) {
-		menuService.delete(mess_id, name);
-		return "saved";
+	@RequestMapping("/menu/delete")
+	public String delMenu(@RequestParam String name, @RequestParam String pd , HttpSession session) {
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
+		if (messService.check(mess_id, pd)) {
+			menuService.delete(mess_id, name);
+		}
+		return "redirect:/mess/menu";
 	}
 	
 	
@@ -207,6 +210,14 @@ public class MessController {
 		return inventoryService.updateStock(name, stock, mess_id);
 	}
 	
+	@RequestMapping("/inventory/delete")
+	public String delInventry(@RequestParam String inventory_id, @RequestParam String pd , HttpSession session) {
+		Integer mess_id = (Integer) session.getAttribute("mess_id");
+		if (messService.check(mess_id, pd)) {
+			inventoryService.delete(mess_id, inventory_id);
+		}
+		return "redirect:/mess/menu";
+	}
 	
 	/*
 	 * Student
@@ -301,7 +312,11 @@ public class MessController {
 		}
 		return "redirect:/mess/student";
 	}
-	
+	//http://localhost:8081/mess/student/student/delete?mis=111708002&pass=1
+	@RequestMapping("/student/student/delete")
+	public String delete1(@RequestParam Integer mis, @RequestParam String pass, HttpSession session) {
+		return "redirect:/mess/student/delete?mis="+mis+"&pass="+pass;
+	}
 	//Manage menu
 	//Manage student
 	//Manage  mess staff
