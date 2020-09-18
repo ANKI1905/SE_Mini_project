@@ -1,19 +1,33 @@
-function removeUser(staff_id) {
+function removeStaff(staff_id) {
 	var txt;
 	var password = prompt("Please enter your password to Delete " + staff_id +":", "Password Here");
 //	$.redirect('/', {'arg1': 'value1', 'arg2': 'value2'});
 	if (password) {
-		//check is password is correct
 		window.location.href = "staff/delete?staff_id=" + staff_id+"&pass="+password
 	}	
 }
+/*
+function removeStaff(staff_id){
+	var password = prompt("Please enter your password to Delete " + staff_id +":", "Password Here");
+	if (password) {
+		var http = new XMLHttpRequest();
+		var url = "staff/delete";
+		var params = 'staff_id=' +staff_id+'&pass=' + password 
+		http.open("POST", url, true);
+
+	}
+		
+}
+
+
+*/
 function removeInventory(inventory_id) {
 	var txt;
 	var password = prompt("Please enter your password to Delete " + inventory_id +":", "Password Here");
 //	$.redirect('/', {'arg1': 'value1', 'arg2': 'value2'});
 	if (password) {
 		//check is password is correct
-		window.location.href = "inventory/delete?inventory_id=" + inventory_id+"&pass="+password
+		window.location.href = "inventory/delete?inventory_id=" + inventory_id+"&pd="+password
 	}	
 }
 function removeStudent(mis) {
@@ -32,7 +46,7 @@ function removeMenu(name) {
 //	$.redirect('/', {'arg1': 'value1', 'arg2': 'value2'});
 	if (password) {
 		//check is password is correct
-		window.location.href = "menu/delete?name=" + name
+		window.location.href = "menu/delete?name=" + name + "&pd=" + password
 	}	
 }
 /*$(document).ready(function(){
