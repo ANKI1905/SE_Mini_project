@@ -48,6 +48,7 @@
 	<form>
 		<input class = "green_btn medium_btn" type = "submit" title="Not available yet" value = "Predict No Of Meals">
 	</form>	
+	<br>
 		<button class="green_btn medium_btn" value="HII">Help</button><br><br>
 	</div>
 	<div class="align_center">

@@ -43,7 +43,10 @@
 	<form action = "/logout">
 		<input class = "green_btn medium_btn" title = "Logout" type = "submit" value = "Logout">
 	</form>
-	
-	
+	<br><br>
+	<br><br>
+    <form action="/mess/">
+        <input class = "green_btn medium_btn" type="submit" title="Back To Home" value="Home" />
+    </form>
 </body>
 </html>

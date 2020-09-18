@@ -40,7 +40,7 @@
 					<td>${i.contact}</td>  
 					<td>${i.address}</td>  
 					<td>
-						<button class="btn btn-danger" onclick="removeUser('${i.staffid}')">Delete</button>
+						<button class="btn btn-danger" onclick="removeStaff('${i.staffid}')">Delete</button>
 					</td>
 				</tr>
 			</c:forEach>
@@ -50,5 +50,10 @@
 		<form action="/mess/staff/add/page">
 			<input class = "green_btn medium_btn" type="submit" title="Add an Employee" value="Add Employe" />
 		</form>
+		<br><br>
+		<form action="/mess/">
+			<input class = "green_btn medium_btn" type="submit" title="Back To Home" value="Home" />
+		</form>
+	</div>
 </body>
 </html>

@@ -19,14 +19,22 @@
 	if(session.getAttribute("log") == null) {
 		response.sendRedirect("adminLogin.jsp");
 	}
-%>
-	<h1>${status}</h1>
+%><br><br>
+	<h1>MealOn</h1>
+	<h2>Change Password</h2>
+	<div class="align_center">
 	<form action = "/mess/passwordChangeUpdate" method = "POST">
-		Old Password<input type = "password" name = "oldpass" required/>
-		New Password<input type = "password" name = "newpass" required/>
-		Confirm Password<input type = "password" name = "newpass1" required/>
-		<input type = "Submit" value = "change" onclick="checkPassword(form)"/>
+		<input class ="form_data" type = "password" name = "oldpass" required placeholder="Current Password"/><br><br>
+		<input class ="form_data" type = "password" name = "newpass" required placeholder="New Password"/><br><br>
+		<input class ="form_data" type = "password" name = "newpass1" required placeholder="Confirm New Password"/><br><br>
+		<input class="green_btn medium_btn" type="submit" value="Change Password" onclick="checkPassword(form)" />
 	</form>
+	<br><br>
+	<br><br>
+    <form action="/mess/">
+        <input class = "green_btn medium_btn" type="submit" title="Back To Home" value="Home" />
+    </form>
+	</div>
 	
 	<script>
 	function checkPassword(form) { 

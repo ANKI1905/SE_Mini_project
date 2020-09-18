@@ -45,6 +45,11 @@
 <form action="/mess/inventory/add/page">
     <input class = "green_btn medium_btn" type="submit" title="Add an item in Inventory" value="Add Item" />
 </form>
+<br><br>
+	<br><br>
+    <form action="/mess/">
+        <input class = "green_btn medium_btn" type="submit" title="Back To Home" value="Home" />
+    </form>
 </div>
 </body>
 </html>

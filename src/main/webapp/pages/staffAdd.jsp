@@ -22,6 +22,10 @@
 			<input class="green_btn medium_btn" type="submit" value="Add" />
 		</form>
 		<br><br><br>
+		<br><br>
+		<form action="/mess/">
+			<input class = "green_btn medium_btn" type="submit" title="Back To Home" value="Home" />
+		</form>
 	</div>
 
 </body>
