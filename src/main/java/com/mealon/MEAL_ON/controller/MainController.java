@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.mealon.MEAL_ON.service.MessService;
 
-//@CrossOrigin(origins = { "http://localhost:3000"})
 @Controller
 @RequestMapping("")
 public class MainController {
