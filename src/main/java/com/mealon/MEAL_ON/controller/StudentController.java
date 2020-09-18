@@ -145,11 +145,13 @@ public class StudentController {
 		int messId = (int) session.getAttribute("messid");
 		//This list contains menu_id. Theses menu_ids are confirmed that they foremost belong to that mess only.
 		List<WeeklyMenu> weeklyMenuList = weeklyMenuService.get(messId);
+		//System.out.println(weeklyMenuList);
 		//Note: Each MenuId is unique, regardless of messId
 		List<List<String>> menuNames = new ArrayList<List<String>>();
 		for(WeeklyMenu weeklyMenu:weeklyMenuList) {
 			String menuIdList = weeklyMenu.getMenuidarray();
 		    List<Integer> checkList = Arrays.stream(menuIdList.split(",")).map(Integer::parseInt).collect(Collectors.toList());
+		    System.out.println(checkList);
 		    List<String> menuName = new ArrayList<>();
 		    for(Integer menuId:checkList) {
 		    	Menu menu = menuService.get(messId, menuId);
@@ -168,7 +170,6 @@ public class StudentController {
 		session.setAttribute("menuLists", menuNames);
 		session.setAttribute("weeklyMenuList", weeklyMenuList);
 		session.setAttribute("snacksList", snacksMenuList);
-		System.out.print(totLength[0]);
 		return "ViewMenu";
 	}
 	
