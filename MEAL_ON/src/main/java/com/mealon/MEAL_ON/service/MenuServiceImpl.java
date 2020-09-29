@@ -20,13 +20,15 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public void add(Integer mess_id, String name) {
 		Menu newMenu = toMenu(mess_id, name);
-		try {
-			menuDAO.save(newMenu);
+		Menu x = menuDAO.findByMessidAndName(mess_id, name);
+		if (x == null) {
+			try {
+				menuDAO.save(newMenu);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 	}
 
 	

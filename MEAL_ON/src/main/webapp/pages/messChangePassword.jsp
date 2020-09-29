@@ -20,19 +20,24 @@
 		response.sendRedirect("adminLogin.jsp");
 	}
 %>
-	<h1>${status}</h1>
-	<form action = "/mess/passwordChangeUpdate" method = "POST">
-		<p style = "color:white">Old Password</p><input type = "password" name = "oldpass" required/>
-		<p style = "color:white">New Password</p><input type = "password" name = "newpass" required/>
-		<p style = "color:white">Confirm Password</p><input type = "password" name = "newpass1" required/>
+	<h1>MealOn</h1>
+	<h2>Change Password</h2>
+	<h3>${status}</h3>
+	<div class="align_center">
+		<form action = "/mess/passwordChangeUpdate" method = "POST">
+			<p style = "color:white">Old Password</p><input type = "password" name = "oldpass" required/>
+			<p style = "color:white">New Password</p><input type = "password" name = "newpass" required/>
+			<p style = "color:white">Confirm Password</p><input type = "password" name = "newpass1" required/>
+			<br><br>
+			<input class = "green_btn medium_btn" type = "Submit" value = "change" onclick="checkPassword(form)"/>
+		</form>
 		<br><br>
-		<input class = "green_btn medium_btn" type = "Submit" value = "change" onclick="checkPassword(form)"/>
-	</form>
-	<br>
+		<br><br>
 
-    <form action="/mess/">
-    	<input class = "green_btn medium_btn" type="submit" title="go to Home" value="Home" />
-	</form>
+		<form action="/mess/">
+			<input class = "green_btn medium_btn" type="submit" title="go to Home" value="Home" />
+		</form>
+	</div>
 	<script>
 	function checkPassword(form) { 
 		oldpassword = form.oldpass.value;

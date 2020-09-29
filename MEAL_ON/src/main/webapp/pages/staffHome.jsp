@@ -40,7 +40,7 @@
 					<td>${i.contact}</td>  
 					<td>${i.address}</td>  
 					<td>
-						<button class="btn btn-danger" onclick="removeUser('${i.staffid}')">Delete</button>
+						<button class="btn btn-danger" onclick="removeStaff('${i.staffid}')">Delete</button>
 					</td>
 				</tr>
 			</c:forEach>
